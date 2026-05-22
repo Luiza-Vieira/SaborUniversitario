@@ -1,0 +1,300 @@
+/* RESET */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #eee;
+}
+
+/* HEADER */
+.header {
+  background: #ff6b2c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  position: relative;
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.foto {
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.nome {
+  font-weight: bold;
+}
+
+.fichas {
+  font-size: 14px;
+}
+
+/* TITULO */
+.header h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Berkshire Swash", cursive;
+  font-size: 32px;
+  margin: 0;
+}
+
+/* CARRINHO */
+.carrinho-btn {
+  border: none;
+  background: white;
+  color: #ff6b2c;
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* TITULO RESTAURANTE */
+.titulo {
+  text-align: center;
+  color: #ff6b2c;
+  font-family: "Berkshire Swash", cursive;
+  font-size: 28px;
+  margin: 25px 0;
+}
+
+/* BOTÃO CARRINHO */
+
+.carrinho-btn {
+
+  background: white;
+
+  border: none;
+
+  border-radius: 20px;
+
+  padding: 10px 18px;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  color: #ff6b2c;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.carrinho-btn:hover {
+
+  transform: scale(1.05);
+}
+
+/* GRID */
+
+.grid {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 30px;
+
+  flex-wrap: wrap;
+
+  padding: 20px;
+}
+
+/* CARD */
+
+.card {
+
+  background-color: #f28c64;
+
+  width: 220px;
+
+  border-radius: 15px;
+
+  padding: 15px;
+
+  text-align: center;
+
+  color: white;
+
+  box-shadow: 0px 6px 10px rgba(0,0,0,0.2);
+}
+
+.card h4 {
+
+  margin: 10px 0;
+}
+
+.card p {
+
+  font-weight: bold;
+}
+
+/* IMAGEM */
+
+.img-produto {
+
+  width: 100%;
+
+  height: 120px;
+
+  border-radius: 10px;
+
+  background-size: cover;
+
+  background-position: center;
+
+  margin-bottom: 10px;
+}
+
+/* CONTROLE */
+
+.controle {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 10px 0;
+}
+
+.controle button {
+
+  width: 30px;
+
+  height: 30px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  background: white;
+
+  cursor: pointer;
+}
+
+/* BOTÃO */
+
+.btn {
+
+  background-color: #eee;
+
+  border: none;
+
+  padding: 8px 15px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+}
+
+/* CATEGORIA */
+
+.categoria {
+
+  background-color: #e8cbb0;
+
+  padding: 10px 20px;
+
+  font-size: 20px;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+
+  position: fixed;
+
+  top: 0;
+
+  left: -300px;
+
+  width: 260px;
+
+  height: 100%;
+
+  background: #5a4636;
+
+  color: white;
+
+  padding: 20px;
+
+  transition: 0.3s;
+
+  z-index: 999;
+
+  box-sizing: border-box;
+}
+
+/* QUANDO ABRIR */
+
+.sidebar.ativo {
+
+  left: 0;
+}
+
+/* HEADER SIDEBAR */
+
+.sidebar-header {
+
+  text-align: center;
+
+  margin-bottom: 30px;
+}
+
+/* FOTO */
+
+.sidebar .foto {
+
+  width: 70px;
+
+  height: 70px;
+
+  background: white;
+
+  border-radius: 50%;
+
+  margin: 0 auto 10px;
+}
+
+/* LISTA */
+
+.sidebar ul {
+
+  list-style: none;
+
+  padding: 0;
+}
+
+.sidebar ul li {
+
+  padding: 15px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.2);
+
+  cursor: pointer;
+}
+
+.sidebar ul li:hover {
+
+  background:
+    rgba(255,255,255,0.1);
+}
