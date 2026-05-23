@@ -2,7 +2,15 @@ import "../index.css";
 
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 function Carrinho() {
+
+  // =====================================
+  // NAVEGAÇÃO
+  // =====================================
+
+  const navigate = useNavigate();
 
   // =====================================
   // STATE DO CARRINHO
@@ -20,7 +28,7 @@ function Carrinho() {
   });
 
   // =====================================
-  // AUMENTAR
+  // AUMENTAR QUANTIDADE
   // =====================================
 
   function aumentar(index) {
@@ -39,7 +47,7 @@ function Carrinho() {
   }
 
   // =====================================
-  // DIMINUIR
+  // DIMINUIR QUANTIDADE
   // =====================================
 
   function diminuir(index) {
@@ -66,7 +74,7 @@ function Carrinho() {
   }
 
   // =====================================
-  // TOTAL
+  // CALCULAR TOTAL
   // =====================================
 
   const total = carrinho.reduce(
@@ -90,6 +98,10 @@ function Carrinho() {
 
   );
 
+  // =====================================
+  // JSX
+  // =====================================
+
   return (
 
     <>
@@ -98,11 +110,55 @@ function Carrinho() {
 
       <header className="header">
 
+        <div
+          className="perfil"
+          onClick={() => navigate("/")}
+        >
+
+          <div className="foto"></div>
+
+          <div>
+
+            <p className="nome">
+              Usuário
+            </p>
+
+            <p className="fichas">
+              Fichas: $ 0
+            </p>
+
+          </div>
+
+        </div>
+
         <h1>
-
           Sabor Universitário
-
         </h1>
+
+        <button
+          className="carrinho-btn"
+        >
+
+          🛒 {
+
+            carrinho.reduce(
+
+              (total, item) => {
+
+                return (
+                  total +
+                  item.quantidade
+                );
+
+              },
+
+              0
+
+            )
+
+          }
+
+        </button>
 
       </header>
 
@@ -110,130 +166,89 @@ function Carrinho() {
 
       <h2 className="titulo">
 
-        Resumo do Pedido
+        Restaurante universitário
 
       </h2>
 
-      {/* BOX */}
+      {/* BOX DO CARRINHO */}
 
-      <div className="box-pedido">
+      <div className="box-carrinho">
 
-        {/* CABEÇALHO */}
+        <h1>
 
-        <div className="cabecalho-pedido">
+          Resumo do pedido
 
-          <span>Produto</span>
-
-          <span>Qtd</span>
-
-          <span>Preço</span>
-
-        </div>
-
-        {/* ITENS */}
+        </h1>
 
         {
 
           carrinho.map((produto, index) => {
 
-            const preco = parseFloat(
-
-              produto.preco
-                .replace("R$ ", "")
-                .replace(",", ".")
-
-            );
-
-            const subtotal =
-              preco * produto.quantidade;
-
             return (
 
               <div
-                className="item-pedido"
+                className="item-carrinho"
                 key={index}
               >
 
-                {/* PRODUTO */}
+                {/* IMAGEM */}
 
-                <div className="produto-info">
+                <div
 
-                  {/* IMAGEM */}
+                  className="img"
 
-                  <div
+                  style={{
 
-                    className="img"
+                    backgroundImage:
+                      `url(${produto.imagem})`
 
-                    style={{
+                  }}
 
-                      backgroundImage:
-                        `url(${produto.imagem})`
+                ></div>
 
-                    }}
+                {/* INFO */}
 
-                  ></div>
+                <div className="info">
 
-                  {/* INFO */}
+                  <h3>
 
-                  <div className="info">
+                    {produto.nome}
 
-                    <h3>
+                  </h3>
 
-                      {produto.nome}
+                  <p>
 
-                    </h3>
+                    {produto.preco}
 
-                    <p>
-
-                      {produto.preco}
-
-                    </p>
-
-                  </div>
+                  </p>
 
                 </div>
 
-                {/* QUANTIDADE */}
+                {/* CONTROLE */}
 
-                <div className="qtd">
+                <div className="controle">
 
-                  <div className="controle">
+                  <button
+                    onClick={() =>
+                      diminuir(index)
+                    }
+                  >
+                    -
+                  </button>
 
-                    <button
-                      onClick={() =>
-                        diminuir(index)
-                      }
-                    >
-                      -
-                    </button>
+                  <span>
 
-                    <span>
+                    {produto.quantidade}
 
-                      {produto.quantidade}
+                  </span>
 
-                    </span>
-
-                    <button
-                      onClick={() =>
-                        aumentar(index)
-                      }
-                    >
-                      +
-                    </button>
-
-                  </div>
-
-                </div>
-
-                {/* PREÇO */}
-
-                <div className="preco">
-
-                  R$ {
-
-                    subtotal.toFixed(2)
-
-                  }
+                  <button
+                    onClick={() =>
+                      aumentar(index)
+                    }
+                  >
+                    +
+                  </button>
 
                 </div>
 
@@ -247,15 +262,63 @@ function Carrinho() {
 
         {/* TOTAL */}
 
-        <div className="total-container">
+        {/* TOTAL */}
 
-          <strong>Total:</strong>
+{
+        carrinho.length > 0 && (
 
-          <span>
+          <div id="total">
 
-            R$ {total.toFixed(2)}
+            Valor total: R$ {
 
-          </span>
+              total.toFixed(2)
+
+            }
+
+          </div>
+
+        )
+      }
+
+      </div>
+
+      {/* FOOTER */}
+
+      <div className="footer">
+
+        <a href="/">
+
+          Adicionar mais produtos ao carrinho
+
+        </a>
+
+        <div className="pagamento">
+
+          <select className="select-pagamento">
+
+            <option>
+              Dinheiro
+            </option>
+
+            <option>
+              Pix
+            </option>
+
+            <option>
+              Cartão de crédito
+            </option>
+
+            <option>
+              Cartão de débito
+            </option>
+
+          </select>
+
+          <button className="btn-proximo">
+
+            Próximo {"›››"}
+
+          </button>
 
         </div>
 
