@@ -356,19 +356,28 @@ function Home() {
 
                 >
 
-                  <div
+                <div
 
-                    className="img-produto"
+                  className="img-produto"
 
-                    style={{
+                  style={{
 
-                      backgroundImage:
+                    backgroundImage:
+                      `url(${produto.imagem})`
 
-                        `url(${produto.imagem})`
+                  }}
 
-                    }}
+                  onClick={() =>
 
-                  ></div>
+                    navigate(
+
+                      `/detalhe/bebidas/${index}`
+
+                    )
+
+                  }
+
+                ></div>
 
                   <h4>
 
@@ -505,10 +514,19 @@ function Home() {
                     style={{
 
                       backgroundImage:
-
                         `url(${produto.imagem})`
 
                     }}
+
+                    onClick={() =>
+
+                      navigate(
+
+                        `/detalhe/salgados/${index}`
+
+                      )
+
+                    }
 
                   ></div>
 

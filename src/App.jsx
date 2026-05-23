@@ -5,10 +5,13 @@ import {
 
 } from "react-router-dom";
 
-// IMPORTAÇÃO DAS PÁGINAS
+// PÁGINAS
 
 import Home from "./pages/Home";
+
 import Carrinho from "./pages/Carrinho";
+
+import Detalhe from "./pages/Detalhe";
 
 function App() {
 
@@ -17,15 +20,24 @@ function App() {
     <Routes>
 
       {/* HOME */}
+
       <Route
         path="/"
         element={<Home />}
       />
 
       {/* CARRINHO */}
+
       <Route
         path="/carrinho"
         element={<Carrinho />}
+      />
+
+      {/* DETALHE */}
+
+      <Route
+        path="/detalhe/:categoria/:id"
+        element={<Detalhe />}
       />
 
     </Routes>
