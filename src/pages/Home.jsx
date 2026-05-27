@@ -226,11 +226,29 @@ function Home() {
 
         <ul>
 
-          <li>Início</li>
+          <li
+            onClick={() => navigate("/")}
+          >
 
-          <li>Minha Conta</li>
+            Início
 
-          <li>Meus Pedidos</li>
+          </li>
+
+          <li>
+
+            Minha Conta
+
+          </li>
+
+          <li
+            onClick={() =>
+              navigate("/meuspedidos")
+            }
+          >
+
+            Meus Pedidos
+
+          </li>
 
         </ul>
 

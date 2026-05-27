@@ -15,6 +15,8 @@ import Detalhe from "./pages/Detalhe";
 
 import Cartao from "./pages/Cartao";
 
+import MeusPedidos from "./pages/MeusPedidos";
+
 function App() {
 
   return (
@@ -46,6 +48,11 @@ function App() {
       <Route
         path="/cartao"
         element={<Cartao />}
+      />
+
+      <Route
+        path="/meuspedidos"
+        element={<MeusPedidos />}
       />
 
     </Routes>
