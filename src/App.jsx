@@ -13,6 +13,8 @@ import Carrinho from "./pages/Carrinho";
 
 import Detalhe from "./pages/Detalhe";
 
+import Cartao from "./pages/Cartao";
+
 function App() {
 
   return (
@@ -38,6 +40,12 @@ function App() {
       <Route
         path="/detalhe/:categoria/:id"
         element={<Detalhe />}
+      />
+
+
+      <Route
+        path="/cartao"
+        element={<Cartao />}
       />
 
     </Routes>

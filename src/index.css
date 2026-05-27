@@ -619,3 +619,204 @@ body {
     width: 100%;
   }
 }
+
+/* ===================================== */
+/* TELA CARTÃO */
+/* ===================================== */
+
+.container-cartao {
+
+  width: 100%;
+
+  padding-left: 140px;
+
+  padding-top: 30px;
+
+  box-sizing: border-box;
+}
+
+/* VOLTAR */
+
+.btn-voltar {
+
+  background: none;
+
+  border: none;
+
+  color: #f28c28;
+
+  font-size: 55px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  margin-bottom: 20px;
+
+  transition: 0.2s;
+}
+
+.btn-voltar:hover {
+
+  transform: translateX(-5px);
+}
+
+/* LINHA VOLTAR */
+
+.topo-cartao {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 35px;
+}
+
+.texto-voltar {
+
+  font-size: 28px;
+
+  color: #f28c28;
+
+  font-weight: bold;
+}
+
+/* CAMPOS */
+
+.form-cartao {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 28px;
+}
+
+.campo-cartao {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+/* LABEL */
+
+.campo-cartao label {
+
+  font-size: 24px;
+
+  color: black;
+
+  font-family: serif;
+}
+
+/* INPUT */
+
+.campo-cartao input {
+
+  width: 360px;
+
+  height: 28px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  background: #ddd;
+
+  padding: 8px 12px;
+
+  font-size: 18px;
+
+  outline: none;
+}
+
+/* TEXTO OBRIGATÓRIO */
+
+.obrigatorio {
+
+  color: red;
+
+  font-size: 14px;
+}
+
+/* LINHA */
+
+.linha-cartao {
+
+  display: flex;
+
+  gap: 90px;
+}
+
+/* PEQUENOS */
+
+.pequeno input {
+
+  width: 160px;
+}
+
+/* BOTÃO */
+
+.btn-adicionar-cartao {
+
+  width: fit-content;
+
+  background: #f28c28;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 20px;
+
+  border-radius: 6px;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  margin-top: 20px;
+
+  transition: 0.2s;
+}
+
+.btn-adicionar-cartao:hover {
+
+  background: #ff741f;
+}
+
+/* RESPONSIVO */
+
+@media(max-width: 700px) {
+
+  .container-cartao {
+
+    padding-left: 30px;
+
+    padding-right: 30px;
+  }
+
+  .campo-cartao input {
+
+    width: 100%;
+  }
+
+  .linha-cartao {
+
+    flex-direction: column;
+
+    gap: 30px;
+  }
+
+  .pequeno input {
+
+    width: 100%;
+  }
+
+}
+

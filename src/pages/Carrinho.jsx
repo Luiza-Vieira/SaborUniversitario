@@ -262,23 +262,23 @@ function Carrinho() {
 
         {/* TOTAL */}
 
-        {/* TOTAL */}
+        {
 
-{
-        carrinho.length > 0 && (
+          carrinho.length > 0 && (
 
-          <div id="total">
+            <div id="total">
 
-            Valor total: R$ {
+              Valor total: R$ {
 
-              total.toFixed(2)
+                total.toFixed(2)
 
-            }
+              }
 
-          </div>
+            </div>
 
-        )
-      }
+          )
+
+        }
 
       </div>
 
@@ -294,25 +294,63 @@ function Carrinho() {
 
         <div className="pagamento">
 
-          <select className="select-pagamento">
+          {/* BLOCO ESQUERDO */}
 
-            <option>
-              Dinheiro
-            </option>
+          <div className="pagamento-cartao-box">
 
-            <option>
-              Pix
-            </option>
+            <select
 
-            <option>
-              Cartão de crédito
-            </option>
+              className="select-pagamento"
 
-            <option>
-              Cartão de débito
-            </option>
+              onChange={(e) => {
 
-          </select>
+                if (
+                  e.target.value === "novo-cartao"
+                ) {
+
+                  navigate("/cartao");
+
+                }
+
+              }}
+
+            >
+
+              <option value="dinheiro">
+
+                Dinheiro
+
+              </option>
+
+              <option value="pix">
+
+                Pix
+
+              </option>
+
+              <option value="credito">
+
+                Cartão de crédito
+
+              </option>
+
+              <option value="debito">
+
+                Cartão de débito
+
+              </option>
+
+              <option value="novo-cartao">
+
+                + Adicionar novo cartão
+
+              </option>
+
+            </select>
+
+          </div>
+
+          {/* BOTÃO PRÓXIMO */}
 
           <button className="btn-proximo">
 
