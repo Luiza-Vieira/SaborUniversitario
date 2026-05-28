@@ -20,13 +20,6 @@ function MeusPedidos() {
     useState([]);
 
   // =====================================
-  // STATE DO CARRINHO
-  // =====================================
-
-  const [carrinho, setCarrinho] =
-    useState([]);
-
-  // =====================================
   // CARREGAR PEDIDOS
   // =====================================
 
@@ -38,17 +31,13 @@ function MeusPedidos() {
         localStorage.getItem("pedidos")
       ) || [];
 
+    // mais recentes primeiro
+
     setPedidos(
+
       pedidosSalvos.reverse()
+
     );
-
-    const carrinhoSalvo =
-
-      JSON.parse(
-        localStorage.getItem("carrinho")
-      ) || [];
-
-    setCarrinho(carrinhoSalvo);
 
   }, []);
 
@@ -58,98 +47,35 @@ function MeusPedidos() {
 
   return (
 
-    <>
+    <div className="pagina-pedidos">
 
       {/* HEADER */}
 
-      <header className="header">
-
-        <div
-          className="perfil"
-          onClick={() => navigate("/")}
-        >
-
-          <div className="foto"></div>
-
-          <div>
-
-            <p className="nome">
-              Usuário
-            </p>
-
-            <p className="fichas">
-              Fichas: $ 0
-            </p>
-
-          </div>
-
-        </div>
-
-        <h1>
-          Sabor Universitário
-        </h1>
-
-        {/* CARRINHO */}
+      <div className="topo-pedidos">
 
         <button
-          className="carrinho-btn"
-          onClick={() =>
-            navigate("/carrinho")
-          }
+
+          className="btn-voltar-pedidos"
+
+          onClick={() => navigate("/")}
+
         >
 
-          🛒 {
-
-            carrinho.reduce(
-
-              (total, item) => {
-
-                return (
-                  total +
-                  item.quantidade
-                );
-
-              },
-
-              0
-
-            )
-
-          }
+          ←
 
         </button>
 
-      </header>
+        <h1>
 
-      {/* TÍTULO */}
+          MEUS PEDIDOS
 
-      <h2 className="titulo">
+        </h1>
 
-        MEUS PEDIDOS
+      </div>
 
-      </h2>
+      {/* LISTA */}
 
-      {/* BOX */}
-
-      <div className="box-meus-pedidos">
-
-        {/* CABEÇALHO */}
-
-        <div className="cabecalho-meus-pedidos">
-
-          <span></span>
-
-          <span>
-            Status do Pedido:
-          </span>
-
-          <span>
-            Valor Total:
-          </span>
-
-        </div>
-
-        {/* LISTA */}
+      <div className="lista-pedidos">
 
         {
 
@@ -160,31 +86,54 @@ function MeusPedidos() {
               (pedido, index) => (
 
                 <div
-                  className="pedido-item"
+
+                  className="card-pedido"
+
                   key={index}
+
                 >
 
-                  <div className="numero-pedido">
+                  {/* ESQUERDA */}
 
-                    Pedido #
-                    {pedido.numero}
+                  <div>
+
+                    <h2>
+
+                      Pedido #
+
+                      {pedido.numero}
+
+                    </h2>
+
+                    <p>
+
+                      {pedido.data}
+
+                    </p>
 
                   </div>
 
-                  <div className="status-pedido">
+                  {/* CENTRO */}
 
-                    {pedido.status}
+                  <div>
+
+                    <span className="status-pedido-card">
+
+                      {pedido.status}
+
+                    </span>
 
                   </div>
 
-                  <div className="valor-pedido">
+                  {/* DIREITA */}
 
-                    R$ {
+                  <div className="valor-pedido-card">
 
-                      pedido.total
-                        .replace(".", ",")
+                    <strong>
 
-                    }
+                      R$ {pedido.total}
+
+                    </strong>
 
                   </div>
 
@@ -196,11 +145,11 @@ function MeusPedidos() {
 
           ) : (
 
-            <p>
+            <div className="sem-pedidos">
 
               Nenhum pedido encontrado.
 
-            </p>
+            </div>
 
           )
 
@@ -208,7 +157,7 @@ function MeusPedidos() {
 
       </div>
 
-    </>
+    </div>
 
   );
 

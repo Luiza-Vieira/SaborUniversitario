@@ -99,6 +99,62 @@ function Carrinho() {
   );
 
   // =====================================
+  // FINALIZAR PEDIDO
+  // =====================================
+
+  function finalizarPedido() {
+
+    // impede pedido vazio
+
+    if (carrinho.length === 0) {
+
+      alert("Seu carrinho está vazio!");
+
+      return;
+
+    }
+
+    // cria pedido
+
+    const novoPedido = {
+
+      numero:
+
+        Math.floor(
+          1000 + Math.random() * 9000
+        ),
+
+      status: "Em preparo",
+
+      total: total.toFixed(2),
+
+      data:
+
+        new Date().toLocaleDateString(
+          "pt-BR"
+        ),
+
+      itens: carrinho
+
+    };
+
+    // salva pedido temporário
+
+    localStorage.setItem(
+
+      "pedidoAtual",
+
+      JSON.stringify(novoPedido)
+
+    );
+
+    // vai para resumo
+
+    navigate("/resumo");
+
+  }
+
+  // =====================================
   // JSX
   // =====================================
 
@@ -350,11 +406,17 @@ function Carrinho() {
 
           </div>
 
-          {/* BOTÃO PRÓXIMO */}
+          {/* BOTÃO FINALIZAR */}
 
-          <button className="btn-proximo">
+          <button
 
-            Próximo {"›››"}
+            className="btn-proximo"
+
+            onClick={finalizarPedido}
+
+          >
+
+            Finalizar Pedido
 
           </button>
 
