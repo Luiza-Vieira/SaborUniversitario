@@ -1,5 +1,6 @@
 import "../index.css";
 
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ResumoPedido() {
@@ -10,6 +11,96 @@ function ResumoPedido() {
     localStorage.getItem("pedidoAtual")
   );
 
+  const [itens, setItens] = useState(
+    pedido.itens
+  );
+
+  // =====================================
+  // AUMENTAR
+  // =====================================
+
+  function aumentar(index) {
+
+    const novosItens = itens.map(
+      (item, i) => {
+
+        if (i === index) {
+
+          return {
+            ...item,
+            quantidade: item.quantidade + 1
+          };
+
+        }
+
+        return item;
+
+      }
+    );
+
+    setItens(novosItens);
+
+  }
+
+  // =====================================
+  // DIMINUIR
+  // =====================================
+
+  function diminuir(index) {
+
+    const novosItens = itens.map(
+      (item, i) => {
+
+        if (
+          i === index &&
+          item.quantidade > 1
+        ) {
+
+          return {
+            ...item,
+            quantidade: item.quantidade - 1
+          };
+
+        }
+
+        return item;
+
+      }
+    );
+
+    setItens(novosItens);
+
+  }
+
+  // =====================================
+  // TOTAL
+  // =====================================
+
+  const total = itens.reduce(
+
+    (soma, item) => {
+
+      const preco = parseFloat(
+
+        item.preco
+          .replace("R$ ", "")
+          .replace(",", ".")
+
+      );
+
+      return soma +
+        (preco * item.quantidade);
+
+    },
+
+    0
+
+  );
+
+  // =====================================
+  // CONFIRMAR PEDIDO
+  // =====================================
+
   function confirmarPedido() {
 
     const pedidosSalvos =
@@ -18,11 +109,24 @@ function ResumoPedido() {
         localStorage.getItem("pedidos")
       ) || [];
 
-    pedidosSalvos.push(pedido);
+    const pedidoFinal = {
+
+      ...pedido,
+
+      itens,
+
+      total: total.toFixed(2)
+
+    };
+
+    pedidosSalvos.push(pedidoFinal);
 
     localStorage.setItem(
+
       "pedidos",
+
       JSON.stringify(pedidosSalvos)
+
     );
 
     localStorage.removeItem(
@@ -35,118 +139,177 @@ function ResumoPedido() {
 
   return (
 
-    <div className="pagina-resumo">
+    <>
 
-      <div className="container-resumo">
+      {/* HEADER */}
 
-        {/* TOPO */}
+      <header className="header">
 
-        <div className="topo-resumo">
+        <div></div>
 
-          <button
-            className="seta-voltar"
-            onClick={() =>
-              navigate("/carrinho")
-            }
-          >
-            ←
-          </button>
+        <h1>
+          Sabor Universitário
+        </h1>
 
-          <h1>
-            RESUMO DO PEDIDO
-          </h1>
+        <div></div>
 
-        </div>
+      </header>
 
-        {/* DETALHES PEDIDO */}
+      {/* SUBTITULO */}
 
-        <div className="card-resumo">
+      <h2 className="titulo">
 
-          <h2>
-            DETALHES DO PEDIDO
-          </h2>
+        Restaurante universitário
 
-          {
+      </h2>
 
-            pedido.itens.map(
-              (item, index) => (
+      {/* BOX */}
 
-                <div
-                  className="linha-resumo"
-                  key={index}
+      <div className="box-carrinho">
+
+        <h1>
+          Resumo do pedido
+        </h1>
+
+        {
+
+          itens.map((produto, index) => (
+
+            <div
+              className="item-carrinho"
+              key={index}
+            >
+
+              {/* IMAGEM */}
+
+              <div
+
+                className="img"
+
+                style={{
+
+                  backgroundImage:
+                    `url(${produto.imagem})`
+
+                }}
+
+              ></div>
+
+              {/* INFO */}
+
+              <div className="info">
+
+                <h3>
+                  {produto.nome}
+                </h3>
+
+                <p>
+                  {produto.preco}
+                </p>
+
+              </div>
+
+              {/* CONTROLE */}
+
+              <div className="controle-resumo">
+
+                <button
+                  onClick={() =>
+                    diminuir(index)
+                  }
                 >
+                  -
+                </button>
 
-                  <span>
+                <span>
 
-                    {item.nome}
+                  {produto.quantidade}
 
-                  </span>
+                </span>
 
-                  <span>
+                <button
+                  onClick={() =>
+                    aumentar(index)
+                  }
+                >
+                  +
+                </button>
 
-                    x{item.quantidade}
+              </div>
 
-                  </span>
+            </div>
 
-                </div>
+          ))
 
-              )
-            )
+        }
+
+        {/* OBSERVAÇÃO */}
+
+        <p className="observacao">
+
+          Observação:
+
+        </p>
+
+        {/* TOTAL */}
+
+        <div id="total">
+
+          Valor total: R$ {
+
+            total.toFixed(2)
 
           }
 
         </div>
 
-        {/* PAGAMENTO */}
+      </div>
 
-        <div className="card-resumo">
+      {/* FOOTER */}
 
-          <h2>
-            DETALHES DE PAGAMENTO
-          </h2>
+      <div className="footer">
 
-          <div className="linha-resumo">
+        <a href="/">
 
-            <span>
-              Método
-            </span>
+          Adicionar mais produtos ao carrinho
 
-            <span>
+        </a>
+
+        <div className="pagamento">
+
+          <select className="select-pagamento">
+
+            <option>
+              Dinheiro
+            </option>
+
+            <option>
+              Pix
+            </option>
+
+            <option>
               Cartão
-            </span>
+            </option>
 
-          </div>
+          </select>
 
-          <div className="linha-resumo">
+          <button
 
-            <span>
-              Total
-            </span>
+            className="btn-proximo"
 
-            <strong>
+            onClick={confirmarPedido}
 
-              R$ {pedido.total}
+          >
 
-            </strong>
+            CONFIRMAR
 
-          </div>
+          </button>
 
         </div>
 
-        {/* BOTÃO */}
-
-        <button
-          className="btn-confirmar-pedido"
-          onClick={confirmarPedido}
-        >
-
-          CONFIRMAR PEDIDO
-
-        </button>
-
       </div>
 
-    </div>
+    </>
 
   );
 
