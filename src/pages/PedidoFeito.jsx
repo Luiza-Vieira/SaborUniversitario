@@ -1,58 +1,230 @@
 import "../index.css";
 
-import { useNavigate } from "react-router-dom";
-
 function PedidoFeito() {
 
-  const navigate = useNavigate();
+  // =====================================
+  // DADOS DO PEDIDO
+  // =====================================
 
-  function irParaPedidos() {
+  const pedido = JSON.parse(
+    localStorage.getItem("pedidoAtual")
+  );
 
-    localStorage.removeItem(
-      "pedidoAtual"
+  // =====================================
+  // PROTEÇÃO
+  // =====================================
+
+  if (!pedido) {
+
+    return (
+
+      <h1
+        style={{
+          textAlign: "center",
+          marginTop: "100px"
+        }}
+      >
+
+        Pedido não encontrado
+
+      </h1>
+
     );
-
-    navigate("/meuspedidos");
 
   }
 
+  // =====================================
+  // TOTAL ITENS CARRINHO
+  // =====================================
+
+  const totalItens = pedido.itens.reduce(
+
+    (soma, item) => {
+
+      return soma + item.quantidade;
+
+    },
+
+    0
+
+  );
+
+  // =====================================
+  // JSX
+  // =====================================
+
   return (
 
-    <div className="pagina-final">
+    <div className="pagina-pedido-detalhe">
 
-      <div className="card-final">
+      {/* HEADER */}
 
-        {/* CHECK */}
+      <header className="header">
 
-        <div className="circulo-check">
+        {/* PERFIL */}
 
-          ✓
+        <div className="perfil">
+
+          <div className="foto"></div>
+
+          <div>
+
+            <div className="nome">
+              Usuário
+            </div>
+
+            <div className="fichas">
+              Fichas: $ 0
+            </div>
+
+          </div>
 
         </div>
 
-        {/* TEXOS */}
+        {/* TITULO */}
 
         <h1>
-          Pedido Confirmado!
+          Sabor Universitário
         </h1>
 
-        <p>
+        {/* CARRINHO */}
 
-          Seu pedido foi realizado
-          com sucesso.
+        <button className="carrinho-btn">
 
-        </p>
-
-        {/* BOTÃO */}
-
-        <button
-          className="btn-acompanhar-pedido"
-          onClick={irParaPedidos}
-        >
-
-          ACOMPANHAR PEDIDO
+          🛒 {totalItens}
 
         </button>
+
+      </header>
+
+      {/* TOPO */}
+
+      <div className="pedido-topo">
+
+        <h1>
+          Pedido #{pedido.numero}
+        </h1>
+
+        <h2>
+          Restaurante universitário
+        </h2>
+
+      </div>
+
+      {/* STATUS */}
+
+      <div className="pedido-status">
+
+        <span className="texto-status">
+          Status do pedido:
+        </span>
+
+        <span className="status-verde">
+          Pedido feito
+        </span>
+
+      </div>
+
+      {/* TABELA */}
+
+      <div className="pedido-box">
+
+        <div className="pedido-header">
+
+          <h3>
+            Detalhes do pedido
+          </h3>
+
+          <div className="pedido-colunas">
+
+            <span>
+              Quantidade
+            </span>
+
+            <span>
+              Preço unitário
+            </span>
+
+          </div>
+
+        </div>
+
+        {
+
+          pedido.itens.map((item, index) => (
+
+            <div
+              className="pedido-item"
+              key={index}
+            >
+
+              {/* ESQUERDA */}
+
+              <div className="pedido-esquerda">
+
+                <div
+                  className="pedido-img"
+                  style={{
+                    backgroundImage:
+                      `url(${item.imagem})`
+                  }}
+                />
+
+                <p>
+                  {item.nome}
+                </p>
+
+              </div>
+
+              {/* DIREITA */}
+
+              <div className="pedido-direita">
+
+                <span>
+                  {item.quantidade}
+                </span>
+
+                <span>
+
+                  R$ {
+
+                        Number(item.preco)
+                          .toFixed(2)
+                          .replace(".", ",")
+
+                      }
+
+                </span>
+
+              </div>
+
+            </div>
+
+          ))
+
+        }
+
+      </div>
+
+      {/* TOTAL */}
+
+      <div className="pedido-total">
+
+        <span>
+          Valor Total:
+        </span>
+
+        <strong>
+
+          R$ {
+
+                Number(pedido.total)
+                  .toFixed(2)
+                  .replace(".", ",")
+
+              }
+
+        </strong>
 
       </div>
 
