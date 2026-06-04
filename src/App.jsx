@@ -10,6 +10,7 @@ import Carrinho from "./pages/Carrinho";
 import Detalhe from "./pages/Detalhe";
 import Cartao from "./pages/Cartao";
 import MeusPedidos from "./pages/MeusPedidos";
+import Feedback from "./pages/Feedback";
 
 // NOVAS
 
@@ -62,6 +63,11 @@ function App() {
       <Route
         path="/pedidofeito"
         element={<PedidoFeito />}
+      />
+
+      <Route
+        path="/feedback"
+        element={<Feedback />}
       />
 
     </Routes>

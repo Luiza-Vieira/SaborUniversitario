@@ -8,7 +8,7 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-function PedidoFeito() {
+function Feedback() {
 
   // =====================================
   // NAVEGAÇÃO
@@ -26,7 +26,14 @@ function PedidoFeito() {
   const sidebarRef = useRef(null);
 
   // =====================================
-  // FECHAR SIDEBAR AO CLICAR FORA
+  // FEEDBACK
+  // =====================================
+
+  const [feedback, setFeedback] =
+    useState("");
+
+  // =====================================
+  // FECHAR SIDEBAR
   // =====================================
 
   useEffect(() => {
@@ -67,7 +74,11 @@ function PedidoFeito() {
   // =====================================
 
   const pedido = JSON.parse(
-    localStorage.getItem("pedidoAtual")
+
+    localStorage.getItem(
+      "pedidoSelecionado"
+    )
+
   );
 
   // =====================================
@@ -75,7 +86,11 @@ function PedidoFeito() {
   // =====================================
 
   const carrinho = JSON.parse(
-    localStorage.getItem("carrinho")
+
+    localStorage.getItem(
+      "carrinho"
+    )
+
   ) || [];
 
   // =====================================
@@ -85,6 +100,20 @@ function PedidoFeito() {
   if (!pedido) {
 
     return <h1>Pedido não encontrado</h1>;
+
+  }
+
+  // =====================================
+  // ENVIAR FEEDBACK
+  // =====================================
+
+  function enviarFeedback() {
+
+    alert(
+      "Feedback enviado com sucesso!"
+    );
+
+    setFeedback("");
 
   }
 
@@ -115,15 +144,11 @@ function PedidoFeito() {
           <div className="foto"></div>
 
           <p className="nome">
-
             Usuário
-
           </p>
 
           <p className="fichas">
-
             Fichas: $ 0
-
           </p>
 
         </div>
@@ -158,7 +183,9 @@ function PedidoFeito() {
 
       </div>
 
-      <div className="pagina-pedido-detalhe">
+      {/* PÁGINA */}
+
+      <div className="pagina-feedback">
 
         {/* HEADER */}
 
@@ -252,6 +279,12 @@ function PedidoFeito() {
 
         <div className="pedido-topo">
 
+          <h2>
+
+            Restaurante universitário
+
+          </h2>
+
           <h1>
 
             Pedido #
@@ -259,12 +292,6 @@ function PedidoFeito() {
             {pedido.numero}
 
           </h1>
-
-          <h2>
-
-            Restaurante universitário
-
-          </h2>
 
         </div>
 
@@ -280,15 +307,17 @@ function PedidoFeito() {
 
           <span className="status-verde">
 
-            Pedido feito
+            Pedido entregue
 
           </span>
 
         </div>
 
-        {/* TABELA */}
+        {/* BOX */}
 
         <div className="pedido-box">
+
+          {/* HEADER */}
 
           <div className="pedido-header">
 
@@ -316,60 +345,76 @@ function PedidoFeito() {
 
           </div>
 
-          {pedido.itens.map((item, index) => (
+          {/* ITENS */}
 
-            <div
-              className="pedido-item"
-              key={index}
-            >
+          {
 
-              {/* ESQUERDA */}
+            pedido.itens.map(
 
-              <div className="pedido-esquerda">
+              (item, index) => (
 
                 <div
-                  className="pedido-img"
-                  style={{
-                    backgroundImage:
-                      `url(${item.imagem})`
-                  }}
-                />
 
-                <p>
+                  className="pedido-item"
 
-                  {item.nome}
+                  key={index}
 
-                </p>
+                >
 
-              </div>
+                  {/* ESQUERDA */}
 
-              {/* DIREITA */}
+                  <div className="pedido-esquerda">
 
-              <div className="pedido-direita">
+                    <div
 
-                <span>
+                      className="pedido-img"
 
-                  {item.quantidade}
+                      style={{
+                        backgroundImage:
+                          `url(${item.imagem})`
+                      }}
 
-                </span>
+                    />
 
-                <span>
+                    <p>
 
-                  R${
+                      {item.nome}
 
-                    item.preco
-                      .toFixed(2)
-                      .replace(".", ",")
+                    </p>
 
-                  }
+                  </div>
 
-                </span>
+                  {/* DIREITA */}
 
-              </div>
+                  <div className="pedido-direita">
 
-            </div>
+                    <span>
 
-          ))}
+                      {item.quantidade}
+
+                    </span>
+
+                    <span>
+
+                      R${
+
+                        item.preco
+                          .toFixed(2)
+                          .replace(".", ",")
+
+                      }
+
+                    </span>
+
+                  </div>
+
+                </div>
+
+              )
+
+            )
+
+          }
 
         </div>
 
@@ -399,6 +444,52 @@ function PedidoFeito() {
 
         </div>
 
+        {/* FEEDBACK */}
+
+       <div className="feedback-container">
+
+  <h2 className="feedback-titulo">
+
+    Deseja avaliar a sua compra?
+
+  </h2>
+
+  <div className="feedback-box">
+
+    <textarea
+
+      className="feedback-textarea"
+
+      value={feedback}
+
+      onChange={(e) =>
+
+        setFeedback(
+          e.target.value
+        )
+
+      }
+
+      placeholder="Digite aqui sua avaliação..."
+
+    />
+
+  </div>
+
+  <button
+
+    className="btn-feedback"
+
+    onClick={enviarFeedback}
+
+  >
+
+    Enviar avaliação
+
+  </button>
+
+</div>
+
       </div>
 
     </>
@@ -407,4 +498,4 @@ function PedidoFeito() {
 
 }
 
-export default PedidoFeito;
+export default Feedback;

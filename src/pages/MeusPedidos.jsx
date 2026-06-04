@@ -1,6 +1,9 @@
 import "../index.css";
 
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState
+} from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +16,7 @@ function MeusPedidos() {
   const navigate = useNavigate();
 
   // =====================================
-  // STATE DOS PEDIDOS
+  // STATE
   // =====================================
 
   const [pedidos, setPedidos] =
@@ -31,7 +34,7 @@ function MeusPedidos() {
         localStorage.getItem("pedidos")
       ) || [];
 
-    // mais recentes primeiro
+    // MAIS RECENTES PRIMEIRO
 
     setPedidos(
 
@@ -47,35 +50,99 @@ function MeusPedidos() {
 
   return (
 
-    <div className="pagina-pedidos">
+    <div className="pagina-meus-pedidos">
 
       {/* HEADER */}
 
-      <div className="topo-pedidos">
+      <header className="header">
 
-        <button
+        {/* PERFIL */}
 
-          className="btn-voltar-pedidos"
-
+        <div
+          className="perfil"
           onClick={() => navigate("/")}
-
         >
 
-          ←
+          <div className="foto"></div>
 
-        </button>
+          <div>
+
+            <p className="nome">
+
+              Usuário
+
+            </p>
+
+            <p className="fichas">
+
+              Fichas: $ 0
+
+            </p>
+
+          </div>
+
+        </div>
+
+        {/* TITULO */}
 
         <h1>
 
-          MEUS PEDIDOS
+          Sabor Universitário
 
         </h1>
 
-      </div>
+        {/* CARRINHO */}
+
+        <button
+          className="carrinho-btn"
+          onClick={() =>
+            navigate("/carrinho")
+          }
+        >
+
+          🛒
+
+        </button>
+
+      </header>
+
+      {/* TITULO */}
+
+      <h2 className="titulo-meus-pedidos">
+
+        MEUS PEDIDOS
+
+      </h2>
+
+      {/* CABEÇALHO */}
+
+      {
+
+        pedidos.length > 0 && (
+
+          <div className="cabecalho-pedidos">
+
+            <span>
+
+              Status do Pedido:
+
+            </span>
+
+            <span>
+
+              Valor Total:
+
+            </span>
+
+          </div>
+
+        )
+
+      }
 
       {/* LISTA */}
 
-      <div className="lista-pedidos">
+      <div className="lista-meus-pedidos">
 
         {
 
@@ -85,55 +152,60 @@ function MeusPedidos() {
 
               (pedido, index) => (
 
-                <div
+                 <div
+                    className="linha-pedido"
+                    key={index}
 
-                  className="card-pedido"
+                    onClick={() => {
 
-                  key={index}
+                      localStorage.setItem(
 
-                >
+                        "pedidoSelecionado",
 
-                  {/* ESQUERDA */}
+                        JSON.stringify(pedido)
 
-                  <div>
+                      );
 
-                    <h2>
+                      navigate("/feedback");
 
-                      Pedido #
+                    }}
+                  >
 
-                      {pedido.numero}
+                  {/* NUMERO */}
 
-                    </h2>
+                  <div className="pedido-numero">
 
-                    <p>
+                    Pedido #
 
-                      {pedido.data}
-
-                    </p>
-
-                  </div>
-
-                  {/* CENTRO */}
-
-                  <div>
-
-                    <span className="status-pedido-card">
-
-                      {pedido.status}
-
-                    </span>
+                    {pedido.numero}
 
                   </div>
 
-                  {/* DIREITA */}
+                  {/* STATUS */}
 
-                  <div className="valor-pedido-card">
+                  <div className="pedido-status-texto">
 
-                    <strong>
+                    Pedido entregue
 
-                      R$ {pedido.total}
+                  </div>
 
-                    </strong>
+                  {/* TOTAL */}
+
+                  <div className="pedido-valor">
+
+                    R$
+
+                    {
+
+                      Number(
+                        pedido.total
+                      )
+
+                      .toFixed(2)
+
+                      .replace(".", ",")
+
+                    }
 
                   </div>
 

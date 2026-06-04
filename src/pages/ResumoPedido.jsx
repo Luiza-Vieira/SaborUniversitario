@@ -215,14 +215,25 @@ function ResumoPedido() {
   // =====================================
   // CONFIRMAR
   // =====================================
+function confirmarPedido() {
 
-  function confirmarPedido() {
+    // cria pedido completo
 
     const pedidoFinal = {
 
-      numero: Math.floor(
-        10000 + Math.random() * 90000
-      ),
+      numero:
+
+        Math.floor(
+          1000 + Math.random() * 9000
+        ),
+
+      status: "Pedido entregue",
+
+      data:
+
+        new Date().toLocaleDateString(
+          "pt-BR"
+        ),
 
       itens: itens.map((item) => {
 
@@ -248,6 +259,10 @@ function ResumoPedido() {
 
     };
 
+    // =====================================
+    // SALVAR pedidoAtual
+    // =====================================
+
     localStorage.setItem(
 
       "pedidoAtual",
@@ -256,10 +271,47 @@ function ResumoPedido() {
 
     );
 
+    // =====================================
+    // PEGAR pedidos antigos
+    // =====================================
+
+    const pedidosAntigos =
+
+      JSON.parse(
+        localStorage.getItem("pedidos")
+      ) || [];
+
+    // =====================================
+    // ADICIONAR novo pedido
+    // =====================================
+
+    pedidosAntigos.push(pedidoFinal);
+
+    // =====================================
+    // SALVAR lista atualizada
+    // =====================================
+
+    localStorage.setItem(
+
+      "pedidos",
+
+      JSON.stringify(pedidosAntigos)
+
+    );
+
+    // =====================================
+    // LIMPAR carrinho
+    // =====================================
+
+    localStorage.removeItem("carrinho");
+
+    // =====================================
+    // NAVEGAR
+    // =====================================
+
     navigate("/pedidofeito");
 
-  }
-
+}
   // =====================================
   // JSX
   // =====================================
