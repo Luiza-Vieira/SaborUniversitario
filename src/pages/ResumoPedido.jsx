@@ -1,5 +1,3 @@
-import "../index.css";
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -46,43 +44,54 @@ function ResumoPedido() {
   }
 
   // =====================================
-  // STATE
+  // STATES
   // =====================================
 
   const [itens, setItens] = useState(
     pedido.itens || []
   );
 
-  // =====================================
-  // AUMENTAR
-  // =====================================
+  const [quantidadeCarrinho, setQuantidadeCarrinho] =
+    useState(
 
-  function aumentar(index) {
+      pedido.itens.reduce(
 
-    const novosItens = itens.map(
+        (total, item) => {
 
-      (item, i) => {
+          return total + item.quantidade;
 
-        if (i === index) {
+        },
 
-          return {
+        0
 
-            ...item,
-
-            quantidade:
-              item.quantidade + 1
-
-          };
-
-        }
-
-        return item;
-
-      }
+      )
 
     );
 
-    setItens(novosItens);
+  // =====================================
+  // ATUALIZAR DADOS
+  // =====================================
+
+  function atualizarDados(novosItens) {
+
+    // atualiza itens
+    setItens([...novosItens]);
+
+    // atualiza carrinho badge
+
+    const novaQuantidade = novosItens.reduce(
+
+      (total, item) => {
+
+        return total + item.quantidade;
+
+      },
+
+      0
+
+    );
+
+    setQuantidadeCarrinho(novaQuantidade);
 
     // atualiza pedidoAtual
 
@@ -115,35 +124,28 @@ function ResumoPedido() {
   }
 
   // =====================================
+  // AUMENTAR
+  // =====================================
+
+  function aumentar(index) {
+
+    const novosItens = [...itens];
+
+    novosItens[index].quantidade += 1;
+
+    atualizarDados(novosItens);
+
+  }
+
+  // =====================================
   // DIMINUIR
   // =====================================
 
   function diminuir(index) {
 
-    let novosItens = itens.map(
+    let novosItens = [...itens];
 
-      (item, i) => {
-
-        if (i === index) {
-
-          return {
-
-            ...item,
-
-            quantidade:
-              item.quantidade - 1
-
-          };
-
-        }
-
-        return item;
-
-      }
-
-    );
-
-    // remove itens zerados
+    novosItens[index].quantidade -= 1;
 
     novosItens = novosItens.filter(
 
@@ -151,35 +153,7 @@ function ResumoPedido() {
 
     );
 
-    setItens(novosItens);
-
-    // atualiza pedidoAtual
-
-    const pedidoAtualizado = {
-
-      ...pedido,
-
-      itens: novosItens
-
-    };
-
-    localStorage.setItem(
-
-      "pedidoAtual",
-
-      JSON.stringify(pedidoAtualizado)
-
-    );
-
-    // atualiza carrinho
-
-    localStorage.setItem(
-
-      "carrinho",
-
-      JSON.stringify(novosItens)
-
-    );
+    atualizarDados(novosItens);
 
   }
 
@@ -191,17 +165,19 @@ function ResumoPedido() {
 
     (soma, item) => {
 
-      const preco = typeof item.preco === "string"
+      const preco =
 
-  ? parseFloat(
+        typeof item.preco === "string"
 
-      item.preco
-        .replace("R$ ", "")
-        .replace(",", ".")
+          ? parseFloat(
 
-    )
+              item.preco
+                .replace("R$ ", "")
+                .replace(",", ".")
 
-  : Number(item.preco);
+            )
+
+          : Number(item.preco);
 
       return soma +
         (preco * item.quantidade);
@@ -215,9 +191,8 @@ function ResumoPedido() {
   // =====================================
   // CONFIRMAR
   // =====================================
-function confirmarPedido() {
 
-    // cria pedido completo
+  function confirmarPedido() {
 
     const pedidoFinal = {
 
@@ -237,13 +212,19 @@ function confirmarPedido() {
 
       itens: itens.map((item) => {
 
-        const precoNumerico = parseFloat(
+        const precoNumerico =
 
-          item.preco
-            .replace("R$ ", "")
-            .replace(",", ".")
+          typeof item.preco === "string"
 
-        );
+            ? parseFloat(
+
+                item.preco
+                  .replace("R$ ", "")
+                  .replace(",", ".")
+
+              )
+
+            : Number(item.preco);
 
         return {
 
@@ -259,9 +240,7 @@ function confirmarPedido() {
 
     };
 
-    // =====================================
-    // SALVAR pedidoAtual
-    // =====================================
+    // salva pedido atual
 
     localStorage.setItem(
 
@@ -271,9 +250,7 @@ function confirmarPedido() {
 
     );
 
-    // =====================================
-    // PEGAR pedidos antigos
-    // =====================================
+    // pega pedidos antigos
 
     const pedidosAntigos =
 
@@ -281,15 +258,11 @@ function confirmarPedido() {
         localStorage.getItem("pedidos")
       ) || [];
 
-    // =====================================
-    // ADICIONAR novo pedido
-    // =====================================
+    // adiciona novo pedido
 
     pedidosAntigos.push(pedidoFinal);
 
-    // =====================================
-    // SALVAR lista atualizada
-    // =====================================
+    // salva pedidos
 
     localStorage.setItem(
 
@@ -299,19 +272,16 @@ function confirmarPedido() {
 
     );
 
-    // =====================================
-    // LIMPAR carrinho
-    // =====================================
+    // limpa carrinho
 
     localStorage.removeItem("carrinho");
 
-    // =====================================
-    // NAVEGAR
-    // =====================================
+    // navega
 
     navigate("/pedidofeito");
 
-}
+  }
+
   // =====================================
   // JSX
   // =====================================
@@ -327,6 +297,16 @@ function confirmarPedido() {
         <h1>
           Sabor Universitário
         </h1>
+
+        {/* CARRINHO */}
+
+        <button
+          className="carrinho-btn"
+        >
+
+          🛒 {quantidadeCarrinho}
+
+        </button>
 
       </header>
 
@@ -354,85 +334,113 @@ function confirmarPedido() {
 
         {
 
-          itens.map((produto, index) => (
+          itens.map((produto, index) => {
 
-            <div
-              className="resumo-item"
-              key={index}
-            >
+            const precoNumerico =
 
-              {/* ESQUERDA */}
+              typeof produto.preco === "string"
 
-              <div className="resumo-esquerda">
+                ? parseFloat(
 
-                <div
+                    produto.preco
+                      .replace("R$ ", "")
+                      .replace(",", ".")
 
-                  className="resumo-img"
+                  )
 
-                  style={{
+                : Number(produto.preco);
 
-                    backgroundImage:
-                      `url(${produto.imagem})`
+            return (
 
-                  }}
+              <div
+                className="resumo-item"
+                key={index}
+              >
 
-                ></div>
+                {/* ESQUERDA */}
 
-                <div className="resumo-info">
+                <div className="resumo-esquerda">
 
-                  <h3>
+                  <div
 
-                    {produto.nome}
+                    className="resumo-img"
 
-                  </h3>
+                    style={{
+
+                      backgroundImage:
+                        `url(${produto.imagem})`
+
+                    }}
+
+                  ></div>
+
+                  <div className="resumo-info">
+
+                    <h3>
+
+                      {produto.nome}
+
+                    </h3>
+
+                  </div>
+
+                </div>
+
+                {/* DIREITA */}
+
+                <div className="resumo-direita">
+
+                  <p className="resumo-preco">
+
+                    R$ {
+
+                      (
+                        precoNumerico *
+                        produto.quantidade
+                      )
+
+                        .toFixed(2)
+                        .replace(".", ",")
+
+                    }
+
+                  </p>
+
+                  {/* CONTROLE */}
+
+                  <div className="resumo-controle">
+
+                    <button
+                      onClick={() =>
+                        diminuir(index)
+                      }
+                    >
+                      -
+                    </button>
+
+                    <span>
+
+                      {produto.quantidade}
+
+                    </span>
+
+                    <button
+                      onClick={() =>
+                        aumentar(index)
+                      }
+                    >
+                      +
+                    </button>
+
+                  </div>
 
                 </div>
 
               </div>
 
-              {/* DIREITA */}
+            );
 
-              <div className="resumo-direita">
-
-                <p className="resumo-preco">
-
-                  {produto.preco}
-
-                </p>
-
-                {/* CONTROLE */}
-
-                <div className="resumo-controle">
-
-                  <button
-                    onClick={() =>
-                      diminuir(index)
-                    }
-                  >
-                    -
-                  </button>
-
-                  <span>
-
-                    {produto.quantidade}
-
-                  </span>
-
-                  <button
-                    onClick={() =>
-                      aumentar(index)
-                    }
-                  >
-                    +
-                  </button>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          ))
+          })
 
         }
 
@@ -454,7 +462,9 @@ function confirmarPedido() {
 
               Valor total: R$ {
 
-                total.toFixed(2)
+                total
+                  .toFixed(2)
+                  .replace(".", ",")
 
               }
 

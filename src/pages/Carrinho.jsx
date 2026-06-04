@@ -70,16 +70,30 @@ function Carrinho() {
   // STATE DO CARRINHO
   // =====================================
 
-  const [carrinho, setCarrinho] = useState(() => {
+  const [carrinho, setCarrinho] =
+    useState(() => {
 
-    const carrinhoSalvo =
-      localStorage.getItem("carrinho");
+      const carrinhoSalvo =
+        localStorage.getItem("carrinho");
 
-    return carrinhoSalvo
-      ? JSON.parse(carrinhoSalvo)
-      : [];
+      return carrinhoSalvo
+        ? JSON.parse(carrinhoSalvo)
+        : [];
 
-  });
+    });
+
+  // =====================================
+  // SINCRONIZAR LOCALSTORAGE
+  // =====================================
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "carrinho",
+      JSON.stringify(carrinho)
+    );
+
+  }, [carrinho]);
 
   // =====================================
   // AUMENTAR QUANTIDADE
@@ -87,29 +101,31 @@ function Carrinho() {
 
   function aumentar(index) {
 
-    const novoCarrinho = carrinho.map(
-      (item, i) => {
+    setCarrinho((carrinhoAtual) => {
 
-        if (i === index) {
+      return carrinhoAtual.map(
+        (item, i) => {
 
-          return {
-            ...item,
-            quantidade: item.quantidade + 1
-          };
+          if (i === index) {
+
+            return {
+
+              ...item,
+
+              quantidade:
+                item.quantidade + 1
+
+            };
+
+          }
+
+          return item;
 
         }
 
-        return item;
+      );
 
-      }
-    );
-
-    setCarrinho(novoCarrinho);
-
-    localStorage.setItem(
-      "carrinho",
-      JSON.stringify(novoCarrinho)
-    );
+    });
 
   }
 
@@ -119,33 +135,43 @@ function Carrinho() {
 
   function diminuir(index) {
 
-    let novoCarrinho = carrinho.map(
-      (item, i) => {
+    setCarrinho((carrinhoAtual) => {
 
-        if (i === index) {
+      let novoCarrinho =
+        carrinhoAtual.map(
 
-          return {
-            ...item,
-            quantidade: item.quantidade - 1
-          };
+          (item, i) => {
 
-        }
+            if (i === index) {
 
-        return item;
+              return {
 
-      }
-    );
+                ...item,
 
-    novoCarrinho = novoCarrinho.filter(
-      (item) => item.quantidade > 0
-    );
+                quantidade:
+                  item.quantidade - 1
 
-    setCarrinho(novoCarrinho);
+              };
 
-    localStorage.setItem(
-      "carrinho",
-      JSON.stringify(novoCarrinho)
-    );
+            }
+
+            return item;
+
+          }
+
+        );
+
+      novoCarrinho =
+        novoCarrinho.filter(
+
+          (item) =>
+            item.quantidade > 0
+
+        );
+
+      return novoCarrinho;
+
+    });
 
   }
 
@@ -157,13 +183,18 @@ function Carrinho() {
 
     (soma, produto) => {
 
-      const preco = parseFloat(
+      const preco =
+        typeof produto.preco === "string"
 
-        produto.preco
-          .replace("R$ ", "")
-          .replace(",", ".")
+          ? parseFloat(
 
-      );
+              produto.preco
+                .replace("R$ ", "")
+                .replace(",", ".")
+
+            )
+
+          : Number(produto.preco);
 
       return soma +
         (preco * produto.quantidade);
@@ -437,7 +468,17 @@ function Carrinho() {
 
                   <p className="resumo-preco">
 
-                    {produto.preco}
+                    {
+
+                      typeof produto.preco === "number"
+
+                        ? `R$ ${produto.preco
+                            .toFixed(2)
+                            .replace(".", ",")}`
+
+                        : produto.preco
+
+                    }
 
                   </p>
 
@@ -489,7 +530,9 @@ function Carrinho() {
 
               Valor total: R$ {
 
-                total.toFixed(2)
+                total
+                  .toFixed(2)
+                  .replace(".", ",")
 
               }
 
