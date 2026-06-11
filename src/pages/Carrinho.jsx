@@ -83,49 +83,21 @@ function Carrinho() {
     });
 
   // =====================================
-  // SINCRONIZAR LOCALSTORAGE
-  // =====================================
-
-  useEffect(() => {
-
-    localStorage.setItem(
-      "carrinho",
-      JSON.stringify(carrinho)
-    );
-
-  }, [carrinho]);
-
-  // =====================================
   // AUMENTAR QUANTIDADE
   // =====================================
 
   function aumentar(index) {
 
-    setCarrinho((carrinhoAtual) => {
+    const novoCarrinho = [...carrinho];
 
-      return carrinhoAtual.map(
-        (item, i) => {
+    novoCarrinho[index].quantidade += 1;
 
-          if (i === index) {
+    setCarrinho(novoCarrinho);
 
-            return {
-
-              ...item,
-
-              quantidade:
-                item.quantidade + 1
-
-            };
-
-          }
-
-          return item;
-
-        }
-
-      );
-
-    });
+    localStorage.setItem(
+      "carrinho",
+      JSON.stringify(novoCarrinho)
+    );
 
   }
 
@@ -135,43 +107,23 @@ function Carrinho() {
 
   function diminuir(index) {
 
-    setCarrinho((carrinhoAtual) => {
+    const novoCarrinho = [...carrinho];
 
-      let novoCarrinho =
-        carrinhoAtual.map(
+    novoCarrinho[index].quantidade -= 1;
 
-          (item, i) => {
+    const carrinhoFiltrado =
+      novoCarrinho.filter(
 
-            if (i === index) {
+        (item) => item.quantidade > 0
 
-              return {
+      );
 
-                ...item,
+    setCarrinho(carrinhoFiltrado);
 
-                quantidade:
-                  item.quantidade - 1
-
-              };
-
-            }
-
-            return item;
-
-          }
-
-        );
-
-      novoCarrinho =
-        novoCarrinho.filter(
-
-          (item) =>
-            item.quantidade > 0
-
-        );
-
-      return novoCarrinho;
-
-    });
+    localStorage.setItem(
+      "carrinho",
+      JSON.stringify(carrinhoFiltrado)
+    );
 
   }
 
@@ -183,21 +135,34 @@ function Carrinho() {
 
     (soma, produto) => {
 
-      const preco =
-        typeof produto.preco === "string"
+      let preco = 0;
 
-          ? parseFloat(
+      if (typeof produto.preco === "string") {
 
-              produto.preco
-                .replace("R$ ", "")
-                .replace(",", ".")
+        preco = parseFloat(
 
-            )
+          produto.preco
+            .replace("R$", "")
+            .replace(",", ".")
+            .trim()
 
-          : Number(produto.preco);
+        );
 
-      return soma +
-        (preco * produto.quantidade);
+      }
+
+      else {
+
+        preco = Number(produto.preco);
+
+      }
+
+      return soma + (
+
+        preco *
+
+        Number(produto.quantidade)
+
+      );
 
     },
 

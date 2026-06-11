@@ -93,36 +93,84 @@ function Detalhe() {
     });
 
   // =====================================
+  // SINCRONIZAR LOCALSTORAGE
+  // =====================================
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "carrinho",
+      JSON.stringify(carrinho)
+    );
+
+  }, [carrinho]);
+
+  // =====================================
   // ADICIONAR AO CARRINHO
   // =====================================
 
   function adicionarCarrinho() {
 
-    const novoProduto = {
+    setCarrinho((carrinhoAtual) => {
 
-      ...produto,
+      // verifica se produto já existe
 
-      quantidade: 1
+      const produtoExiste =
+        carrinhoAtual.find(
 
-    };
+          (item) =>
+            item.nome === produto.nome
 
-    const novoCarrinho = [
+        );
 
-      ...carrinho,
+      // se já existe -> aumenta quantidade
 
-      novoProduto
+      if (produtoExiste) {
 
-    ];
+        return carrinhoAtual.map(
 
-    setCarrinho(novoCarrinho);
+          (item) => {
 
-    localStorage.setItem(
+            if (
+              item.nome === produto.nome
+            ) {
 
-      "carrinho",
+              return {
 
-      JSON.stringify(novoCarrinho)
+                ...item,
 
-    );
+                quantidade:
+                  item.quantidade + 1
+
+              };
+
+            }
+
+            return item;
+
+          }
+
+        );
+
+      }
+
+      // se não existe -> adiciona novo
+
+      return [
+
+        ...carrinhoAtual,
+
+        {
+
+          ...produto,
+
+          quantidade: 1
+
+        }
+
+      ];
+
+    });
 
     alert("Produto adicionado!");
 
@@ -180,7 +228,11 @@ function Detalhe() {
             Minha Conta
           </li>
 
-          <li>
+          <li
+            onClick={() =>
+              navigate("/meuspedidos")
+            }
+          >
             Meus Pedidos
           </li>
 
