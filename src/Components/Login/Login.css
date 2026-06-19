@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Alike&family=Arbutus+Slab&family=Belanosima:wght@400;600;700&family=Berkshire+Swash&family=Gabriela&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.head {
+    background-color: #FF7124;
+}
+
+h1 {
+    color: white;
+    font-family: "Berkshire Swash";
+    font-weight: 400;
+    font-family: "Berkshire Swash";
+    font-size: 2.2em;
+    padding: 1.5em;
+    text-align: center;
+    flex: 2;
+}
+
+form {
+    display: grid;
+    place-items: center;
+    height: 66vh;
+    font-family: "inter";
+    padding: 2em;
+    background-color: #FF9C72;
+    border-radius: 1em;
+    max-width: 480px;
+    margin: 1.5em auto;
+    text-align: center;
+}
+
+
+input {
+    padding: 0.7em;
+    border-radius: 0.5em;
+    border: none;
+    margin: 1em;
+    width: 300px;
+}
+
+.login div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 20px;
+    padding: 0.75em;
+    gap: 10px;
+
+
+}
+
+
+
+.login h3 {
+    font-weight: 400;
+}
+
+
+.login p {
+    text-align: center;
+    margin: 2em auto;
+}
+
+.login a {
+    color: black;
+}
+
+.login a:hover {
+    color: #eb5200;
+}
+
+.login h3 {
+    font-weight: 400;
+}
+
+.entrar {
+    background-color: #FF7124;
+    border-radius: 10px;
+    border: 0.1em solid black;
+    color: white;
+    padding: 0.7em;
+    width: 300px;
+    cursor: pointer
+}
+
+.entrar:hover {
+    background-color: #df5a13;
+}
+
+p {
+    text-align: center;
+    margin-bottom: 1em;
+    position: relative;
+}
+
+.alerta {
+    color: #EA0505;
+
+}
