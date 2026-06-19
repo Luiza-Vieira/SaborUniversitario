@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Alike&family=Arbutus+Slab&family=Belanosima:wght@400;600;700&family=Berkshire+Swash&family=Gabriela&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+#espacamento {
+    line-height: 2.3em;
+
+}
+
+#aumentar {
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+#espaco {
+    margin-bottom: 1em;
+}

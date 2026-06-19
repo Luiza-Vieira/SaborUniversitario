@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Alike&family=Arbutus+Slab&family=Belanosima:wght@400;600;700&family=Berkshire+Swash&family=Gabriela&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.head {
+    background-color: #FF7124;
+}
+
+h1 {
+    color: white;
+    font-family: "Berkshire Swash";
+    font-weight: 400;
+    font-family: "Berkshire Swash";
+    font-size: 2.2em;
+    padding: 1.5em;
+    text-align: center;
+    flex: 2;
+}
+
+form {
+    display: grid;
+    place-items: center;
+    height: 66vh;
+    font-family: "inter";
+    padding: 2em;
+    background-color: #FF9C72;
+    border-radius: 1em;
+    max-width: 480px;
+    margin: 1.5em auto;
+    text-align: center;
+}
