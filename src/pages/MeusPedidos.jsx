@@ -2,10 +2,14 @@ import "../index.css";
 
 import {
   useEffect,
-  useState
+  useState,
+  useRef
 } from "react";
 
 import { useNavigate } from "react-router-dom";
+
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
 
 function MeusPedidos() {
 
@@ -16,11 +20,71 @@ function MeusPedidos() {
   const navigate = useNavigate();
 
   // =====================================
-  // STATE
+  // SIDEBAR
+  // =====================================
+
+  const [sidebarAberta, setSidebarAberta] =
+    useState(false);
+
+  const sidebarRef = useRef(null);
+
+  // =====================================
+  // FECHAR SIDEBAR
+  // =====================================
+
+  useEffect(() => {
+
+    function fecharSidebar(event) {
+
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(
+          event.target
+        )
+      ) {
+        setSidebarAberta(false);
+      }
+
+    }
+
+    document.addEventListener(
+      "mousedown",
+      fecharSidebar
+    );
+
+    return () => {
+
+      document.removeEventListener(
+        "mousedown",
+        fecharSidebar
+      );
+
+    };
+
+  }, []);
+
+  // =====================================
+  // PEDIDOS
   // =====================================
 
   const [pedidos, setPedidos] =
     useState([]);
+
+  // =====================================
+  // CARRINHO
+  // =====================================
+
+  const [carrinho] =
+    useState(() => {
+
+      const carrinhoSalvo =
+        localStorage.getItem("carrinho");
+
+      return carrinhoSalvo
+        ? JSON.parse(carrinhoSalvo)
+        : [];
+
+    });
 
   // =====================================
   // CARREGAR PEDIDOS
@@ -29,17 +93,12 @@ function MeusPedidos() {
   useEffect(() => {
 
     const pedidosSalvos =
-
       JSON.parse(
         localStorage.getItem("pedidos")
       ) || [];
 
-    // MAIS RECENTES PRIMEIRO
-
     setPedidos(
-
       pedidosSalvos.reverse()
-
     );
 
   }, []);
@@ -52,96 +111,45 @@ function MeusPedidos() {
 
     <div className="pagina-meus-pedidos">
 
+      {/* SIDEBAR */}
+      <Sidebar
+        sidebarAberta={sidebarAberta}
+        sidebarRef={sidebarRef}
+        navigate={navigate}
+        setSidebarAberta={setSidebarAberta}
+      />
+
       {/* HEADER */}
+      <Header
+        sidebarAberta={sidebarAberta}
+        setSidebarAberta={setSidebarAberta}
+        carrinho={carrinho}
+        navigate={navigate}
+      />
 
-      <header className="header">
-
-        {/* PERFIL */}
-
-        <div
-          className="perfil"
-          onClick={() => navigate("/")}
-        >
-
-          <div className="foto"></div>
-
-          <div>
-
-            <p className="nome">
-
-              Usuário
-
-            </p>
-
-            <p className="fichas">
-
-              Fichas: $ 0
-
-            </p>
-
-          </div>
-
-        </div>
-
-        {/* TITULO */}
-
-        <h1>
-
-          Sabor Universitário
-
-        </h1>
-
-        {/* CARRINHO */}
-
-        <button
-          className="carrinho-btn"
-          onClick={() =>
-            navigate("/carrinho")
-          }
-        >
-
-          🛒
-
-        </button>
-
-      </header>
-
-      {/* TITULO */}
-
+      {/* TÍTULO */}
       <h2 className="titulo-meus-pedidos">
-
         MEUS PEDIDOS
-
       </h2>
 
       {/* CABEÇALHO */}
+      {pedidos.length > 0 && (
 
-      {
+        <div className="cabecalho-pedidos">
 
-        pedidos.length > 0 && (
+          <span>
+            Status do Pedido:
+          </span>
 
-          <div className="cabecalho-pedidos">
+          <span>
+            Valor Total:
+          </span>
 
-            <span>
+        </div>
 
-              Status do Pedido:
-
-            </span>
-
-            <span>
-
-              Valor Total:
-
-            </span>
-
-          </div>
-
-        )
-
-      }
+      )}
 
       {/* LISTA */}
-
       <div className="lista-meus-pedidos">
 
         {
@@ -152,27 +160,25 @@ function MeusPedidos() {
 
               (pedido, index) => (
 
-                 <div
-                    className="linha-pedido"
-                    key={index}
+                <div
+                  className="linha-pedido"
+                  key={index}
+                  onClick={() => {
 
-                    onClick={() => {
+                    localStorage.setItem(
 
-                      localStorage.setItem(
+                      "pedidoSelecionado",
 
-                        "pedidoSelecionado",
+                      JSON.stringify(pedido)
 
-                        JSON.stringify(pedido)
+                    );
 
-                      );
+                    navigate("/feedback");
 
-                      navigate("/feedback");
+                  }}
+                >
 
-                    }}
-                  >
-
-                  {/* NUMERO */}
-
+                  {/* NÚMERO */}
                   <div className="pedido-numero">
 
                     Pedido #
@@ -182,15 +188,13 @@ function MeusPedidos() {
                   </div>
 
                   {/* STATUS */}
-
                   <div className="pedido-status-texto">
 
-                    Pedido entregue
+                    {pedido.status}
 
                   </div>
 
-                  {/* TOTAL */}
-
+                  {/* VALOR */}
                   <div className="pedido-valor">
 
                     R$
@@ -201,9 +205,9 @@ function MeusPedidos() {
                         pedido.total
                       )
 
-                      .toFixed(2)
+                        .toFixed(2)
 
-                      .replace(".", ",")
+                        .replace(".", ",")
 
                     }
 

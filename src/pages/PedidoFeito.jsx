@@ -1,4 +1,4 @@
-import "../index.css";
+import "../styles/pedidofeito.css";
 
 import {
   useState,
@@ -7,6 +7,9 @@ import {
 } from "react";
 
 import { useNavigate } from "react-router-dom";
+
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
 
 function PedidoFeito() {
 
@@ -74,9 +77,16 @@ function PedidoFeito() {
   // CARRINHO
   // =====================================
 
-  const carrinho = JSON.parse(
-    localStorage.getItem("carrinho")
-  ) || [];
+  const [carrinho] = useState(() => {
+
+    const carrinhoSalvo =
+      localStorage.getItem("carrinho");
+
+    return carrinhoSalvo
+      ? JSON.parse(carrinhoSalvo)
+      : [];
+
+  });
 
   // =====================================
   // VALIDAÇÃO
@@ -85,6 +95,29 @@ function PedidoFeito() {
   if (!pedido) {
 
     return <h1>Pedido não encontrado</h1>;
+
+  }
+
+  // =====================================
+  // FUNÇÃO PARA CONVERTER PREÇO
+  // =====================================
+
+  function converterPreco(preco) {
+
+    if (typeof preco === "string") {
+
+      return parseFloat(
+
+        preco
+          .replace("R$", "")
+          .replace(",", ".")
+          .trim()
+
+      );
+
+    }
+
+    return Number(preco);
 
   }
 
@@ -98,155 +131,23 @@ function PedidoFeito() {
 
       {/* SIDEBAR */}
 
-      <div
+      <Sidebar
+        sidebarAberta={sidebarAberta}
+        sidebarRef={sidebarRef}
+        navigate={navigate}
+        setSidebarAberta={setSidebarAberta}
+      />
 
-        ref={sidebarRef}
+      {/* HEADER */}
 
-        className={
-          sidebarAberta
-            ? "sidebar ativo"
-            : "sidebar"
-        }
-
-      >
-
-        <div className="sidebar-header">
-
-          <div className="foto"></div>
-
-          <p className="nome">
-
-            Usuário
-
-          </p>
-
-          <p className="fichas">
-
-            Fichas: $ 0
-
-          </p>
-
-        </div>
-
-        <ul>
-
-          <li
-            onClick={() => navigate("/")}
-          >
-
-            Início
-
-          </li>
-
-          <li>
-
-            Minha Conta
-
-          </li>
-
-          <li
-            onClick={() =>
-              navigate("/meuspedidos")
-            }
-          >
-
-            Meus Pedidos
-
-          </li>
-
-        </ul>
-
-      </div>
+      <Header
+        sidebarAberta={sidebarAberta}
+        setSidebarAberta={setSidebarAberta}
+        carrinho={carrinho}
+        navigate={navigate}
+      />
 
       <div className="pagina-pedido-detalhe">
-
-        {/* HEADER */}
-
-        <header className="header">
-
-          {/* PERFIL */}
-
-          <div
-
-            className="perfil"
-
-            onClick={() =>
-
-              setSidebarAberta(
-
-                !sidebarAberta
-
-              )
-
-            }
-
-          >
-
-            <div className="foto"></div>
-
-            <div>
-
-              <div className="nome">
-
-                Usuário
-
-              </div>
-
-              <div className="fichas">
-
-                Fichas: $ 0
-
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* TITULO */}
-
-          <h1>
-
-            Sabor Universitário
-
-          </h1>
-
-          {/* CARRINHO */}
-
-          <button
-
-            className="carrinho-btn"
-
-            onClick={() =>
-              navigate("/carrinho")
-            }
-
-          >
-
-            🛒 {
-
-              carrinho.reduce(
-
-                (total, item) => {
-
-                  return (
-
-                    total +
-
-                    item.quantidade
-
-                  );
-
-                },
-
-                0
-
-              )
-
-            }
-
-          </button>
-
-        </header>
 
         {/* TOPO */}
 
@@ -355,13 +256,11 @@ function PedidoFeito() {
 
                 <span>
 
-                  R${
+                  R$
 
-                    item.preco
-                      .toFixed(2)
-                      .replace(".", ",")
-
-                  }
+                  {converterPreco(item.preco)
+                    .toFixed(2)
+                    .replace(".", ",")}
 
                 </span>
 
@@ -387,13 +286,9 @@ function PedidoFeito() {
 
             R$
 
-            {
-
-              pedido.total
-                .toFixed(2)
-                .replace(".", ",")
-
-            }
+            {Number(pedido.total)
+              .toFixed(2)
+              .replace(".", ",")}
 
           </strong>
 

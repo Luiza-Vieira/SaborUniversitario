@@ -8,6 +8,9 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+
 function Pedidos() {
 
   // =========================================
@@ -114,136 +117,21 @@ function Pedidos() {
 
       {/* SIDEBAR */}
 
-      <div
-
-        ref={sidebarRef}
-
-        className={
-          sidebarAberta
-            ? "sidebar ativo"
-            : "sidebar"
-        }
-
-      >
-
-        <div className="sidebar-header">
-
-          <div className="foto"></div>
-
-          <p className="nome">
-
-            Usuário
-
-          </p>
-
-          <p className="fichas">
-
-            Fichas: $ 0
-
-          </p>
-
-        </div>
-
-        <ul>
-
-          <li onClick={() => navigate("/")}>
-
-            Início
-
-          </li>
-
-          <li>
-
-            Minha Conta
-
-          </li>
-
-          <li>
-
-            Meus Pedidos
-
-          </li>
-
-        </ul>
-
-      </div>
+      <Sidebar
+        sidebarAberta={sidebarAberta}
+        sidebarRef={sidebarRef}
+        navigate={navigate}
+        setSidebarAberta={setSidebarAberta}
+      />
 
       {/* HEADER */}
 
-      <header className="header">
-
-        <div
-
-          className="perfil"
-
-          onClick={() =>
-
-            setSidebarAberta(
-              !sidebarAberta
-            )
-
-          }
-
-        >
-
-          <div className="foto"></div>
-
-          <div>
-
-            <p className="nome">
-
-              Usuário
-
-            </p>
-
-            <p className="fichas">
-
-              Fichas: $ 0
-
-            </p>
-
-          </div>
-
-        </div>
-
-        <h1>
-
-          Sabor Universitário
-
-        </h1>
-
-        <button
-
-          className="carrinho-btn"
-
-          onClick={() =>
-            navigate("/carrinho")
-          }
-
-        >
-
-          🛒 {
-
-            carrinho.reduce(
-
-              (total, item) => {
-
-                return (
-                  total +
-                  item.quantidade
-                );
-
-              },
-
-              0
-
-            )
-
-          }
-
-        </button>
-
-      </header>
+      <Header
+        sidebarAberta={sidebarAberta}
+        setSidebarAberta={setSidebarAberta}
+        carrinho={carrinho}
+        navigate={navigate}
+      />
 
       {/* TÍTULO */}
 
@@ -308,7 +196,8 @@ function Pedidos() {
 
                   R$ {
 
-                    pedido.total
+                    Number(pedido.total)
+                      .toFixed(2)
                       .replace(".", ",")
 
                   }

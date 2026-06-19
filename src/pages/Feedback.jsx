@@ -8,6 +8,9 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+
 function Feedback() {
 
   // =====================================
@@ -46,9 +49,7 @@ function Feedback() {
           event.target
         )
       ) {
-
         setSidebarAberta(false);
-
       }
 
     }
@@ -74,11 +75,9 @@ function Feedback() {
   // =====================================
 
   const pedido = JSON.parse(
-
     localStorage.getItem(
       "pedidoSelecionado"
     )
-
   );
 
   // =====================================
@@ -86,11 +85,9 @@ function Feedback() {
   // =====================================
 
   const carrinho = JSON.parse(
-
     localStorage.getItem(
       "carrinho"
     )
-
   ) || [];
 
   // =====================================
@@ -98,8 +95,31 @@ function Feedback() {
   // =====================================
 
   if (!pedido) {
+    return (
+      <h1>
+        Pedido não encontrado
+      </h1>
+    );
+  }
 
-    return <h1>Pedido não encontrado</h1>;
+  // =====================================
+  // CONVERTER PREÇO
+  // =====================================
+
+  function converterPreco(preco) {
+
+    if (typeof preco === "string") {
+
+      return parseFloat(
+        preco
+          .replace("R$", "")
+          .replace(",", ".")
+          .trim()
+      );
+
+    }
+
+    return Number(preco);
 
   }
 
@@ -108,6 +128,48 @@ function Feedback() {
   // =====================================
 
   function enviarFeedback() {
+
+    if (feedback.trim() === "") {
+
+      alert(
+        "Digite uma avaliação antes de enviar."
+      );
+
+      return;
+
+    }
+
+    const feedbacks =
+
+      JSON.parse(
+        localStorage.getItem(
+          "feedbacks"
+        )
+      ) || [];
+
+    const novoFeedback = {
+
+      pedido: pedido.numero,
+
+      comentario: feedback,
+
+      data:
+        new Date().toLocaleDateString(
+          "pt-BR"
+        )
+
+    };
+
+    feedbacks.push(
+      novoFeedback
+    );
+
+    localStorage.setItem(
+      "feedbacks",
+      JSON.stringify(
+        feedbacks
+      )
+    );
 
     alert(
       "Feedback enviado com sucesso!"
@@ -127,170 +189,36 @@ function Feedback() {
 
       {/* SIDEBAR */}
 
-      <div
+      <Sidebar
+        sidebarAberta={sidebarAberta}
+        sidebarRef={sidebarRef}
+        navigate={navigate}
+        setSidebarAberta={setSidebarAberta}
+      />
 
-        ref={sidebarRef}
+      {/* HEADER */}
 
-        className={
-          sidebarAberta
-            ? "sidebar ativo"
-            : "sidebar"
-        }
-
-      >
-
-        <div className="sidebar-header">
-
-          <div className="foto"></div>
-
-          <p className="nome">
-            Usuário
-          </p>
-
-          <p className="fichas">
-            Fichas: $ 0
-          </p>
-
-        </div>
-
-        <ul>
-
-          <li
-            onClick={() => navigate("/")}
-          >
-
-            Início
-
-          </li>
-
-          <li>
-
-            Minha Conta
-
-          </li>
-
-          <li
-            onClick={() =>
-              navigate("/meuspedidos")
-            }
-          >
-
-            Meus Pedidos
-
-          </li>
-
-        </ul>
-
-      </div>
+      <Header
+        sidebarAberta={sidebarAberta}
+        setSidebarAberta={setSidebarAberta}
+        carrinho={carrinho}
+        navigate={navigate}
+      />
 
       {/* PÁGINA */}
 
       <div className="pagina-feedback">
-
-        {/* HEADER */}
-
-        <header className="header">
-
-          {/* PERFIL */}
-
-          <div
-
-            className="perfil"
-
-            onClick={() =>
-
-              setSidebarAberta(
-
-                !sidebarAberta
-
-              )
-
-            }
-
-          >
-
-            <div className="foto"></div>
-
-            <div>
-
-              <div className="nome">
-
-                Usuário
-
-              </div>
-
-              <div className="fichas">
-
-                Fichas: $ 0
-
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* TITULO */}
-
-          <h1>
-
-            Sabor Universitário
-
-          </h1>
-
-          {/* CARRINHO */}
-
-          <button
-
-            className="carrinho-btn"
-
-            onClick={() =>
-              navigate("/carrinho")
-            }
-
-          >
-
-            🛒 {
-
-              carrinho.reduce(
-
-                (total, item) => {
-
-                  return (
-
-                    total +
-
-                    item.quantidade
-
-                  );
-
-                },
-
-                0
-
-              )
-
-            }
-
-          </button>
-
-        </header>
 
         {/* TOPO */}
 
         <div className="pedido-topo">
 
           <h2>
-
             Restaurante universitário
-
           </h2>
 
           <h1>
-
-            Pedido #
-
-            {pedido.numero}
-
+            Pedido #{pedido.numero}
           </h1>
 
         </div>
@@ -300,15 +228,11 @@ function Feedback() {
         <div className="pedido-status">
 
           <span className="texto-status">
-
             Status do pedido:
-
           </span>
 
           <span className="status-verde">
-
             Pedido entregue
-
           </span>
 
         </div>
@@ -322,23 +246,17 @@ function Feedback() {
           <div className="pedido-header">
 
             <h3>
-
               Detalhes do pedido
-
             </h3>
 
             <div className="pedido-colunas">
 
               <span>
-
                 Quantidade
-
               </span>
 
               <span>
-
                 Preço unitário
-
               </span>
 
             </div>
@@ -348,17 +266,12 @@ function Feedback() {
           {/* ITENS */}
 
           {
-
             pedido.itens.map(
-
               (item, index) => (
 
                 <div
-
                   className="pedido-item"
-
                   key={index}
-
                 >
 
                   {/* ESQUERDA */}
@@ -366,20 +279,15 @@ function Feedback() {
                   <div className="pedido-esquerda">
 
                     <div
-
                       className="pedido-img"
-
                       style={{
                         backgroundImage:
                           `url(${item.imagem})`
                       }}
-
                     />
 
                     <p>
-
                       {item.nome}
-
                     </p>
 
                   </div>
@@ -389,19 +297,18 @@ function Feedback() {
                   <div className="pedido-direita">
 
                     <span>
-
                       {item.quantidade}
-
                     </span>
 
                     <span>
+                      R$
 
-                      R${
-
-                        item.preco
+                      {
+                        converterPreco(
+                          item.preco
+                        )
                           .toFixed(2)
                           .replace(".", ",")
-
                       }
 
                     </span>
@@ -411,9 +318,7 @@ function Feedback() {
                 </div>
 
               )
-
             )
-
           }
 
         </div>
@@ -423,9 +328,7 @@ function Feedback() {
         <div className="pedido-total">
 
           <span>
-
             Valor Total:
-
           </span>
 
           <strong>
@@ -433,11 +336,9 @@ function Feedback() {
             R$
 
             {
-
-              pedido.total
+              Number(pedido.total)
                 .toFixed(2)
                 .replace(".", ",")
-
             }
 
           </strong>
@@ -446,49 +347,37 @@ function Feedback() {
 
         {/* FEEDBACK */}
 
-       <div className="feedback-container">
+        <div className="feedback-container">
 
-  <h2 className="feedback-titulo">
+          <div className="feedback-titulo">
+            Deseja avaliar a sua compra?
+          </div>
 
-    Deseja avaliar a sua compra?
+          <div className="feedback-box">
 
-  </h2>
+            <textarea
+              className="feedback-textarea"
+              value={feedback}
+              onChange={(e) =>
+                setFeedback(
+                  e.target.value
+                )
+              }
+              placeholder="Digite aqui sua avaliação..."
+            />
 
-  <div className="feedback-box">
+          </div>
 
-    <textarea
+          <button
+            className="btn-feedback"
+            onClick={enviarFeedback}
+          >
 
-      className="feedback-textarea"
+            Enviar avaliação
 
-      value={feedback}
+          </button>
 
-      onChange={(e) =>
-
-        setFeedback(
-          e.target.value
-        )
-
-      }
-
-      placeholder="Digite aqui sua avaliação..."
-
-    />
-
-  </div>
-
-  <button
-
-    className="btn-feedback"
-
-    onClick={enviarFeedback}
-
-  >
-
-    Enviar avaliação
-
-  </button>
-
-</div>
+        </div>
 
       </div>
 
