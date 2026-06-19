@@ -1,0 +1,181 @@
+/* ===================================== */
+/* CARRINHO + RESUMO */
+/* ===================================== */
+
+.pagina-resumo {
+  min-height: 100vh;
+  background: #ececec;
+}
+
+.resumo-subtitulo {
+  width: 100%;
+  text-align: center;
+  color: #fa8006;
+  font-size: 30px;
+  font-family: "Gabriela", serif;
+  margin-top: 18px;
+  margin-bottom: 28px;
+}
+
+.resumo-titulo-box {
+  width: 100%;
+  padding: 22px 35px;
+  box-sizing: border-box;
+}
+
+.resumo-titulo-box h2 {
+  margin: 0;
+  font-size: 35px;
+  color: black;
+  font-family: "Alike", serif;
+  font-weight: normal;
+}
+
+.box-carrinho,
+.resumo-box {
+  width: 100%;
+  background: #edc29c;
+  padding: 40px 35px 35px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.item-carrinho,
+.resumo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+}
+
+.resumo-esquerda {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.resumo-img {
+  width: 95px;
+  height: 72px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: white;
+}
+
+.resumo-info h3 {
+  margin: 0;
+  color: black;
+  font-size: 24px;
+  font-family: Georgia, serif;
+}
+
+.resumo-direita {
+  display: flex;
+  align-items: center;
+  gap: 70px;
+}
+
+.resumo-preco {
+  margin: 0;
+  color: black;
+  font-size: 24px;
+  font-family: Gabriela, serif;
+}
+
+.resumo-controle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.resumo-controle button {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: white;
+  color: #ef7423;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.resumo-controle span {
+  width: 55px;
+  height: 22px;
+  background: white;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+.resumo-observacao {
+  margin-top: 16px;
+  color: black;
+  font-size: 22px;
+  font-family: Georgia, serif;
+}
+
+.total,
+.resumo-total {
+  width: fit-content;
+  margin-left: auto;
+  margin-top: 22px;
+  background: #ff985c;
+  padding: 12px 28px;
+  border-radius: 24px;
+  color: black;
+  font-size: 24px;
+}
+
+.footer,
+.resumo-footer {
+  width: 100%;
+  padding: 26px 35px 40px;
+  box-sizing: border-box;
+}
+
+.footer a,
+.resumo-footer a {
+  color: #f5670e;
+  font-size: 22px;
+  font-family: Alike, serif;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.pagamento,
+.resumo-pagamento {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select-pagamento,
+.resumo-select {
+  width: 560px;
+  height: 42px;
+  background: #f28e4c;
+  border: none;
+  padding: 0 14px;
+  color: black;
+  font-size: 20px;
+  outline: none;
+}
+
+.btn-proximo,
+.resumo-btn {
+  width: 260px;
+  height: 54px;
+  border: none;
+  border-radius: 20px;
+  background: #4a2400;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+}
