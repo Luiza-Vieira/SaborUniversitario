@@ -1,9 +1,59 @@
-import { useState } from "react";
+import "../styles/carrinho.css";
+
+import {
+  useState,
+  useEffect,
+  useRef
+} from "react";
+
 import { useNavigate } from "react-router-dom";
+
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
 
 function ResumoPedido() {
 
   const navigate = useNavigate();
+
+  // =====================================
+  // SIDEBAR
+  // =====================================
+
+  const [sidebarAberta, setSidebarAberta] =
+    useState(false);
+
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+
+    function fecharSidebar(event) {
+
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(
+          event.target
+        )
+      ) {
+        setSidebarAberta(false);
+      }
+
+    }
+
+    document.addEventListener(
+      "mousedown",
+      fecharSidebar
+    );
+
+    return () => {
+
+      document.removeEventListener(
+        "mousedown",
+        fecharSidebar
+      );
+
+    };
+
+  }, []);
 
   // =====================================
   // PEGAR PEDIDO
@@ -32,9 +82,7 @@ function ResumoPedido() {
             marginTop: "100px"
           }}
         >
-
           Nenhum pedido encontrado
-
         </h1>
 
       </div>
@@ -57,9 +105,7 @@ function ResumoPedido() {
       pedido.itens.reduce(
 
         (total, item) => {
-
           return total + item.quantidade;
-
         },
 
         0
@@ -74,26 +120,22 @@ function ResumoPedido() {
 
   function atualizarDados(novosItens) {
 
-    // atualiza itens
     setItens([...novosItens]);
 
-    // atualiza carrinho badge
+    const novaQuantidade =
+      novosItens.reduce(
 
-    const novaQuantidade = novosItens.reduce(
+        (total, item) => {
+          return total + item.quantidade;
+        },
 
-      (total, item) => {
+        0
 
-        return total + item.quantidade;
+      );
 
-      },
-
-      0
-
+    setQuantidadeCarrinho(
+      novaQuantidade
     );
-
-    setQuantidadeCarrinho(novaQuantidade);
-
-    // atualiza pedidoAtual
 
     const pedidoAtualizado = {
 
@@ -104,21 +146,13 @@ function ResumoPedido() {
     };
 
     localStorage.setItem(
-
       "pedidoAtual",
-
       JSON.stringify(pedidoAtualizado)
-
     );
 
-    // atualiza carrinho
-
     localStorage.setItem(
-
       "carrinho",
-
       JSON.stringify(novosItens)
-
     );
 
   }
@@ -148,9 +182,7 @@ function ResumoPedido() {
     novosItens[index].quantidade -= 1;
 
     novosItens = novosItens.filter(
-
       (item) => item.quantidade > 0
-
     );
 
     atualizarDados(novosItens);
@@ -170,17 +202,15 @@ function ResumoPedido() {
         typeof item.preco === "string"
 
           ? parseFloat(
-
               item.preco
                 .replace("R$ ", "")
                 .replace(",", ".")
-
             )
 
           : Number(item.preco);
 
       return soma +
-        (preco * item.quantidade);
+        preco * item.quantidade;
 
     },
 
@@ -189,7 +219,7 @@ function ResumoPedido() {
   );
 
   // =====================================
-  // CONFIRMAR
+  // CONFIRMAR PEDIDO
   // =====================================
 
   function confirmarPedido() {
@@ -210,47 +240,16 @@ function ResumoPedido() {
           "pt-BR"
         ),
 
-      itens: itens.map((item) => {
+      itens,
 
-        const precoNumerico =
-
-          typeof item.preco === "string"
-
-            ? parseFloat(
-
-                item.preco
-                  .replace("R$ ", "")
-                  .replace(",", ".")
-
-              )
-
-            : Number(item.preco);
-
-        return {
-
-          ...item,
-
-          preco: precoNumerico
-
-        };
-
-      }),
-
-      total: total
+      total
 
     };
 
-    // salva pedido atual
-
     localStorage.setItem(
-
       "pedidoAtual",
-
       JSON.stringify(pedidoFinal)
-
     );
-
-    // pega pedidos antigos
 
     const pedidosAntigos =
 
@@ -258,25 +257,18 @@ function ResumoPedido() {
         localStorage.getItem("pedidos")
       ) || [];
 
-    // adiciona novo pedido
-
-    pedidosAntigos.push(pedidoFinal);
-
-    // salva pedidos
-
-    localStorage.setItem(
-
-      "pedidos",
-
-      JSON.stringify(pedidosAntigos)
-
+    pedidosAntigos.push(
+      pedidoFinal
     );
 
-    // limpa carrinho
+    localStorage.setItem(
+      "pedidos",
+      JSON.stringify(pedidosAntigos)
+    );
 
-    localStorage.removeItem("carrinho");
-
-    // navega
+    localStorage.removeItem(
+      "carrinho"
+    );
 
     navigate("/pedidofeito");
 
@@ -290,45 +282,29 @@ function ResumoPedido() {
 
     <div className="pagina-resumo">
 
-      {/* HEADER */}
+      <Sidebar
+        sidebarAberta={sidebarAberta}
+        sidebarRef={sidebarRef}
+        navigate={navigate}
+        setSidebarAberta={setSidebarAberta}
+      />
 
-      <header className="header">
-
-        <h1>
-          Sabor Universitário
-        </h1>
-
-        {/* CARRINHO */}
-
-        <button
-          className="carrinho-btn"
-        >
-
-          🛒 {quantidadeCarrinho}
-
-        </button>
-
-      </header>
-
-      {/* SUBTITULO */}
+      <Header
+        sidebarAberta={sidebarAberta}
+        setSidebarAberta={setSidebarAberta}
+        carrinho={itens}
+        navigate={navigate}
+      />
 
       <div className="resumo-subtitulo">
-
         Restaurante universitário
-
       </div>
 
-      {/* TITULO */}
-
       <div className="resumo-titulo-box">
-
         <h2>
           Resumo do pedido
         </h2>
-
       </div>
-
-      {/* BOX */}
 
       <div className="resumo-box">
 
@@ -341,11 +317,9 @@ function ResumoPedido() {
               typeof produto.preco === "string"
 
                 ? parseFloat(
-
                     produto.preco
                       .replace("R$ ", "")
                       .replace(",", ".")
-
                   )
 
                 : Number(produto.preco);
@@ -357,36 +331,25 @@ function ResumoPedido() {
                 key={index}
               >
 
-                {/* ESQUERDA */}
-
                 <div className="resumo-esquerda">
 
                   <div
-
                     className="resumo-img"
-
                     style={{
-
                       backgroundImage:
                         `url(${produto.imagem})`
-
                     }}
-
                   ></div>
 
                   <div className="resumo-info">
 
                     <h3>
-
                       {produto.nome}
-
                     </h3>
 
                   </div>
 
                 </div>
-
-                {/* DIREITA */}
 
                 <div className="resumo-direita">
 
@@ -406,8 +369,6 @@ function ResumoPedido() {
 
                   </p>
 
-                  {/* CONTROLE */}
-
                   <div className="resumo-controle">
 
                     <button
@@ -419,9 +380,7 @@ function ResumoPedido() {
                     </button>
 
                     <span>
-
                       {produto.quantidade}
-
                     </span>
 
                     <button
@@ -444,15 +403,9 @@ function ResumoPedido() {
 
         }
 
-        {/* OBSERVAÇÃO */}
-
         <p className="resumo-observacao">
-
           Observação:
-
         </p>
-
-        {/* TOTAL */}
 
         {
 
@@ -476,14 +429,10 @@ function ResumoPedido() {
 
       </div>
 
-      {/* FOOTER */}
-
       <div className="resumo-footer">
 
         <a href="/">
-
           Adicionar mais produtos ao carrinho
-
         </a>
 
         <div className="resumo-pagamento">
@@ -505,15 +454,10 @@ function ResumoPedido() {
           </select>
 
           <button
-
             className="resumo-btn"
-
             onClick={confirmarPedido}
-
           >
-
             CONFIRMAR
-
           </button>
 
         </div>

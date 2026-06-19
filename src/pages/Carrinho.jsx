@@ -1,4 +1,4 @@
-import "../index.css";
+import "../styles/carrinho.css";
 
 import {
   useState,
@@ -7,6 +7,9 @@ import {
 } from "react";
 
 import { useNavigate } from "react-router-dom";
+
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
 
 function Carrinho() {
 
@@ -23,14 +26,10 @@ function Carrinho() {
   const [sidebarAberta, setSidebarAberta] =
     useState(false);
 
-  // =====================================
-  // REF SIDEBAR
-  // =====================================
-
   const sidebarRef = useRef(null);
 
   // =====================================
-  // FECHAR SIDEBAR AO CLICAR FORA
+  // FECHAR SIDEBAR
   // =====================================
 
   useEffect(() => {
@@ -43,9 +42,7 @@ function Carrinho() {
           event.target
         )
       ) {
-
         setSidebarAberta(false);
-
       }
 
     }
@@ -67,7 +64,7 @@ function Carrinho() {
   }, []);
 
   // =====================================
-  // STATE DO CARRINHO
+  // CARRINHO
   // =====================================
 
   const [carrinho, setCarrinho] =
@@ -83,7 +80,20 @@ function Carrinho() {
     });
 
   // =====================================
-  // AUMENTAR QUANTIDADE
+  // SALVAR NO LOCALSTORAGE
+  // =====================================
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "carrinho",
+      JSON.stringify(carrinho)
+    );
+
+  }, [carrinho]);
+
+  // =====================================
+  // AUMENTAR
   // =====================================
 
   function aumentar(index) {
@@ -94,15 +104,10 @@ function Carrinho() {
 
     setCarrinho(novoCarrinho);
 
-    localStorage.setItem(
-      "carrinho",
-      JSON.stringify(novoCarrinho)
-    );
-
   }
 
   // =====================================
-  // DIMINUIR QUANTIDADE
+  // DIMINUIR
   // =====================================
 
   function diminuir(index) {
@@ -113,22 +118,15 @@ function Carrinho() {
 
     const carrinhoFiltrado =
       novoCarrinho.filter(
-
         (item) => item.quantidade > 0
-
       );
 
     setCarrinho(carrinhoFiltrado);
 
-    localStorage.setItem(
-      "carrinho",
-      JSON.stringify(carrinhoFiltrado)
-    );
-
   }
 
   // =====================================
-  // CALCULAR TOTAL
+  // TOTAL
   // =====================================
 
   const total = carrinho.reduce(
@@ -140,29 +138,20 @@ function Carrinho() {
       if (typeof produto.preco === "string") {
 
         preco = parseFloat(
-
           produto.preco
             .replace("R$", "")
             .replace(",", ".")
             .trim()
-
         );
 
-      }
-
-      else {
+      } else {
 
         preco = Number(produto.preco);
 
       }
 
-      return soma + (
-
-        preco *
-
-        Number(produto.quantidade)
-
-      );
+      return soma +
+        preco * Number(produto.quantidade);
 
     },
 
@@ -179,7 +168,6 @@ function Carrinho() {
     if (carrinho.length === 0) {
 
       alert("Seu carrinho está vazio!");
-
       return;
 
     }
@@ -187,17 +175,15 @@ function Carrinho() {
     const novoPedido = {
 
       numero:
-
         Math.floor(
           1000 + Math.random() * 9000
         ),
 
       status: "Em preparo",
 
-      total: total,
+      total,
 
       data:
-
         new Date().toLocaleDateString(
           "pt-BR"
         ),
@@ -207,11 +193,8 @@ function Carrinho() {
     };
 
     localStorage.setItem(
-
       "pedidoAtual",
-
       JSON.stringify(novoPedido)
-
     );
 
     navigate("/resumo");
@@ -226,266 +209,96 @@ function Carrinho() {
 
     <>
 
-      {/* SIDEBAR */}
+      <Sidebar
+        sidebarAberta={sidebarAberta}
+        sidebarRef={sidebarRef}
+        navigate={navigate}
+        setSidebarAberta={setSidebarAberta}
+      />
 
-      <div
-
-        ref={sidebarRef}
-
-        className={
-          sidebarAberta
-            ? "sidebar ativo"
-            : "sidebar"
-        }
-
-      >
-
-        <div className="sidebar-header">
-
-          <div className="foto"></div>
-
-          <p className="nome">
-
-            Usuário
-
-          </p>
-
-          <p className="fichas">
-
-            Fichas: $ 0
-
-          </p>
-
-        </div>
-
-        <ul>
-
-          <li
-            onClick={() => {
-
-              navigate("/");
-
-              setSidebarAberta(false);
-
-            }}
-          >
-
-            Início
-
-          </li>
-
-          <li>
-
-            Minha Conta
-
-          </li>
-
-          <li
-            onClick={() => {
-
-              navigate("/meuspedidos");
-
-              setSidebarAberta(false);
-
-            }}
-          >
-
-            Meus Pedidos
-
-          </li>
-
-        </ul>
-
-      </div>
-
-      {/* HEADER */}
-
-      <header className="header">
-
-        <div
-
-          className="perfil"
-
-          onClick={() =>
-
-            setSidebarAberta(
-
-              !sidebarAberta
-
-            )
-
-          }
-
-        >
-
-          <div className="foto"></div>
-
-          <div>
-
-            <p className="nome">
-              Usuário
-            </p>
-
-            <p className="fichas">
-              Fichas: $ 0
-            </p>
-
-          </div>
-
-        </div>
-
-        <h1>
-          Sabor Universitário
-        </h1>
-
-        <button
-          className="carrinho-btn"
-        >
-
-          🛒 {
-
-            carrinho.reduce(
-
-              (total, item) => {
-
-                return (
-                  total +
-                  item.quantidade
-                );
-
-              },
-
-              0
-
-            )
-
-          }
-
-        </button>
-
-      </header>
-
-      {/* SUBTITULO */}
+      <Header
+        sidebarAberta={sidebarAberta}
+        setSidebarAberta={setSidebarAberta}
+        carrinho={carrinho}
+        navigate={navigate}
+      />
 
       <h2 className="resumo-subtitulo">
-
         Restaurante universitário
-
       </h2>
 
-      {/* TITULO */}
-
       <div className="resumo-titulo-box">
-
         <h2>
           Resumo do pedido
         </h2>
-
       </div>
 
-      {/* BOX DO CARRINHO */}
+      {/* CARRINHO */}
 
       <div className="box-carrinho">
 
         {
 
-          carrinho.map((produto, index) => {
+          carrinho.map((produto, index) => (
 
-            return (
+            <div
+              className="item-carrinho"
+              key={index}
+            >
 
-              <div
-                className="item-carrinho"
-                key={index}
-              >
+              <div className="resumo-esquerda">
 
-                {/* ESQUERDA */}
+                <div
+                  className="resumo-img"
+                  style={{
+                    backgroundImage:
+                      `url(${produto.imagem})`
+                  }}
+                ></div>
 
-                <div className="resumo-esquerda">
-
-                  <div
-
-                    className="resumo-img"
-
-                    style={{
-
-                      backgroundImage:
-                        `url(${produto.imagem})`
-
-                    }}
-
-                  ></div>
-
-                  <div className="resumo-info">
-
-                    <h3>
-
-                      {produto.nome}
-
-                    </h3>
-
-                  </div>
-
+                <div className="resumo-info">
+                  <h3>{produto.nome}</h3>
                 </div>
 
-                {/* DIREITA */}
+              </div>
 
-                <div className="resumo-direita">
+              <div className="resumo-direita">
 
-                  <p className="resumo-preco">
+                <p className="resumo-preco">
+                  {produto.preco}
+                </p>
 
-                    {
+                <div className="resumo-controle">
 
-                      typeof produto.preco === "number"
-
-                        ? `R$ ${produto.preco
-                            .toFixed(2)
-                            .replace(".", ",")}`
-
-                        : produto.preco
-
+                  <button
+                    onClick={() =>
+                      diminuir(index)
                     }
+                  >
+                    -
+                  </button>
 
-                  </p>
+                  <span>
+                    {produto.quantidade}
+                  </span>
 
-                  {/* CONTROLE */}
-
-                  <div className="resumo-controle">
-
-                    <button
-                      onClick={() =>
-                        diminuir(index)
-                      }
-                    >
-                      -
-                    </button>
-
-                    <span>
-
-                      {produto.quantidade}
-
-                    </span>
-
-                    <button
-                      onClick={() =>
-                        aumentar(index)
-                      }
-                    >
-                      +
-                    </button>
-
-                  </div>
+                  <button
+                    onClick={() =>
+                      aumentar(index)
+                    }
+                  >
+                    +
+                  </button>
 
                 </div>
 
               </div>
 
-            );
+            </div>
 
-          })
+          ))
 
         }
-
-        {/* TOTAL */}
 
         {
 
@@ -514,81 +327,55 @@ function Carrinho() {
       <div className="footer">
 
         <a href="/">
-
           Adicionar mais produtos ao carrinho
-
         </a>
 
         <div className="pagamento">
 
-          {/* SELECT */}
-
           <div className="pagamento-cartao-box">
 
             <select
-
               className="select-pagamento"
-
               onChange={(e) => {
 
                 if (
                   e.target.value === "novo-cartao"
                 ) {
-
                   navigate("/cartao");
-
                 }
 
               }}
-
             >
 
               <option value="dinheiro">
-
                 Dinheiro
-
               </option>
 
               <option value="pix">
-
                 Pix
-
               </option>
 
               <option value="credito">
-
                 Cartão de crédito
-
               </option>
 
               <option value="debito">
-
                 Cartão de débito
-
               </option>
 
               <option value="novo-cartao">
-
                 + Adicionar novo cartão
-
               </option>
 
             </select>
 
           </div>
 
-          {/* BOTÃO */}
-
           <button
-
             className="btn-proximo"
-
             onClick={finalizarPedido}
-
           >
-
             Finalizar Pedido
-
           </button>
 
         </div>

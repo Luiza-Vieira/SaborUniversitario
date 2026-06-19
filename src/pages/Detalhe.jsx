@@ -13,6 +13,9 @@ import {
 
 import { produtos } from "../data/produtos";
 
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+
 function Detalhe() {
 
   // =====================================
@@ -113,8 +116,6 @@ function Detalhe() {
 
     setCarrinho((carrinhoAtual) => {
 
-      // verifica se produto já existe
-
       const produtoExiste =
         carrinhoAtual.find(
 
@@ -123,12 +124,10 @@ function Detalhe() {
 
         );
 
-      // se já existe -> aumenta quantidade
-
+      // se já existe
       if (produtoExiste) {
 
         return carrinhoAtual.map(
-
           (item) => {
 
             if (
@@ -149,23 +148,18 @@ function Detalhe() {
             return item;
 
           }
-
         );
 
       }
 
-      // se não existe -> adiciona novo
-
+      // se não existe
       return [
 
         ...carrinhoAtual,
 
         {
-
           ...produto,
-
           quantidade: 1
-
         }
 
       ];
@@ -184,142 +178,23 @@ function Detalhe() {
 
     <>
 
-      {/* SIDEBAR */}
+      {/* SIDEBAR COMPONENTE */}
 
-      <div
+      <Sidebar
+        sidebarAberta={sidebarAberta}
+        sidebarRef={sidebarRef}
+        navigate={navigate}
+        setSidebarAberta={setSidebarAberta}
+      />
 
-        ref={sidebarRef}
+      {/* HEADER COMPONENTE */}
 
-        className={
-          sidebarAberta
-            ? "sidebar ativo"
-            : "sidebar"
-        }
-
-      >
-
-        <div className="sidebar-header">
-
-          <div className="foto"></div>
-
-          <p className="nome">
-
-            Usuário
-
-          </p>
-
-          <p className="fichas">
-
-            Fichas: $ 0
-
-          </p>
-
-        </div>
-
-        <ul>
-
-          <li
-            onClick={() => navigate("/")}
-          >
-            Início
-          </li>
-
-          <li>
-            Minha Conta
-          </li>
-
-          <li
-            onClick={() =>
-              navigate("/meuspedidos")
-            }
-          >
-            Meus Pedidos
-          </li>
-
-        </ul>
-
-      </div>
-
-      {/* HEADER */}
-
-      <header className="header">
-
-        <div
-
-          className="perfil"
-
-          onClick={() =>
-
-            setSidebarAberta(
-
-              !sidebarAberta
-
-            )
-
-          }
-
-        >
-
-          <div className="foto"></div>
-
-          <div>
-
-            <p className="nome">
-
-              Usuário
-
-            </p>
-
-            <p className="fichas">
-
-              Fichas: $ 0
-
-            </p>
-
-          </div>
-
-        </div>
-
-        <h1>
-
-          Sabor Universitário
-
-        </h1>
-
-        {/* CARRINHO */}
-
-        <button
-
-          className="carrinho-btn"
-
-          onClick={() =>
-            navigate("/carrinho")
-          }
-
-        >
-
-          🛒 {
-
-            carrinho.reduce(
-
-              (total, item) => {
-
-                return (
-                  total +
-                  item.quantidade
-                );
-
-              },
-
-              0
-
-            )
-
-          }
-
-        </button>
-
-      </header>
+      <Header
+        sidebarAberta={sidebarAberta}
+        setSidebarAberta={setSidebarAberta}
+        carrinho={carrinho}
+        navigate={navigate}
+      />
 
       {/* TÍTULO */}
 

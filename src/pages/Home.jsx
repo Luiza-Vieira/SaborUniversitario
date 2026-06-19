@@ -10,6 +10,10 @@ import { useNavigate } from "react-router-dom";
 
 import { produtos } from "../data/produtos";
 
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import ProductCard from "../components/ProductCard";
+
 function Home() {
 
   // =========================================
@@ -20,7 +24,6 @@ function Home() {
 
   // =========================================
   // STATE DA SIDEBAR
-  // controla se está aberta ou fechada
   // =========================================
 
   const [sidebarAberta, setSidebarAberta] =
@@ -28,14 +31,12 @@ function Home() {
 
   // =========================================
   // REFERÊNCIA DA SIDEBAR
-  // useRef permite acessar HTML diretamente
   // =========================================
 
   const sidebarRef = useRef(null);
 
   // =========================================
   // STATE DAS QUANTIDADES
-  // guarda quantidade de cada produto
   // =========================================
 
   const [quantidades, setQuantidades] =
@@ -43,7 +44,6 @@ function Home() {
 
   // =========================================
   // STATE DO CARRINHO
-  // começa lendo localStorage
   // =========================================
 
   const [carrinho, setCarrinho] =
@@ -83,8 +83,6 @@ function Home() {
       "mousedown",
       fecharSidebar
     );
-
-    // limpeza automática
 
     return () => {
 
@@ -140,13 +138,9 @@ function Home() {
 
   function adicionarCarrinho(produto) {
 
-    // pega quantidade atual
-
     const quantidadeAtual =
 
       quantidades[produto.nome] || 1;
-
-    // cria produto completo
 
     const novoProduto = {
 
@@ -156,8 +150,6 @@ function Home() {
 
     };
 
-    // cria novo array
-
     const novoCarrinho = [
 
       ...carrinho,
@@ -166,11 +158,7 @@ function Home() {
 
     ];
 
-    // atualiza state
-
     setCarrinho(novoCarrinho);
-
-    // salva localStorage
 
     localStorage.setItem(
 
@@ -193,163 +181,29 @@ function Home() {
     <>
 
       {/* SIDEBAR */}
-
-      <div
-
-        ref={sidebarRef}
-
-        className={
-          sidebarAberta
-            ? "sidebar ativo"
-            : "sidebar"
-        }
-
-      >
-
-        <div className="sidebar-header">
-
-          <div className="foto"></div>
-
-          <p className="nome">
-
-            Usuário
-
-          </p>
-
-          <p className="fichas">
-
-            Fichas: $ 0
-
-          </p>
-
-        </div>
-
-        <ul>
-
-          <li
-            onClick={() => navigate("/")}
-          >
-
-            Início
-
-          </li>
-
-          <li>
-
-            Minha Conta
-
-          </li>
-
-          <li
-            onClick={() =>
-              navigate("/meuspedidos")
-            }
-          >
-
-            Meus Pedidos
-
-          </li>
-
-        </ul>
-
-      </div>
+      <Sidebar
+        sidebarAberta={sidebarAberta}
+        sidebarRef={sidebarRef}
+        navigate={navigate}
+        setSidebarAberta={setSidebarAberta}
+      />
 
       {/* HEADER */}
-
-      <header className="header">
-
-        <div
-
-          className="perfil"
-
-          onClick={() =>
-
-            setSidebarAberta(
-
-              !sidebarAberta
-
-            )
-
-          }
-
-        >
-
-          <div className="foto"></div>
-
-          <div>
-
-            <p className="nome">
-
-              Usuário
-
-            </p>
-
-            <p className="fichas">
-
-              Fichas: $ 0
-
-            </p>
-
-          </div>
-
-        </div>
-
-        <h1>
-
-          Sabor Universitário
-
-        </h1>
-
-        {/* BOTÃO CARRINHO */}
-
-        <button
-
-          className="carrinho-btn"
-
-          onClick={() =>
-            navigate("/carrinho")
-          }
-
-        >
-
-          🛒 {
-
-            carrinho.reduce(
-
-              (total, item) => {
-
-                return (
-
-                  total +
-
-                  item.quantidade
-
-                );
-
-              },
-
-              0
-
-            )
-
-          }
-
-        </button>
-
-      </header>
+      <Header
+        sidebarAberta={sidebarAberta}
+        setSidebarAberta={setSidebarAberta}
+        carrinho={carrinho}
+        navigate={navigate}
+      />
 
       {/* TÍTULO */}
-
       <h2 className="titulo">
 
         Restaurante Universitário
 
       </h2>
 
-      {/* ========================= */}
       {/* BEBIDAS */}
-      {/* ========================= */}
-
       <section>
 
         <h3 className="categoria">
@@ -366,126 +220,17 @@ function Home() {
 
               (produto, index) => (
 
-                <div
-
-                  className="card"
-
+                <ProductCard
                   key={index}
-
-                >
-
-                <div
-
-                  className="img-produto"
-
-                  style={{
-
-                    backgroundImage:
-                      `url(${produto.imagem})`
-
-                  }}
-
-                  onClick={() =>
-
-                    navigate(
-
-                      `/detalhe/bebidas/${index}`
-
-                    )
-
-                  }
-
-                ></div>
-
-                  <h4>
-
-                    {produto.nome}
-
-                  </h4>
-
-                  <p>
-
-                    {produto.preco}
-
-                  </p>
-
-                  {/* CONTROLE */}
-
-                  <div className="controle">
-
-                    <button
-
-                      onClick={() =>
-
-                        diminuir(
-
-                          produto.nome
-
-                        )
-
-                      }
-
-                    >
-
-                      -
-
-                    </button>
-
-                    <span>
-
-                      {
-
-                        quantidades[
-                          produto.nome
-                        ] || 1
-
-                      }
-
-                    </span>
-
-                    <button
-
-                      onClick={() =>
-
-                        aumentar(
-
-                          produto.nome
-
-                        )
-
-                      }
-
-                    >
-
-                      +
-
-                    </button>
-
-                  </div>
-
-                  {/* BOTÃO */}
-
-                  <button
-
-                    className="btn"
-
-                    onClick={() =>
-
-                      adicionarCarrinho(
-
-                        produto
-
-                      )
-
-                    }
-
-                  >
-
-                    Adicionar
-
-                  </button>
-
-                </div>
+                  produto={produto}
+                  index={index}
+                  categoria="bebidas"
+                  quantidades={quantidades}
+                  aumentar={aumentar}
+                  diminuir={diminuir}
+                  adicionarCarrinho={adicionarCarrinho}
+                  navigate={navigate}
+                />
 
               )
 
@@ -497,10 +242,7 @@ function Home() {
 
       </section>
 
-      {/* ========================= */}
       {/* SALGADOS */}
-      {/* ========================= */}
-
       <section>
 
         <h3 className="categoria">
@@ -517,126 +259,17 @@ function Home() {
 
               (produto, index) => (
 
-                <div
-
-                  className="card"
-
+                <ProductCard
                   key={index}
-
-                >
-
-                  <div
-
-                    className="img-produto"
-
-                    style={{
-
-                      backgroundImage:
-                        `url(${produto.imagem})`
-
-                    }}
-
-                    onClick={() =>
-
-                      navigate(
-
-                        `/detalhe/salgados/${index}`
-
-                      )
-
-                    }
-
-                  ></div>
-
-                  <h4>
-
-                    {produto.nome}
-
-                  </h4>
-
-                  <p>
-
-                    {produto.preco}
-
-                  </p>
-
-                  {/* CONTROLE */}
-
-                  <div className="controle">
-
-                    <button
-
-                      onClick={() =>
-
-                        diminuir(
-
-                          produto.nome
-
-                        )
-
-                      }
-
-                    >
-
-                      -
-
-                    </button>
-
-                    <span>
-
-                      {
-
-                        quantidades[
-                          produto.nome
-                        ] || 1
-
-                      }
-
-                    </span>
-
-                    <button
-
-                      onClick={() =>
-
-                        aumentar(
-
-                          produto.nome
-
-                        )
-
-                      }
-
-                    >
-
-                      +
-
-                    </button>
-
-                  </div>
-
-                  {/* BOTÃO */}
-
-                  <button
-
-                    className="btn"
-
-                    onClick={() =>
-
-                      adicionarCarrinho(
-
-                        produto
-
-                      )
-
-                    }
-
-                  >
-
-                    Adicionar
-
-                  </button>
-
-                </div>
+                  produto={produto}
+                  index={index}
+                  categoria="salgados"
+                  quantidades={quantidades}
+                  aumentar={aumentar}
+                  diminuir={diminuir}
+                  adicionarCarrinho={adicionarCarrinho}
+                  navigate={navigate}
+                />
 
               )
 
