@@ -12,8 +12,8 @@ function SenhaSucesso() {
                 <h1>Sabor Universitário</h1>
             </header>
             <main>
-                <form>
-                    <div class="login">
+                <form className="form">
+                    <div className="login">
                         <h2>Redefinir Senha</h2>
                         <br />
                         <div>

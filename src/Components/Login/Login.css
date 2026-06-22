@@ -15,7 +15,7 @@ h1 {
     flex: 2;
 }
 
-form {
+.form {
     display: grid;
     place-items: center;
     height: 66vh;
@@ -29,7 +29,7 @@ form {
 }
 
 
-input {
+.login input {
     padding: 0.7em;
     border-radius: 0.5em;
     border: none;

@@ -5,3 +5,17 @@
     font-family: "Arbutus Slab";
     margin: 2em 1em;
 }
+
+h2#formapag+div {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.pagamento {
+    font-family: "Arbutus Slab";
+    color: #828282;
+    font-weight: bold;
+    font-size: 1.4rem;
+
+}

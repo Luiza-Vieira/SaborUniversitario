@@ -13,6 +13,7 @@ import Login from './Components/Login/Login'
 import EsqueceuSenha from './Components/EsqueceuSenha/EsqueceuSenha'
 import RedefinirSenha from './Components/RedefinirSenha/RedefinirSenha'
 import SenhaSucesso from './Components/SenhaSucesso/SenhaSucesso'
+import Switch from './Components/Switch/switch'
 
 
 
@@ -29,6 +30,8 @@ import PaginaInicial from './Pages/Cliente/PaginaInicialCliente/PaginaInicial'
 
 import Header_Empresa from './Pages/Empresa/Header_Empresa/Header_Empresa'
 import TipoDeFormaPagamento from './Pages/Empresa/TipoDeFormaPagamento/TipoDeFormaPagamento'
+import Forma_de_Recebimento2 from './Pages/Empresa/Forma_de_RecebimentoTrans/Forma_de_RecebimentoTrans'
+import Forma_de_RecebimentoTrans from './Pages/Empresa/Forma_de_RecebimentoTrans/Forma_de_RecebimentoTrans'
 
 //FUNCIONARIO
 
@@ -45,6 +48,7 @@ function App() {
           <Route path='/EsqueceuSenha' element={<EsqueceuSenha />} />
           <Route path='/RedefinirSenha' element={<RedefinirSenha />} />
           <Route path='/SenhaSucesso' element={<SenhaSucesso />} />
+          <Route path='/Switch' element={<Switch />} />
           {/*CLIENTE*/}
           <Route path='/Card_Cliente' element={<Card_Cliente />} />
           <Route path='/Header_Cliente' element={<Header_Cliente />} />
@@ -52,6 +56,7 @@ function App() {
           {/*EMPRESA*/}
           <Route path='/Header_Empresa' element={<Header_Empresa />} />
           <Route path='/TipodeFormaPagamento' element={<TipoDeFormaPagamento />} />
+          <Route path='/Forma_de_RecebimentoTrans' element={<Forma_de_RecebimentoTrans />} />
         </Routes>
 
       </BrowserRouter>

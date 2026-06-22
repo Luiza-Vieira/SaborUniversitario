@@ -35,7 +35,7 @@ function Login({ setUser }) {
           navega('/PaginaInicial');
           break;
         case "empresa":
-          navega('/TipoDeFormaPagamento');
+          navega('/Forma_de_RecebimentoTrans');
           break;
         case "instituição":
           break;
@@ -51,7 +51,7 @@ function Login({ setUser }) {
       <header className='head'>
         <h1>Sabor Universitário</h1>
       </header>
-      <form onSubmit={fazendologin}>
+      <form className='form' onSubmit={fazendologin}>
         <div className='login'>
           <h2>Acesse a sua conta</h2>
           <div>

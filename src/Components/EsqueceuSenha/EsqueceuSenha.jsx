@@ -37,7 +37,7 @@ export default function EsqueceuSenha() {
             <header className="head">
                 <h1>Sabor Universitário</h1>
             </header>
-            <form id="espacamento" onSubmit={verificarSenha}>
+            <form className="form" id="espacamento" onSubmit={verificarSenha}>
                 <div className="login">
                     <h2>Redefinir Senha</h2> <br />
 
