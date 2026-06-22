@@ -30,8 +30,10 @@ import PaginaInicial from './Pages/Cliente/PaginaInicialCliente/PaginaInicial'
 
 import Header_Empresa from './Pages/Empresa/Header_Empresa/Header_Empresa'
 import TipoDeFormaPagamento from './Pages/Empresa/TipoDeFormaPagamento/TipoDeFormaPagamento'
-import Forma_de_Recebimento2 from './Pages/Empresa/Forma_de_RecebimentoTrans/Forma_de_RecebimentoTrans'
 import Forma_de_RecebimentoTrans from './Pages/Empresa/Forma_de_RecebimentoTrans/Forma_de_RecebimentoTrans'
+import Forma_de_Recebimento_TelaPrincipal from './Pages/Empresa/Forma_de_Recebimento_TelaPrincipal/Forma_de_Recebimento_TelaPrincipal'
+import TabTipoPagamentoPix from './Pages/Empresa/TabTipoPagamentoPix/TabTipoPagamentoPix'
+import TabTipoPagamentoTrans from './Pages/Empresa/TabTipoPagamentoTrans/TabTipoPagamentoTrans'
 
 //FUNCIONARIO
 
@@ -57,9 +59,12 @@ function App() {
           <Route path='/Header_Empresa' element={<Header_Empresa />} />
           <Route path='/TipodeFormaPagamento' element={<TipoDeFormaPagamento />} />
           <Route path='/Forma_de_RecebimentoTrans' element={<Forma_de_RecebimentoTrans />} />
-        </Routes>
+          <Route path='/Forma_de_Recebimento_TelaPrincipal' element={<Forma_de_Recebimento_TelaPrincipal />} />
+          <Route path='/TabTipoPagamentoPix' element={<TabTipoPagamentoPix />} />
+          <Route path='/TabTipoPagamentoTrans' element={<TabTipoPagamentoTrans />} />
+        </Routes >
 
-      </BrowserRouter>
+      </BrowserRouter >
 
     </>
   )

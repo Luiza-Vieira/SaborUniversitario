@@ -1,0 +1,53 @@
+.tab {
+    margin-left: 3em;
+    margin-top: 2em;
+
+}
+
+.tab h2 {
+    color: #FA7E31;
+}
+
+.tab h3 {
+    color: #392100
+}
+
+.tab h4 {
+    color: #FF9F64;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-shadow: 0.2px 0px #392100;
+    margin-top: 2rem;
+    margin-right: 9rem;
+}
+
+.cadastrou {
+    display: flex;
+    margin-left: 1rem;
+}
+
+.tab h5 {
+    color: #828282;
+    font-weight: bold;
+}
+
+.CadastroRecebimento {
+    background-color: #ffbfa4;
+    border-radius: 10px;
+    border: 0.05em solid black;
+    color: #A23E00;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 170px;
+    cursor: pointer;
+    font-family: "Arbutus Slab";
+    margin-left: 2.9em;
+    margin-top: 2em;
+    display: block;
+    text-decoration: none;
+}
+
+.CadastroRecebimento:hover {
+    background-color: #efa585;
+}

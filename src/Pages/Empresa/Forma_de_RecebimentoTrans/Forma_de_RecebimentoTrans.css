@@ -30,7 +30,7 @@ select {
 }
 
 #titular {
-    min-width: 600px;
+    width: 600px;
     margin-right: 4rem;
 }
 
@@ -41,6 +41,7 @@ option {
 
 .bloco {
     display: flex;
+    flex-wrap: wrap;
 
 }
 
@@ -50,7 +51,8 @@ option {
 
 .h2pag {
     font-family: 'Arbutus Slab';
-    margin-right: 40px;
+    margin-left: 30px;
+    margin-top: 30px;
     text-decoration: underline;
 }
 

@@ -1,17 +1,24 @@
 import './Forma_de_RecebimentoTrans.css'
 import Header_Empresa from '../Header_Empresa/Header_Empresa';
 
+import { useNavigate } from 'react-router-dom';
 
 
 function Forma_de_RecebimentoTrans() {
+
+    const navega = useNavigate();
+
+    function dadosTransfer(event) {
+        event.preventDefault(); //Usamos essa função pra evitar da página recarregar enquanto preenchemos os dados;
+        navega("/Forma_de_Recebimento_TelaPrincipal")
+    }
     return (
         <>
             <Header_Empresa />
             <div id="h2">
-                <h2 className="h2pag">Pix</h2>
                 <h2 className="h2pag">Transferência</h2>
             </div>
-            <form action="." method="POST" className='formTrans'>
+            <form action="." method="POST" className='formTrans' onSubmit={dadosTransfer}>
                 <div>
                     <div >
                         <label htmlFor="titular">Nome do Titular <span className="text-red-500">*</span></label>
