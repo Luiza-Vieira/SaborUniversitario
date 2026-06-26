@@ -6,10 +6,13 @@ import './Card_Cliente.css'
 
 function Card_Cliente({ rest, img }) {
     return (
-        <div className="card">
-            <img src={img} alt={rest} className="img-card" />
-            <h2 className="nome">{rest}</h2>
-        </div>
+        <>
+            <Header />
+            <div className="card">
+                <img src={img} alt={rest} className="img-card" />
+                <h2 className="nome">{rest}</h2>
+            </div>
+        </>
     );
 }
 

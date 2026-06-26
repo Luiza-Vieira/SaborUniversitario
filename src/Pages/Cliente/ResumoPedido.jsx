@@ -1,4 +1,4 @@
-import "../styles/carrinho.css";
+import "../../styles/carrinho.css";
 
 import {
   useState,
@@ -8,8 +8,8 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 function ResumoPedido() {
 
@@ -202,10 +202,10 @@ function ResumoPedido() {
         typeof item.preco === "string"
 
           ? parseFloat(
-              item.preco
-                .replace("R$ ", "")
-                .replace(",", ".")
-            )
+            item.preco
+              .replace("R$ ", "")
+              .replace(",", ".")
+          )
 
           : Number(item.preco);
 
@@ -317,10 +317,10 @@ function ResumoPedido() {
               typeof produto.preco === "string"
 
                 ? parseFloat(
-                    produto.preco
-                      .replace("R$ ", "")
-                      .replace(",", ".")
-                  )
+                  produto.preco
+                    .replace("R$ ", "")
+                    .replace(",", ".")
+                )
 
                 : Number(produto.preco);
 

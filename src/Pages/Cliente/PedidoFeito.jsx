@@ -1,4 +1,4 @@
-import "../styles/pedidofeito.css";
+import "../../styles/pedidofeito.css";
 
 import {
   useState,
@@ -8,8 +8,8 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 function PedidoFeito() {
 

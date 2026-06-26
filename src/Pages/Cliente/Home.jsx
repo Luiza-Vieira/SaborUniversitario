@@ -8,11 +8,11 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import { produtos } from "../data/produtos";
+import { produtos } from "../../data/produtos.js";
 
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
-import ProductCard from "../components/ProductCard";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+import ProductCard from "./ProductCard";
 
 function Home() {
 
