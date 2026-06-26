@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Gabriela&display=swap');
+.componente-header-escuro {
+  width: 100%;
+  max-width: 1440px;
+  background-color: #292929;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0 auto;
+}
+
+.empresa-badge-compartilhado {
+  position: absolute;
+  left: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #ffffff40;
+  padding: 8px 20px;
+  border-radius: 15px;
+  background-color: #222222;
+}
+
+.avatar-compartilhado {
+  width: 40px;
+  height: 40px;
+  background-color: #ffe6d5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nome-empresa-compartilhada {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.logo-compartilhada {
+  color: white;
+  font-family: "Berkshire Swash";
+  font-weight: 400;
+  font-family: "Berkshire Swash";
+  font-size: 2.2em;
+  padding: 1.5em;
+  text-align: center;
+  flex: 2;
+}
