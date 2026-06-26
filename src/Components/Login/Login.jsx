@@ -35,7 +35,7 @@ function Login({ setUser }) {
           navega('/PaginaInicial');
           break;
         case "empresa":
-          navega('/Forma_de_Recebimento_TelaPrincipal');
+          navega('/Dashboard');
           break;
         case "instituição":
           break;

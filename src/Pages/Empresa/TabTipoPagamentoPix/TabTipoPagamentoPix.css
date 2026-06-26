@@ -1,31 +1,378 @@
-.tab h2 {
-    color: #FA7E31;
+.tab-content-pix {
+    font-family: 'Arbutus Slab';
+    margin-left: 2em;
+    padding: 0;
 }
 
-.tab h4 {
-    color: #FF9F64;
+/* TÍTULO DA SEÇÃO */
+.chaves-titulo {
+    font-family: 'Arbutus Slab';
+    margin-left: 30px;
+    margin-top: 30px;
+    text-decoration: underline;
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 1em;
 }
 
-.tab h5 {
-    color: #828282;
-    font-weight: bold;
+/* LISTA DE CHAVES */
+.chaves-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 2em;
+    margin-left: 2em;
 }
 
-.CadastroRecebimento {
-    background-color: #FFCEB9;
-    border-radius: 10px;
-    border: 0.05em solid black;
-    color: #A23E00;
-    font-weight: 500;
+.chave-item {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 1em;
+    background-color: #f9f9f9;
+    border-radius: 0.5em;
+    border: none;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    transition: all 0.3s ease;
+}
+
+.chave-item:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chave-icone {
+    font-size: 1.5em;
+    min-width: 2em;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.chave-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+}
+
+.chave-tipo {
+    font-size: 0.85em;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-family: 'Arbutus Slab';
+}
+
+.chave-valor {
     font-size: 1em;
-    padding: 0.7em;
-    width: 300px;
+    color: #FF7124;
+    font-weight: 600;
+    word-break: break-all;
+    font-family: 'Arbutus Slab';
+}
+
+.chave-acoes {
+    display: flex;
+    gap: 0.5em;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.btn-editar,
+.btn-deletar {
+    background: none;
+    border: none;
+    padding: 0.5em;
     cursor: pointer;
-    font-family: "Arbutus Slab";
+    color: #666;
+    transition: all 0.3s ease;
+    border-radius: 0.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2em;
+    width: 2em;
+    font-size: 1em;
+}
+
+.btn-editar:hover {
+    color: #FF7124;
+    background-color: rgba(255, 113, 36, 0.1);
+}
+
+.btn-deletar:hover {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* ESTADO VAZIO */
+.chaves-vazio {
+    padding: 2em 1em;
+    text-align: center;
+    color: #999;
+    font-size: 1em;
+    font-family: 'Arbutus Slab';
+}
+
+/* BOTÃO CADASTRAR */
+.btn-cadastrar {
+    background-color: #FF7124;
+    border: 0.05em solid black;
+    padding: 0.7em;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: 'Arbutus Slab';
     margin-left: 2.5em;
     margin-top: 2em;
+    width: 300px;
+    justify-content: center;
 }
 
-.CadastroRecebimento:hover {
-    background-color: #efa585;
+.btn-cadastrar:hover {
+    background-color: #df5a13;
+}
+
+/* MODAL */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 0.8em;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 500px;
+    overflow: hidden;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    background-color: #FF7124;
+    padding: 1.2em 1.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.05em solid black;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 600;
+    color: white;
+    font-family: 'Arbutus Slab';
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    width: 2em;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    transform: rotate(90deg);
+    color: #f0f0f0;
+}
+
+.modal-body {
+    padding: 1.5em;
+}
+
+.form-group {
+    margin-bottom: 1em;
+    margin-top: 2em;
+    margin-left: 2em;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Arbutus Slab';
+}
+
+.form-group select,
+.form-group input {
+    background-color: #D9D9D9;
+    padding: 0.7em;
+    border-radius: 0.5em;
+    border: none;
+    margin: 1em;
+    width: 300px;
+    font-family: 'Arbutus Slab';
+    margin-left: 1em;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    color: #333;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    outline: none;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 113, 36, 0.1);
+    border: 0.05em solid #FF7124;
+}
+
+option {
+    font-family: 'Arbutus Slab';
+}
+
+.modal-footer {
+    display: flex;
+    gap: 1em;
+    padding: 1em 1.5em;
+    border-top: 0.05em solid #D9D9D9;
+    justify-content: flex-end;
+    background-color: #fafafa;
+}
+
+.btn-cancelar,
+.btn-salvar {
+    padding: 0.7em;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 0.05em solid black;
+    font-family: 'Arbutus Slab';
+    width: 300px;
+}
+
+.btn-cancelar {
+    background-color: #D9D9D9;
+    color: #333;
+}
+
+.btn-cancelar:hover {
+    background-color: #c0c0c0;
+}
+
+.btn-salvar {
+    background-color: #FF7124;
+    color: white;
+}
+
+.btn-salvar:hover {
+    background-color: #df5a13;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .tab-content-pix {
+        margin-left: 1em;
+    }
+
+    .chaves-titulo {
+        margin-left: 1em;
+    }
+
+    .chaves-lista {
+        margin-left: 0;
+    }
+
+    .chave-item {
+        margin-left: 0;
+        padding: 0.7em;
+    }
+
+    .form-group {
+        margin-left: 0;
+    }
+
+    .form-group select,
+    .form-group input {
+        width: 100%;
+        margin: 0.5em 0;
+    }
+
+    .btn-cadastrar {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .modal-content {
+        width: 95%;
+        max-width: 100%;
+    }
+
+    .btn-cancelar,
+    .btn-salvar {
+        width: 100%;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-header {
+        padding: 1em;
+    }
+
+    .modal-header h3 {
+        font-size: 1.1em;
+    }
+
+    .modal-body {
+        padding: 1em;
+    }
+
+    .form-group {
+        margin-left: 0;
+        margin-top: 1em;
+    }
+
+    .modal-footer {
+        padding: 0.8em 1em;
+    }
 }

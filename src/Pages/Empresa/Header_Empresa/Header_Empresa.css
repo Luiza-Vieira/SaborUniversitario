@@ -1,3 +1,30 @@
-.h {
-    background-color: #222222;
+.header-empresa {
+  background-color: #1a1a1a;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-empresa h1 {
+  color: #fff;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.btn-hamburguer {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 5px;
+}
+
+.btn-hamburguer span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #fff;
 }

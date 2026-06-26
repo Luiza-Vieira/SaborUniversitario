@@ -34,6 +34,10 @@ import Forma_de_RecebimentoTrans from './Pages/Empresa/Forma_de_RecebimentoTrans
 import Forma_de_Recebimento_TelaPrincipal from './Pages/Empresa/Forma_de_Recebimento_TelaPrincipal/Forma_de_Recebimento_TelaPrincipal'
 import TabTipoPagamentoPix from './Pages/Empresa/TabTipoPagamentoPix/TabTipoPagamentoPix'
 import TabTipoPagamentoTrans from './Pages/Empresa/TabTipoPagamentoTrans/TabTipoPagamentoTrans'
+import ProdutoIndex from './Pages/Produto/Index/Index';
+import CadastrarProduto from './Pages/Produto/Cadastrar/Cadastrar';
+import Dashboard from './Pages/Empresa/Dashboard/Dashboard';
+
 
 //FUNCIONARIO
 
@@ -59,9 +63,13 @@ function App() {
           <Route path='/Header_Empresa' element={<Header_Empresa />} />
           <Route path='/TipodeFormaPagamento' element={<TipoDeFormaPagamento />} />
           <Route path='/Forma_de_RecebimentoTrans' element={<Forma_de_RecebimentoTrans />} />
-          <Route path='/Forma_de_Recebimento_TelaPrincipal' element={<Forma_de_Recebimento_TelaPrincipal />} />
+          <Route path='/formas-recebimento' element={<Forma_de_Recebimento_TelaPrincipal />} />
           <Route path='/TabTipoPagamentoPix' element={<TabTipoPagamentoPix />} />
           <Route path='/TabTipoPagamentoTrans' element={<TabTipoPagamentoTrans />} />
+          <Route path="/produtos" element={<ProdutoIndex />} />
+          <Route path="/cadastrar-produto" element={<CadastrarProduto />} />
+          <Route path="/cadastrar-produto/:id" element={<CadastrarProduto />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes >
 
       </BrowserRouter >
