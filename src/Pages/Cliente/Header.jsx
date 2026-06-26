@@ -39,11 +39,11 @@ function Header({
         }
       >
         🛒 {
-          carrinho.reduce(
+          carrinho?.reduce(
             (total, item) =>
               total + item.quantidade,
             0
-          )
+          ) || 0
         }
       </button>
 

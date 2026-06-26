@@ -1,4 +1,5 @@
 import './Card_Cliente.css'
+import Header from '../Header';
 
 //Usamos props quando queremos que a informação seja repassada 
 
@@ -7,7 +8,6 @@ import './Card_Cliente.css'
 function Card_Cliente({ rest, img }) {
     return (
         <>
-            <Header />
             <div className="card">
                 <img src={img} alt={rest} className="img-card" />
                 <h2 className="nome">{rest}</h2>

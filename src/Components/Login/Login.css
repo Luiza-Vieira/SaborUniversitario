@@ -4,7 +4,7 @@
     background-color: #FF7124;
 }
 
-h1 {
+.h1 {
     color: white;
     font-family: "Berkshire Swash";
     font-weight: 400;
@@ -28,6 +28,14 @@ h1 {
     text-align: center;
 }
 
+.login {
+    font-family: "Inter";
+}
+
+.login a {
+    font-family: "Inter";
+}
+
 
 .login input {
     padding: 0.7em;
@@ -35,6 +43,7 @@ h1 {
     border: none;
     margin: 1em;
     width: 300px;
+    font-family: "Inter";
 }
 
 .login div {
@@ -46,20 +55,22 @@ h1 {
     margin: 20px;
     padding: 0.75em;
     gap: 10px;
-
-
 }
 
-
+.login h2 {
+    font-family: "Inter";
+}
 
 .login h3 {
     font-weight: 400;
+    font-family: "Inter";
 }
 
 
 .login p {
     text-align: center;
     margin: 2em auto;
+    font-family: "Inter";
 }
 
 .login a {
@@ -81,7 +92,8 @@ h1 {
     color: white;
     padding: 0.7em;
     width: 300px;
-    cursor: pointer
+    cursor: pointer;
+    font-family: "Inter";
 }
 
 .entrar:hover {

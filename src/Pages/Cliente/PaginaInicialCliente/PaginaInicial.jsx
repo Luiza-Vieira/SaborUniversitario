@@ -1,5 +1,5 @@
 import './PaginaInicial.css'
-import Header_Cliente from '../Header_Cliente/Header_Cliente'
+import Header from '../Header';
 import Card_Cliente from '../Card_Cliente/Card_Cliente';
 
 //Aqui fica a página inicial do Cliente, o react entende e pega as informações que estão no vetor (o que seria nosso banco de dados) e envia pro componente Card_Cliente, pegando cada nome + img e enviando por vez, pra nao ter que ter 1392848 divs 
@@ -14,7 +14,7 @@ function PaginaInicial() {
 
     return (
         <>
-            <Header_Cliente />
+            <Header />
             <div className="grad_card">
                 {restaurantes.map((item) =>
                 (<Card_Cliente

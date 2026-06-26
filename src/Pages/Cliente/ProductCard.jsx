@@ -1,4 +1,4 @@
-import "../index.css";
+import "../../index.css";
 
 function ProductCard({
   produto,
@@ -50,7 +50,7 @@ function ProductCard({
         <span>
           {
             quantidades[
-              produto.nome
+            produto.nome
             ] || 1
           }
         </span>
