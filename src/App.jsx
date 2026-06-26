@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
@@ -22,6 +21,15 @@ import Switch from './Components/Switch/switch'
 import Header_Cliente from './Pages/Cliente/Header_Cliente/Header_Cliente'
 import Card_Cliente from './Pages/Cliente/Card_Cliente/Card_Cliente'
 import PaginaInicial from './Pages/Cliente/PaginaInicialCliente/PaginaInicial'
+import Home from "./Pages/Cliente/Home";
+import Carrinho from "./Pages/Cliente/Carrinho";
+import Detalhe from "./Pages/Cliente/Detalhe";
+import Cartao from "./Pages/Cliente/Cartao";
+import MeusPedidos from "./Pages/Cliente/MeusPedidos";
+import Feedback from "./Pages/Cliente/Feedback";
+import ResumoPedido from "./Pages/Cliente/ResumoPedido";
+import PedidoFeito from "./Pages/Cliente/PedidoFeito";
+
 
 //INSTITUIÇÃO
 
@@ -55,6 +63,16 @@ function App() {
           <Route path='/Card_Cliente' element={<Card_Cliente />} />
           <Route path='/Header_Cliente' element={<Header_Cliente />} />
           <Route path='/PaginaInicial' element={<PaginaInicial />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/carrinho" element={<Carrinho />} />
+          <Route path="/detalhe/:categoria/:id"
+            element={<Detalhe />} />
+          <Route path="/cartao" element={<Cartao />} />
+          <Route path="/meuspedidos" element={<MeusPedidos />} />
+          <Route path="/resumo" element={<ResumoPedido />} />
+          <Route path="/pedidofeito" element={<PedidoFeito />} />
+          <Route path="/feedback" element={<Feedback />} />
+
           {/*EMPRESA*/}
           <Route path='/Header_Empresa' element={<Header_Empresa />} />
           <Route path='/TipodeFormaPagamento' element={<TipoDeFormaPagamento />} />
@@ -63,6 +81,9 @@ function App() {
           <Route path='/TabTipoPagamentoPix' element={<TabTipoPagamentoPix />} />
           <Route path='/TabTipoPagamentoTrans' element={<TabTipoPagamentoTrans />} />
         </Routes >
+        {/*INSTITUIÇÃO*/}
+
+        {/*FUNCIONÁRIO*/}
 
       </BrowserRouter >
 
@@ -70,4 +91,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

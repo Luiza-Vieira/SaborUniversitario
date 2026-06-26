@@ -1,5 +1,5 @@
 {
-  "name": "projeto-novo",
+  "name": "sabor-universitario-react",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/berkshire-swash": "^5.2.8",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/free-regular-svg-icons": "^7.2.0",
@@ -38,4 +39,4 @@
     "tailwindcss": "^3.4.17",
     "vite": "^8.0.12"
   }
-}
+};
