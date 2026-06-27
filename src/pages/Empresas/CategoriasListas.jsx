@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./CategoriasListas.css"; 
+import "./CategoriasLista.css"; 
 import { Link } from "react-router-dom";
 import HeaderEmpresa from "./HeaderSaldo";
 

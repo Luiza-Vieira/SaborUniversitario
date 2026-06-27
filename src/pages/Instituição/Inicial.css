@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e9e9e9;
+  font-family: Georgia, serif;
+  margin: 0;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* CONTEÚDO */
+
+.content {
+  margin: 0 40px;
+}
+
+
+
+.opcoes{
+  margin-bottom: 50px;
+
+}
+.opcoes h3 {
+  color: black;
+  margin-bottom: 5px;
+  text-align: left;
+  font-size: 15px;
+
+ 
+}
+.opcoes input {
+  width: 50%;
+  padding: 12px;
+
+  border: none;
+  border-radius: 10px; 
+
+  background-color: #ddd;
+
+  margin-bottom: 20px;
+}
+
+.botao{
+  padding: 10px 20px;
+
+  background-color: #FF9C72;
+  color: black;
+
+  border: 1px solid black;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-size: 18px;
+  display: block;
+  margin: 20px auto;
+  text-align: right;
+}
+
+

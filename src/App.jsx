@@ -8,6 +8,7 @@ import './App.css'
 
 //PRA TODOS
 
+{/*}
 import Login from './Components/Login/Login'
 import EsqueceuSenha from './Components/EsqueceuSenha/EsqueceuSenha'
 import RedefinirSenha from './Components/RedefinirSenha/RedefinirSenha'
@@ -31,9 +32,12 @@ import ResumoPedido from "./Pages/Cliente/ResumoPedido";
 import PedidoFeito from "./Pages/Cliente/PedidoFeito";
 
 
-//INSTITUIÇÃO
+//INSTITUIÇÃO*/}
+import Inicial from "./pages/Instituição/Inicial";
+import AddEmpresa from "./pages/Instituição/empresas";
+import AddCliente from "./pages/Instituição/clientes";
 
-
+{/*
 //EMPRESA
 
 import Header_Empresa from './Pages/Empresa/Header_Empresa/Header_Empresa'
@@ -42,6 +46,11 @@ import Forma_de_RecebimentoTrans from './Pages/Empresa/Forma_de_RecebimentoTrans
 import Forma_de_Recebimento_TelaPrincipal from './Pages/Empresa/Forma_de_Recebimento_TelaPrincipal/Forma_de_Recebimento_TelaPrincipal'
 import TabTipoPagamentoPix from './Pages/Empresa/TabTipoPagamentoPix/TabTipoPagamentoPix'
 import TabTipoPagamentoTrans from './Pages/Empresa/TabTipoPagamentoTrans/TabTipoPagamentoTrans'
+*/}
+
+import CadastrarCategoria from "./pages/Empresa/CadastrarCategoria";
+import CategoriasListas from "./pages/Empresa/CategoriasListas";
+import CadastrarBeneficio from "./pages/Empresa/CadastrarBeneficio";
 
 //FUNCIONARIO
 
@@ -51,8 +60,9 @@ function App() {
 
   return (
     <>
-      <Routes>
+      <Routes> 
         {/*Todos*/}
+        {/*
         <Route path='/' element={<Login />} />
         <Route path='/EsqueceuSenha' element={<EsqueceuSenha />} />
         <Route path='/RedefinirSenha' element={<RedefinirSenha />} />
@@ -60,6 +70,7 @@ function App() {
         <Route path='/Switch' element={<Switch />} />
 
         {/*CLIENTE*/}
+        {/*
         <Route path='/Card_Cliente' element={<Card_Cliente />} />
         <Route path='/Header' element={<Header />} />
         <Route path='/PaginaInicial' element={<PaginaInicial />} />
@@ -74,13 +85,26 @@ function App() {
         <Route path="/feedback" element={<Feedback />} />
 
         {/*EMPRESA*/}
+        {/*
         <Route path='/Header_Empresa' element={<Header_Empresa />} />
         <Route path='/TipodeFormaPagamento' element={<TipoDeFormaPagamento />} />
         <Route path='/Forma_de_RecebimentoTrans' element={<Forma_de_RecebimentoTrans />} />
         <Route path='/Forma_de_Recebimento_TelaPrincipal' element={<Forma_de_Recebimento_TelaPrincipal />} />
         <Route path='/TabTipoPagamentoPix' element={<TabTipoPagamentoPix />} />
         <Route path='/TabTipoPagamentoTrans' element={<TabTipoPagamentoTrans />} />
+         */}
+        <Route path="/cadastrar-beneficio" element={<CadastrarBeneficio />} />
+         <Route path="/" element={<CategoriasListas />} />
+         <Route path="/cadastrar-categoria" element={<CadastrarCategoria />} />
+                
         {/*INSTITUIÇÃO*/}
+        
+       
+        <Route path="/" element={<Inicial />} />
+        {/* Telas de cadastro */}
+        <Route path="/cadastrar-empresa" element={<AddEmpresa />} />
+        <Route path="/cadastrar-cliente" element={<AddCliente />} />
+     
 
         {/*FUNCIONÁRIO*/}
       </Routes >
