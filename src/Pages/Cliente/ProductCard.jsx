@@ -10,43 +10,91 @@ function ProductCard({
   adicionarCarrinho,
   navigate
 }) {
+
   return (
+
     <div className="card-produto">
 
       <div
+
         className="img-produto"
+
         style={{
+
           backgroundImage: `url(${produto.imagem})`
+
         }}
+
         onClick={() =>
           navigate(`/detalhe/${categoria}/${index}`)
         }
+
       ></div>
 
-      <h4>{produto.nome}</h4>
-      <p>{produto.preco}</p>
+      <h4>
+
+        {produto.nome}
+
+      </h4>
+
+      <p>
+
+        {produto.preco}
+
+      </p>
 
       <div className="controle">
-        <button onClick={() => diminuir(produto.nome)}>
+
+        <button
+
+          onClick={() =>
+            diminuir(produto.nome)
+          }
+
+        >
+
           -
+
         </button>
 
-        <span>{quantidades[produto.nome] || 1}</span>
+        <span>
 
-        <button onClick={() => aumentar(produto.nome)}>
+          {quantidades[produto.nome] || 1}
+
+        </span>
+
+        <button
+
+          onClick={() =>
+            aumentar(produto.nome)
+          }
+
+        >
+
           +
+
         </button>
+
       </div>
 
       <button
-        className="btn"
-        onClick={() => adicionarCarrinho(produto)}
+
+        className="btn-card"
+
+        onClick={() =>
+          adicionarCarrinho(produto)
+        }
+
       >
+
         Adicionar
+
       </button>
 
     </div>
+
   );
+
 }
 
 export default ProductCard;

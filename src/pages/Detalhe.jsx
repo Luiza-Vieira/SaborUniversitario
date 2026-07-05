@@ -245,7 +245,7 @@ function Detalhe() {
 
             <button
 
-              className="btn"
+              className="btn-detalhe"
 
               onClick={
                 adicionarCarrinho
