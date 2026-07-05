@@ -26,46 +26,56 @@ body,
 }
 
 /* GRID */
-.grid {
+.produtos-grid {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 20px;
   padding: 20px;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 /* CARD PRODUTO */
-.card {
-  width: 220px;
-  background: #ff9c72;
-  border-radius: 16px;
-  padding: 15px;
-  text-align: center;
+.card-produto {
+  width: 216px;
+  height: 285px;
+  background: #FF9C72;
+  border-radius: 20px;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   color: white;
-  box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
-  transition: 0.2s;
 }
-
-.card:hover {
+.card-produto:hover { 
   transform: translateY(-5px);
 }
 
-.card h4 {
-  margin: 10px 0;
+.card-produto h4{
+  margin: 4px 0;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
 }
 
-.card p {
+.card-produto p {
+  margin: 2px 0;
+  font-size: 16px;
   font-weight: bold;
 }
 
 .img-produto {
-  width: 100%;
-  height: 120px;
-  border-radius: 12px;
-  background-size: cover;
+  width: 100%;        /* Ocupa a largura interna disponível do card */
+  height: 120px;      /* Altura fixa boa para a imagem do suco/salgado */
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
-  margin-bottom: 10px;
-  cursor: pointer;
+  background-color: white;
+  border-radius: 12px;
+  margin-bottom: 4px;
 }
 
 /* CONTROLE */
@@ -73,8 +83,8 @@ body,
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 8px;
+  margin: 8px 0;
 }
 
 .controle button {
@@ -91,11 +101,11 @@ body,
 .btn {
   background: #eee;
   border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
+  padding: 8px 15px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.2s;
+  font-size: 14px;
 }
 
 .btn:hover {
@@ -114,9 +124,11 @@ body,
 
 /* CATEGORIA */
 .categoria {
-  background: #e8cbb0;
-  padding: 12px 20px;
-  font-size: 22px;
+  background: #FFE7D2;
+  padding: 10px 20px;
+  font-size: 28px;
+  color: #F5670E;
+  font-family: "Arbutus Slab", serif;
 }
 
 /* DETALHE PRODUTO */
@@ -129,14 +141,16 @@ body,
   border-radius: 16px;
 }
 
-.imagem-produto {
-  width: 350px;
-  height: 350px;
-  border-radius: 16px;
-  background-size: cover;
+.img-produto {
+  width: 163.27px;
+  height: 124px;
+  border-radius: 12px;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   background-color: white;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .detalhe-info {

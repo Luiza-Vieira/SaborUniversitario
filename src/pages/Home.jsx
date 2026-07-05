@@ -1,4 +1,4 @@
-import "../../index.css";
+import "../index.css";
 
 import {
   useState,
@@ -8,11 +8,11 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import { produtos } from "../../data/produtos.js";
+import { produtos } from "../data/produtos";
 
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-import ProductCard from "./ProductCard";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import ProductCard from "../components/ProductCard";
 
 function Home() {
 
@@ -212,7 +212,7 @@ function Home() {
 
         </h3>
 
-        <div className="produtos-grid">
+        <div className="grid">
 
           {
 
@@ -251,7 +251,7 @@ function Home() {
 
         </h3>
 
-        <div className="produtos-grid">
+        <div className="grid">
 
           {
 

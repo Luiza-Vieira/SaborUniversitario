@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@fontsource/berkshire-swash": "^5.2.8",
-    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/fontawesome-svg-core": "^7.3.0",
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/free-regular-svg-icons": "^7.2.0",
-    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.3.0",
     "@fortawesome/react-fontawesome": "^3.3.1",
     "@tailwindcss/cli": "^4.3.1",
     "@tailwindcss/vite": "^4.3.1",

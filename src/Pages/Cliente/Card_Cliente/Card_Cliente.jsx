@@ -1,20 +1,41 @@
-import './Card_Cliente.css'
-import Header from '../Header';
-
-//Usamos props quando queremos que a informação seja repassada 
-
-//Criada para mostrar os restaurantes 
+import "./Card_Cliente.css";
+import { useNavigate } from "react-router-dom";
 
 function Card_Cliente({ rest, img }) {
-    return (
-        <>
-            <div className="card">
-                <img src={img} alt={rest} className="img-card" />
-                <h2 className="nome">{rest}</h2>
-            </div>
-        </>
-    );
+
+  const navigate = useNavigate();
+
+  function abrirRestaurante() {
+
+    if (rest === "Restaurante Universitário") {
+      navigate("/home");
+    } else {
+      alert("Esse restaurante ainda não possui página.");
+    }
+
+  }
+
+  return (
+
+    <div
+      className="card-restaurante"
+      onClick={abrirRestaurante}
+    >
+
+      <img
+        src={img}
+        alt={rest}
+        className="img-card"
+      />
+
+      <h2 className="nome-restaurante">
+        {rest}
+      </h2>
+
+    </div>
+
+  );
+
 }
 
 export default Card_Cliente;
-

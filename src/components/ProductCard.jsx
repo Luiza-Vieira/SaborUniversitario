@@ -24,6 +24,7 @@ function ProductCard({
       ></div>
 
       <h4>{produto.nome}</h4>
+
       <p>{produto.preco}</p>
 
       <div className="controle">
@@ -31,7 +32,9 @@ function ProductCard({
           -
         </button>
 
-        <span>{quantidades[produto.nome] || 1}</span>
+        <span>
+          {quantidades[produto.nome] || 1}
+        </span>
 
         <button onClick={() => aumentar(produto.nome)}>
           +
