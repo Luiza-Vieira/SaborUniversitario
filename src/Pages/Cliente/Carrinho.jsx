@@ -7,7 +7,7 @@ import {
 } from "react";
 
 import { useNavigate } from "react-router-dom";
-
+import { salvarPedido } from "../../services/pedidoService";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
@@ -163,43 +163,56 @@ function Carrinho() {
   // FINALIZAR PEDIDO
   // =====================================
 
-  function finalizarPedido() {
+ async function finalizarPedido() {
 
-    if (carrinho.length === 0) {
+      if (carrinho.length === 0) {
 
-      alert("Seu carrinho está vazio!");
-      return;
+        alert("Seu carrinho está vazio!");
+        return;
+
+      }
+
+      // Por enquanto vamos considerar Dinheiro = 1
+      const idFormaPagamento = 1;
+
+      const pedido = await salvarPedido(
+        total,
+        idFormaPagamento
+      );
+
+      if (!pedido) {
+
+        alert("Erro ao salvar o pedido.");
+        return;
+
+      }
+
+      const novoPedido = {
+
+        numero:
+          Math.floor(
+            1000 + Math.random() * 9000
+          ),
+
+        status: "Em preparo",
+
+        total,
+
+        data:
+          new Date().toLocaleDateString("pt-BR"),
+
+        itens: carrinho
+
+      };
+
+      localStorage.setItem(
+        "pedidoAtual",
+        JSON.stringify(novoPedido)
+      );
+
+      navigate("/resumo");
 
     }
-
-    const novoPedido = {
-
-      numero:
-        Math.floor(
-          1000 + Math.random() * 9000
-        ),
-
-      status: "Em preparo",
-
-      total,
-
-      data:
-        new Date().toLocaleDateString(
-          "pt-BR"
-        ),
-
-      itens: carrinho
-
-    };
-
-    localStorage.setItem(
-      "pedidoAtual",
-      JSON.stringify(novoPedido)
-    );
-
-    navigate("/resumo");
-
-  }
 
   // =====================================
   // JSX
