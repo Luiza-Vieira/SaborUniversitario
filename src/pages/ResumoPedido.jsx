@@ -404,34 +404,27 @@ function ResumoPedido() {
         </a>
 
         <div className="resumo-pagamento">
-
           <select className="resumo-select">
 
             <option>
               Dinheiro
             </option>
-
             <option>
               Pix
             </option>
-
             <option>
               Cartão
             </option>
 
           </select>
-
           <button
             className="resumo-btn"
             onClick={confirmarPedido}
           >
             CONFIRMAR
           </button>
-
         </div>
-
       </div>
-
     </div>
 
   );
