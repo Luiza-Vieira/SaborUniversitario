@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@fontsource/berkshire-swash": "^5.2.8",
-    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/fontawesome-svg-core": "^7.3.0",
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/free-regular-svg-icons": "^7.2.0",
-    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.3.0",
     "@fortawesome/react-fontawesome": "^3.3.1",
     "@supabase/supabase-js": "^2.110.0",
     "@tailwindcss/cli": "^4.3.1",
@@ -24,6 +24,7 @@
     "react": "^19.2.6",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.6",
+    "react-icons": "^5.7.0",
     "react-router-dom": "^7.16.0"
   },
   "devDependencies": {

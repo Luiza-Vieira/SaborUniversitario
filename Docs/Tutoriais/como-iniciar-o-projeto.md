@@ -30,21 +30,3 @@ http://localhost:5173
 
 ---
 
-## 4. Estrutura principal
-
-O projeto utiliza:
-
-* React
-* React Router DOM
-* CSS puro
-* LocalStorage
-
----
-
-## 5. Páginas principais
-
-* Home
-* Carrinho
-* Resumo do Pedido
-* Pedido Feito
-* Meus Pedidos

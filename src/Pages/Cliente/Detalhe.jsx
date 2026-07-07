@@ -1,333 +1,261 @@
 import "../../index.css";
-
-import {
-  useState,
-  useEffect,
-  useRef
-} from "react";
-
-import {
-  useNavigate,
-  useParams
-} from "react-router-dom";
+import { FiHeart } from "react-icons/fi";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { produtos } from "../../data/produtos";
 
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import Header from "../../components/Header";
+import Sidebar from "../../components/Sidebar";
 
 function Detalhe() {
 
-  // =====================================
-  // NAVEGAÇÃO
-  // =====================================
+    const navigate = useNavigate();
 
-  const navigate = useNavigate();
+    const { categoria, id } = useParams();
 
-  // =====================================
-  // PEGAR PARÂMETROS DA URL
-  // =====================================
+    const produto = produtos?.[categoria]?.[id];
 
-  const { categoria, id } = useParams();
+    if (!produto) {
+        return (
+            <h2 style={{ textAlign: "center", marginTop: "50px" }}>
+                Produto não encontrado.
+            </h2>
+        );
+    }
 
-  // =====================================
-  // BUSCAR PRODUTO
-  // =====================================
+    // ==========================
+    // SIDEBAR
+    // ==========================
 
-  const produto =
-    produtos[categoria][id];
+    const [sidebarAberta, setSidebarAberta] = useState(false);
 
-  // =====================================
-  // SIDEBAR
-  // =====================================
+    const sidebarRef = useRef(null);
 
-  const [sidebarAberta, setSidebarAberta] =
-    useState(false);
+    useEffect(() => {
 
-  const sidebarRef = useRef(null);
+        function fecharSidebar(event) {
 
-  useEffect(() => {
+            if (
+                sidebarRef.current &&
+                !sidebarRef.current.contains(event.target)
+            ) {
+                setSidebarAberta(false);
+            }
 
-    function fecharSidebar(event) {
+        }
 
-      if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(
-          event.target
-        )
-      ) {
+        document.addEventListener("mousedown", fecharSidebar);
 
-        setSidebarAberta(false);
+        return () => {
 
-      }
+            document.removeEventListener(
+                "mousedown",
+                fecharSidebar
+            );
+
+        };
+
+    }, []);
+
+    // ==========================
+    // CARRINHO
+    // ==========================
+
+    const [carrinho, setCarrinho] = useState(() => {
+
+        const salvo = localStorage.getItem("carrinho");
+
+        return salvo ? JSON.parse(salvo) : [];
+
+    });
+
+    useEffect(() => {
+
+        localStorage.setItem(
+            "carrinho",
+            JSON.stringify(carrinho)
+        );
+
+    }, [carrinho]);
+
+    function adicionarCarrinho() {
+
+        const existe = carrinho.find(
+            item => item.nome === produto.nome
+        );
+
+        if (existe) {
+
+            const novoCarrinho = carrinho.map(item => {
+
+                if (item.nome === produto.nome) {
+
+                    return {
+
+                        ...item,
+                        quantidade: item.quantidade + 1
+
+                    };
+
+                }
+
+                return item;
+
+            });
+
+            setCarrinho(novoCarrinho);
+
+        }
+
+        else {
+
+            setCarrinho([
+
+                ...carrinho,
+
+                {
+                    ...produto,
+                    quantidade: 1
+                }
+
+            ]);
+
+        }
+
+        alert("Produto adicionado ao carrinho!");
 
     }
 
-    document.addEventListener(
-      "mousedown",
-      fecharSidebar
+    return (
+
+        <>
+
+            <Sidebar
+
+                sidebarAberta={sidebarAberta}
+                sidebarRef={sidebarRef}
+                navigate={navigate}
+                setSidebarAberta={setSidebarAberta}
+
+            />
+
+            <Header
+
+                sidebarAberta={sidebarAberta}
+                setSidebarAberta={setSidebarAberta}
+                carrinho={carrinho}
+                navigate={navigate}
+
+            />
+
+            <h2 className="titulo">
+
+                Restaurante Universitário
+
+            </h2>
+
+            <div className="detalhe-box">
+
+                {/* FOTO */}
+
+                <div className="detalhe-imagem">
+
+                    <img
+                        src={produto.imagem}
+                        alt={produto.nome}
+                    />
+
+                </div>
+
+                {/* INFORMAÇÕES */}
+
+                <div className="detalhe-info">
+
+                    <div className="topo-detalhe">
+
+                        <h1>
+
+                            {produto.nome}
+
+                        </h1>
+
+                        <button
+                              className="btn-favorito"
+                              title="Favoritar"
+                          >
+
+                              <FiHeart />
+
+                        </button>
+
+                    </div>
+
+                    <h2 className="preco-detalhe">
+
+                        {produto.preco}
+
+                    </h2>
+
+                    <div className="botoes-detalhe">
+
+                        <button
+
+                            className="btn-detalhe"
+
+                            onClick={adicionarCarrinho}
+
+                        >
+
+                            Adicionar ao carrinho
+
+                        </button>
+
+                        <button
+
+                            className="btn-comprar"
+
+                        >
+
+                            Comprar
+
+                        </button>
+
+                    </div>
+
+                    <h3 className="titulo-detalhe">
+
+                        Detalhes do produto
+
+                    </h3>
+
+                    <p className="descricao-produto">
+
+                        {produto.descricao}
+
+                    </p>
+
+                    <h3 className="titulo-observacao">
+
+                        Alguma Observação?
+
+                    </h3>
+
+                    <textarea
+
+                        className="input-observacao"
+
+                        placeholder="Digite aqui..."
+
+                    />
+
+                </div>
+
+            </div>
+
+        </>
+
     );
-
-    return () => {
-
-      document.removeEventListener(
-        "mousedown",
-        fecharSidebar
-      );
-
-    };
-
-  }, []);
-
-  // =====================================
-  // CARRINHO
-  // =====================================
-
-  const [carrinho, setCarrinho] =
-    useState(() => {
-
-      const carrinhoSalvo =
-        localStorage.getItem("carrinho");
-
-      return carrinhoSalvo
-        ? JSON.parse(carrinhoSalvo)
-        : [];
-
-    });
-
-  // =====================================
-  // SINCRONIZAR LOCALSTORAGE
-  // =====================================
-
-  useEffect(() => {
-
-    localStorage.setItem(
-      "carrinho",
-      JSON.stringify(carrinho)
-    );
-
-  }, [carrinho]);
-
-  // =====================================
-  // ADICIONAR AO CARRINHO
-  // =====================================
-
-  function adicionarCarrinho() {
-
-    setCarrinho((carrinhoAtual) => {
-
-      const produtoExiste =
-        carrinhoAtual.find(
-
-          (item) =>
-            item.nome === produto.nome
-
-        );
-
-      // se já existe
-      if (produtoExiste) {
-
-        return carrinhoAtual.map(
-          (item) => {
-
-            if (
-              item.nome === produto.nome
-            ) {
-
-              return {
-
-                ...item,
-
-                quantidade:
-                  item.quantidade + 1
-
-              };
-
-            }
-
-            return item;
-
-          }
-        );
-
-      }
-
-      // se não existe
-      return [
-
-        ...carrinhoAtual,
-
-        {
-          ...produto,
-          quantidade: 1
-        }
-
-      ];
-
-    });
-
-    alert("Produto adicionado!");
-
-  }
-
-  // =====================================
-  // JSX
-  // =====================================
-
-  return (
-
-    <>
-
-      {/* SIDEBAR COMPONENTE */}
-
-      <Sidebar
-        sidebarAberta={sidebarAberta}
-        sidebarRef={sidebarRef}
-        navigate={navigate}
-        setSidebarAberta={setSidebarAberta}
-      />
-
-      {/* HEADER COMPONENTE */}
-
-      <Header
-        sidebarAberta={sidebarAberta}
-        setSidebarAberta={setSidebarAberta}
-        carrinho={carrinho}
-        navigate={navigate}
-      />
-
-      {/* TÍTULO */}
-
-      <h2 className="titulo">
-
-        Restaurante universitário
-
-      </h2>
-
-      {/* BOX DETALHE */}
-
-      <div className="detalhe-box">
-
-        {/* IMAGEM */}
-
-        <div
-
-          className="imagem-produto"
-
-          style={{
-
-            backgroundImage:
-              `url(${produto.imagem})`
-
-          }}
-
-        ></div>
-
-        {/* INFO */}
-
-        <div className="detalhe-info">
-
-          <h2>
-
-            {produto.nome}
-
-          </h2>
-
-          <h3 className="preco-detalhe">
-
-            {produto.preco}
-
-          </h3>
-
-          {/* BOTÕES */}
-
-          <div className="botoes">
-
-            <button
-
-              className="btn"
-
-              onClick={
-                adicionarCarrinho
-              }
-
-            >
-
-              Adicionar ao carrinho
-
-            </button>
-
-            <button className="btn-comprar">
-
-              Comprar
-
-            </button>
-
-          </div>
-
-          {/* DESCRIÇÃO */}
-
-          <h4>
-
-            Detalhes do produto
-
-          </h4>
-
-          <p className="descricao-produto">
-
-            Produto preparado com
-            ingredientes frescos.
-            Validade e informações
-            completas serão
-            integradas futuramente
-            no backend.
-
-          </p>
-
-          {/* OBSERVAÇÃO */}
-
-          <h4>
-
-            Alguma observação?
-
-          </h4>
-
-          <input
-
-            className="input-observacao"
-
-            type="text"
-
-            placeholder="Digite aqui..."
-
-          />
-
-          <br />
-          <br />
-
-          {/* VOLTAR */}
-
-          <button
-
-            className="btn"
-
-            onClick={() =>
-              navigate("/")
-            }
-
-          >
-
-            Voltar
-
-          </button>
-
-        </div>
-
-      </div>
-
-    </>
-
-  );
 
 }
 
