@@ -38,6 +38,18 @@ import Forma_de_Recebimento_TelaPrincipal from "./Pages/Empresa/Forma_de_Recebim
 import TabTipoPagamentoPix from "./Pages/Empresa/TabTipoPagamentoPix/TabTipoPagamentoPix";
 import TabTipoPagamentoTrans from "./Pages/Empresa/TabTipoPagamentoTrans/TabTipoPagamentoTrans";
 
+
+// =====================================
+// FUNCIONÁRIO
+// =====================================
+import HeaderF from "./Pages/Funcionario/HeaderF";
+import HomeFuncionario from "./Pages/Funcionario/HomeFuncionario";
+import ConfirmarEntrega from "./Pages/Funcionario/ConfirmarEntrega";
+
+// =====================================
+// ROTAS
+// =====================================
+
 function App() {
 
   return (
@@ -158,6 +170,23 @@ function App() {
       <Route
         path="/TabTipoPagamentoTrans"
         element={<TabTipoPagamentoTrans />}
+      />
+
+      {/* FUNCIONÁRIO */}
+
+      <Route
+        path="/HeaderF"
+        element={<HeaderF />}
+      />
+
+      <Route
+        path="/HomeFuncionario"
+        element={<HomeFuncionario />}
+      />
+
+      <Route
+        path="/ConfirmarEntrega/:id"
+        element={<ConfirmarEntrega />}
       />
 
     </Routes>
