@@ -1,59 +1,40 @@
-import ".Funcionario./HeadeF";
-import HeaderF from '.Funcionario./HeaderF';
-import { useNavigate } from 'react-router-dom';
-
-import {
-  useState,
-  useEffect,
-  useRef
-} from "react";
-
-import { useNavigate } from "react-router-dom";
+import './ConfirmarEntrega.css';
+import HeaderF from './HeaderF';
+import React, { useState } from 'react';
+import { useNavigate, useParams} from 'react-router-dom';
 import { FiClock, FiCheck, FiSearch } from 'react-icons/fi'; //Usando react-icons
 
 import { produtos } from "../data/produtos";
 
-import React, { useState } from 'react';
-import './ConfirmarEntrega.css';
 
-function HeadeF({ }) {
-
-  const navega = useNavigate();
-  return (
-    <header className='head'>
-      <h1 >Sabor Universitário</h1>
-    </header>
-  )
-}
-
-export default HeaderF;
 
 function ConfirmarEntrega() {
   
+  const {id} = useParams();
   const [pedidoEntregue, setPedidoEntregue] = useState(false);
   const navigate = useNavigate();
 
-  // Função que será chamada ao clicar no botão
+  // Função que será chamada ao clicar no botão para confirmar a entrega
   const confirmarEntrega = () => {
     setPedidoEntregue(true);
+  };
 
    
-  // 2. Função para o botão voltar
+  // Função para o botão voltar
   const handleVoltar = () => {
     navigate('/home-funcionario'); 
   };
 
-  };
 
   return (
     <div className="container-tela">
-      <header/>
+      <HeadeF/>
 
       <main className="conteudo-pedido">
         
         <button className="btn-voltar" onClick={handleVoltar}>← Voltar</button>
         
-        <h2 className="titulo-pedido">Pedido #23486</h2>
+        <h2 className="titulo-pedido">Pedido #{ id }</h2>
 
         <div className="detalhes-pedido">
           <p className="subtitulo">• Detalhes do pedido</p>

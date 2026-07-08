@@ -16,6 +16,12 @@ body,
   overflow-x: hidden;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Arbutus Slab", serif;
+}
+
 /* TÍTULO */
 .titulo {
   text-align: center;

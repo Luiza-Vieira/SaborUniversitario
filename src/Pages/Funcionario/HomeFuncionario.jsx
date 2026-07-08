@@ -1,16 +1,9 @@
-import "../indexFuncionario.css";
-import HeaderF from '../HeaderF';
-
-import {
-  useState,
-  useEffect,
-  useRef
-} from "react";
-
+import "./indexFuncionario.css";
+import HeaderF from './HeaderF';
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiClock, FiCheck, FiSearch } from 'react-icons/fi'; //Usando react-icons
 
-import { produtos } from "../data/produtos";
 
 const pedidosMock = [
   { id: 26457, cliente: "Maria Luiza Silva", status: "pendente" },
@@ -38,8 +31,15 @@ export default HeaderF;
 
 // Componente cartão do pedido
 export function OrderCard({ pedido }) {
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/ConfirmarEntrega/${pedido.id}');
+  };
+
   return (
-    <div className="card-pedido-funcionario">
+    <div className="card-pedido-funcionario" on onClick={handleClick} style={{ cursor: 'pointer'}}>
       <div className="info-pedido">
         <h3>Pedido - #{pedido.id}</h3>
         <p>Cliente: {pedido.cliente}</p>
