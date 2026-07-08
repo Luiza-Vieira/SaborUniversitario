@@ -1,0 +1,83 @@
+/* Container geral */
+.container-tela {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+}
+
+.conteudo-pedido {
+  padding: 20px;
+}
+
+/* Lista de itens e linha pontilhada */
+.detalhes-pedido {
+  background-color: #fde8d7; /* Cor de fundo creme da imagem */
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.lista-itens {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-itens li, .linha-principal {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.pontilhados {
+  flex-grow: 1;
+  border-bottom: 1px dashed #333;
+  margin: 0 10px;
+  position: relative;
+  top: -4px;
+}
+
+.observacao {
+  font-size: 0.8em;
+  color: #555;
+  margin-left: 10px;
+  font-weight: normal;
+}
+
+/* Botão de confirmar */
+.area-botao {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.btn-confirmar {
+  background-color: #f5b084;
+  color: #a34300;
+  border: 1px solid #e09465;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Status */
+.area-status {
+  background-color: #f5f5f5;
+  padding: 10px;
+  display: inline-block;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.status-andamento {
+  color: #e67e22; /* Laranja */
+  margin-left: 10px;
+}
+
+.status-entregue {
+  color: #27ae60; /* Verde */
+  margin-left: 10px;
+}
