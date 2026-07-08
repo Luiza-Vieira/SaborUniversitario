@@ -4,6 +4,7 @@ import './Login.css'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { buscarUsuarios } from "../../services/usuarioService";
 
 function Login({ setUser }) {
 
@@ -13,37 +14,45 @@ function Login({ setUser }) {
 
   const navega = useNavigate();
 
-  const Perfis = [
-    { id: 1, idPerfil: "cliente", nome: "Agatha Junqueira", email: "agatha21@gmail.com", senha: "gatinha123", quantficha: 5, foto: "https://images.pexels.com/photos/15254860/pexels-photo-15254860.jpeg" },
-    { id: 2, idPerfil: "empresa", nome: "Restaurante Universitário", senha: "betinho59", foto: "https://international.unifei.edu.br/wp-content/uploads/2022/02/unifei-itabira.jpg" },
-    { id: 3, idPerfil: "empresa", nome: "Cantina da Maria", email: "gabiroba2009@gmail.com", senha: "dadinho53", foto: "https://static.wixstatic.com/media/ce3e5c_fc0ac53c0e074c609e64aa7574ac28f4~mv2.png" }];
+  //const Perfis = [
+  //  { id: 1, idPerfil: "cliente", nome: "Agatha Junqueira", email: "agatha21@gmail.com", senha: "gatinha123", quantficha: 5, foto: "https://images.pexels.com/photos/15254860/pexels-photo-15254860.jpeg" },
+   // { id: 2, idPerfil: "empresa", nome: "Restaurante Universitário", senha: "betinho59", foto: "https://international.unifei.edu.br/wp-content/uploads/2022/02/unifei-itabira.jpg" },
+   // { id: 3, idPerfil: "empresa", nome: "Cantina da Maria", email: "gabiroba2009@gmail.com", senha: "dadinho53", foto: "https://static.wixstatic.com/media/ce3e5c_fc0ac53c0e074c609e64aa7574ac28f4~mv2.png" }];
 
-  function fazendologin(event) {
+  async function fazendologin(event) {
 
-    event.preventDefault(); //Usamos essa função pra evitar da página recarregar enquanto preenchemos os dados;
+  event.preventDefault();
 
-    const usuario = Perfis.find(
-      (user) => user.email == email && user.senha == senha);
-    if (!usuario) {
-      SetErro("*Ocorreu um erro ao preencher o email/senha. Tente novamente");
-      return;
+  // Busca os usuários cadastrados no Supabase
+  const usuarios = await buscarUsuarios();
 
-    }
-    else {
-      switch (usuario.idPerfil) {
-        case "cliente":
-          navega('/PaginaInicial');
-          break;
-        case "empresa":
-          navega('/Forma_de_Recebimento_TelaPrincipal');
-          break;
-        case "instituição":
-          break;
-        case "funcionário":
-          break;
-      }
-    }
+  const usuario = usuarios.find(
+
+    (user) =>
+
+      user.email === email &&
+      user.senha === senha &&
+      user.estado === 1
+
+  );
+
+  if (!usuario) {
+
+    SetErro("*Email ou senha inválidos.");
+    return;
+
   }
+
+  // Guarda o usuário logado (vamos usar depois)
+  localStorage.setItem(
+    "usuarioLogado",
+    JSON.stringify(usuario)
+  );
+
+  // Por enquanto todo usuário cadastrado é cliente
+  navega("/PaginaInicial");
+
+}
 
 
   return (
@@ -61,7 +70,19 @@ function Login({ setUser }) {
             <input type="password" placeholder="Senha" onChange={(e) => SetSenha(e.target.value)} />
             <button type="submit" className='entrar' >Entrar</button>
           </div>
-          <Link to="/EsqueceuSenha">Esqueceu a senha?</Link>
+           <Link
+              to="/EsqueceuSenha"
+              onClick={() => {
+
+                localStorage.setItem(
+                  "emailRecuperacao",
+                  email || ""
+                );
+
+              }}
+            >
+              Esqueceu a senha?
+            </Link>
           <p>Ao clicar em Entrar, você concorda com os termos de serviço e de uso.</p>
         </div>
       </form>

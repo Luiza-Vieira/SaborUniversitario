@@ -18,6 +18,8 @@ import Switch from "./Components/Switch/switch";
 import Home from "./Pages/Cliente/Home";
 import Header from "./Pages/Cliente/Header";
 import PaginaInicial from "./Pages/Cliente/PaginaInicialCliente/PaginaInicial";
+import MeuPerfil from "./Pages/Cliente/MeuPerfil";
+import AdicionarCartao from "./Pages/Cliente/AdicionarCartao";
 import Card_Cliente from "./Pages/Cliente/Card_Cliente/Card_Cliente";
 import Carrinho from "./Pages/Cliente/Carrinho";
 import Detalhe from "./Pages/Cliente/Detalhe";
@@ -79,6 +81,16 @@ function App() {
       />
 
       <Route
+          path="/meuperfil"
+          element={<MeuPerfil />}
+      />
+      <Route
+          path="/adicionar-cartao"
+          element={<AdicionarCartao />}
+      />
+
+
+      <Route
         path="/Header"
         element={<Header />}
       />
@@ -98,11 +110,10 @@ function App() {
         element={<Carrinho />}
       />
 
-      <Route
-        path="/detalhe/:categoria/:id"
+       <Route
+        path="/detalhe/:id"
         element={<Detalhe />}
       />
-
       <Route
         path="/cartao"
         element={<Cartao />}

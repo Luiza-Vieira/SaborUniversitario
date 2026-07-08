@@ -1,12 +1,13 @@
 import "../../styles/sidebar.css";
-
 function Sidebar({
   sidebarAberta,
   sidebarRef,
   navigate,
   setSidebarAberta
 }) {
+
   return (
+
     <div
       ref={sidebarRef}
       className={
@@ -34,21 +35,32 @@ function Sidebar({
 
         <li
           onClick={() => {
+
             navigate("/home");
             setSidebarAberta(false);
+
           }}
         >
           Início
         </li>
 
-        <li>
+        <li
+          onClick={() => {
+
+            navigate("/meuperfil");
+            setSidebarAberta(false);
+
+          }}
+        >
           Minha Conta
         </li>
 
         <li
           onClick={() => {
+
             navigate("/meuspedidos");
             setSidebarAberta(false);
+
           }}
         >
           Meus Pedidos
@@ -57,7 +69,9 @@ function Sidebar({
       </ul>
 
     </div>
+
   );
+
 }
 
 export default Sidebar;

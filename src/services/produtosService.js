@@ -16,3 +16,22 @@ export async function buscarProdutos() {
 
   return data;
 }
+
+export async function buscarProdutoPorId(id) {
+
+  const { data, error } = await supabase
+    .from("produtos")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+
+    console.log(error);
+    return null;
+
+  }
+
+  return data;
+
+}

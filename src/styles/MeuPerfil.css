@@ -1,0 +1,173 @@
+/* =========================================================
+   MEU PERFIL
+========================================================= */
+
+.perfil-container{
+
+    width:100%;
+    min-height:calc(100vh - 90px);
+
+    background:#f7f7f7;
+
+    display:flex;
+    justify-content:center;
+
+    padding:45px 0 70px;
+
+}
+
+.perfil-card{
+
+    width:1150px;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
+
+    padding:45px;
+
+}
+
+/* =========================================================
+   LINHA PRINCIPAL
+========================================================= */
+
+.perfil-conteudo{
+
+    display:flex;
+
+    align-items:flex-start;
+
+}
+
+/* =========================================================
+   FOTO
+========================================================= */
+
+.perfil-esquerda{
+
+    width:250px;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+.foto-perfil{
+
+    width:210px;
+
+    height:210px;
+
+    border-radius:50%;
+
+    background:#d9d9d9;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    font-size:90px;
+
+    color:white;
+
+}
+
+/* =========================================================
+   DIREITA
+========================================================= */
+
+.perfil-direita{
+
+    flex:1;
+
+    padding-left:35px;
+
+}
+
+/* =========================================================
+   FAIXA
+========================================================= */
+
+.titulo-faixa{
+
+    width:100%;
+
+    height:62px;
+
+    background:#FFE6C8;
+
+    display:flex;
+
+    align-items:center;
+
+    padding-left:35px;
+
+    border-radius:4px;
+
+    margin-bottom:50px;
+
+}
+
+.titulo-faixa h1{
+
+    margin:0;
+
+    font-size:34px;
+
+    color:#F5871F;
+
+    font-weight:700;
+
+}
+
+/* =========================================================
+   DADOS
+========================================================= */
+
+.dados-cliente{
+
+    width:720px;
+
+    margin-left:45px;
+
+    margin-bottom:55px;
+
+}
+
+.linha-dado{
+
+    display:grid;
+
+    grid-template-columns:240px 1fr;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+.titulo-dado{
+
+    font-size:26px;
+
+    font-weight:bold;
+
+    color:#222;
+
+}
+
+.valor-dado{
+
+    font-size:25px;
+
+    color:#6a6a6a;
+
+}
