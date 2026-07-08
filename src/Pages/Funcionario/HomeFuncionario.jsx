@@ -25,6 +25,17 @@ const pedidosMock = [
   // ... adicionar mais para preencher a tela
 ];
 
+function HeadeF({ }) {
+
+  const navega = useNavigate();
+  return (
+    <header className='head'>
+      <h1 >Sabor Universitário</h1>
+    </header>
+  )
+}
+export default HeaderF;
+
 // Componente cartão do pedido
 export function OrderCard({ pedido }) {
   return (
