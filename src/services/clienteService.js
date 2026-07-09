@@ -26,3 +26,36 @@ export async function buscarClientePorUsuario(idUsuario) {
     };
 
 }
+
+// =====================================
+// ATUALIZAR FICHAS
+// =====================================
+
+export async function atualizarFichas(
+  idCliente,
+  quantidade
+) {
+
+  const { error } = await supabase
+
+    .from("clientes")
+
+    .update({
+
+      fichas: quantidade
+
+    })
+
+    .eq("id", idCliente);
+
+  if (error) {
+
+    console.log(error);
+
+    return false;
+
+  }
+
+  return true;
+
+}

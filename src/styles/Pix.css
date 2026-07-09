@@ -1,0 +1,261 @@
+/* =====================================================
+   PÁGINA
+===================================================== */
+
+.pix-container{
+
+    width:100%;
+
+    min-height:100vh;
+
+    background:#f5f5f5;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px;
+
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.pix-card{
+
+    width:650px;
+
+    background:white;
+
+    border-radius:18px;
+
+    box-shadow:0 8px 30px rgba(0,0,0,.15);
+
+    padding:45px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+/* =====================================================
+   TÍTULO
+===================================================== */
+
+.pix-card h1{
+
+    color:#F47C20;
+
+    font-size:40px;
+
+    margin-bottom:10px;
+
+}
+
+.pix-card p{
+
+    font-size:20px;
+
+    color:#555;
+
+    margin-bottom:30px;
+
+}
+
+/* =====================================================
+   QR CODE
+===================================================== */
+
+.qrcode{
+
+    width:260px;
+
+    height:260px;
+
+    background:white;
+
+    border:2px solid #ddd;
+
+    border-radius:12px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+.qrcode img{
+
+    width:240px;
+
+    height:240px;
+
+}
+
+/* =====================================================
+   CÓDIGO PIX
+===================================================== */
+
+.pix-codigo{
+
+    width:100%;
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:30px;
+
+}
+
+.pix-codigo input{
+
+    flex:1;
+
+    padding:15px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    background:#fafafa;
+
+}
+
+.pix-codigo button{
+
+    width:130px;
+
+    border:none;
+
+    background:#F47C20;
+
+    color:white;
+
+    border-radius:8px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.pix-codigo button:hover{
+
+    background:#d96510;
+
+}
+
+/* =====================================================
+   VALOR
+===================================================== */
+
+.pix-total{
+
+    font-size:30px;
+
+    margin-bottom:40px;
+
+    color:#333;
+
+}
+
+.pix-total strong{
+
+    color:#F47C20;
+
+    margin-left:10px;
+
+}
+
+/* =====================================================
+   BOTÃO
+===================================================== */
+
+.btn-pago{
+
+    width:100%;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#F47C20;
+
+    color:white;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-pago:hover{
+
+    background:#d96510;
+
+}
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media(max-width:700px){
+
+    .pix-card{
+
+        width:95%;
+
+        padding:30px;
+
+    }
+
+    .pix-card h1{
+
+        font-size:30px;
+
+        text-align:center;
+
+    }
+
+    .pix-codigo{
+
+        flex-direction:column;
+
+    }
+
+    .pix-codigo button{
+
+        width:100%;
+
+        height:50px;
+
+    }
+
+    .pix-total{
+
+        font-size:24px;
+
+    }
+
+}

@@ -7,17 +7,26 @@
 
 .perfil-faixa{
 
-    background:#ffe2c4;
+    width:100%;
 
-    color:#ff7a1a;
+    height:62px;
+    align-items: center;
+    font-family: Belanosima, sans-serif;
+    font-size: 52px;
+    color: #F5871F;
+    font-weight: 550;
 
-    font-size:42px;
+    background:#FFE6C8;
 
-    font-weight:bold;
+    display:flex;
 
-    padding:10px 30px;
+    align-items:center;
 
-    border-radius:8px;
+    padding-left:35px;
+
+    border-radius:4px;
+
+    margin-bottom:50px;
 
 }
 
@@ -33,13 +42,16 @@
 
 .foto-perfil-grande{
 
-    width:180px;
-
-    height:180px;
-
-    border-radius:50%;
-
-    background:#ddd;
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    background: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-size: 90px;
+    color: white;
 
 }
 

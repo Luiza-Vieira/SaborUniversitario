@@ -7,10 +7,10 @@ import {
 } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { salvarPedido } from "../../services/pedidoService";
+
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-
+import { buscarClientePorUsuario } from "../../services/clienteService";
 function Carrinho() {
 
   // =====================================
@@ -42,7 +42,9 @@ function Carrinho() {
           event.target
         )
       ) {
+
         setSidebarAberta(false);
+
       }
 
     }
@@ -80,7 +82,37 @@ function Carrinho() {
     });
 
   // =====================================
-  // SALVAR NO LOCALSTORAGE
+  // FORMA DE PAGAMENTO
+  // =====================================
+
+  const [formaPagamento, setFormaPagamento] =
+    useState(1);
+
+  const [cliente, setCliente] = useState(null);
+
+  useEffect(() => {
+
+  async function carregarCliente() {
+
+    const usuario = JSON.parse(
+      localStorage.getItem("usuarioLogado")
+    );
+
+    if (!usuario) return;
+
+    const dadosCliente =
+      await buscarClientePorUsuario(usuario.id);
+
+    setCliente(dadosCliente);
+    console.table(dadosCliente);
+  }
+
+  carregarCliente();
+
+}, []);
+
+  // =====================================
+  // SALVAR CARRINHO
   // =====================================
 
   useEffect(() => {
@@ -100,7 +132,7 @@ function Carrinho() {
 
     const novoCarrinho = [...carrinho];
 
-    novoCarrinho[index].quantidade += 1;
+    novoCarrinho[index].quantidade++;
 
     setCarrinho(novoCarrinho);
 
@@ -114,14 +146,16 @@ function Carrinho() {
 
     const novoCarrinho = [...carrinho];
 
-    novoCarrinho[index].quantidade -= 1;
+    novoCarrinho[index].quantidade--;
 
-    const carrinhoFiltrado =
+    const filtrado =
       novoCarrinho.filter(
-        (item) => item.quantidade > 0
+
+        item => item.quantidade > 0
+
       );
 
-    setCarrinho(carrinhoFiltrado);
+    setCarrinho(filtrado);
 
   }
 
@@ -133,25 +167,29 @@ function Carrinho() {
 
     (soma, produto) => {
 
-      let preco = 0;
+      const preco =
 
-      if (typeof produto.preco === "string") {
+        typeof produto.preco === "string"
 
-        preco = parseFloat(
-          produto.preco
-            .replace("R$", "")
-            .replace(",", ".")
-            .trim()
-        );
+          ? parseFloat(
 
-      } else {
+              produto.preco
 
-        preco = Number(produto.preco);
+                .replace("R$", "")
 
-      }
+                .replace(",", ".")
+
+                .trim()
+
+            )
+
+          : Number(produto.preco);
 
       return soma +
-        preco * Number(produto.quantidade);
+
+        preco *
+
+        Number(produto.quantidade);
 
     },
 
@@ -163,56 +201,37 @@ function Carrinho() {
   // FINALIZAR PEDIDO
   // =====================================
 
- async function finalizarPedido() {
+  function finalizarPedido() {
 
-      if (carrinho.length === 0) {
+    if (carrinho.length === 0) {
 
-        alert("Seu carrinho está vazio!");
-        return;
+      alert("Seu carrinho está vazio!");
 
-      }
-
-      // Por enquanto vamos considerar Dinheiro = 1
-      const idFormaPagamento = 1;
-
-      const pedido = await salvarPedido(
-        total,
-        idFormaPagamento
-      );
-
-      if (!pedido) {
-
-        alert("Erro ao salvar o pedido.");
-        return;
-
-      }
-
-      const novoPedido = {
-
-        numero:
-          Math.floor(
-            1000 + Math.random() * 9000
-          ),
-
-        status: "Em preparo",
-
-        total,
-
-        data:
-          new Date().toLocaleDateString("pt-BR"),
-
-        itens: carrinho
-
-      };
-
-      localStorage.setItem(
-        "pedidoAtual",
-        JSON.stringify(novoPedido)
-      );
-
-      navigate("/resumo");
+      return;
 
     }
+
+    const pedidoAtual = {
+
+      itens: carrinho,
+
+      total,
+
+      formaPagamento
+
+    };
+
+    localStorage.setItem(
+
+      "pedidoAtual",
+
+      JSON.stringify(pedidoAtual)
+
+    );
+
+    navigate("/resumo");
+
+  }
 
   // =====================================
   // JSX
@@ -220,9 +239,7 @@ function Carrinho() {
 
   return (
 
-    <>
-
-      <Sidebar
+    <>      <Sidebar
         sidebarAberta={sidebarAberta}
         sidebarRef={sidebarRef}
         navigate={navigate}
@@ -246,8 +263,6 @@ function Carrinho() {
         </h2>
       </div>
 
-      {/* CARRINHO */}
-
       <div className="box-carrinho">
 
         {
@@ -270,7 +285,13 @@ function Carrinho() {
                 ></div>
 
                 <div className="resumo-info">
-                  <h3>{produto.nome}</h3>
+
+                  <h3>
+
+                    {produto.nome}
+
+                  </h3>
+
                 </div>
 
               </div>
@@ -278,7 +299,9 @@ function Carrinho() {
               <div className="resumo-direita">
 
                 <p className="resumo-preco">
+
                   {produto.preco}
+
                 </p>
 
                 <div className="resumo-controle">
@@ -288,11 +311,15 @@ function Carrinho() {
                       diminuir(index)
                     }
                   >
+
                     -
+
                   </button>
 
                   <span>
+
                     {produto.quantidade}
+
                   </span>
 
                   <button
@@ -300,7 +327,9 @@ function Carrinho() {
                       aumentar(index)
                     }
                   >
+
                     +
+
                   </button>
 
                 </div>
@@ -319,7 +348,9 @@ function Carrinho() {
 
             <div className="total">
 
-              Valor total: R$ {
+              Valor total: R$
+
+              {
 
                 total
                   .toFixed(2)
@@ -335,60 +366,70 @@ function Carrinho() {
 
       </div>
 
-      {/* FOOTER */}
-
       <div className="footer">
 
         <a href="/">
+
           Adicionar mais produtos ao carrinho
+
         </a>
 
         <div className="pagamento">
 
           <div className="pagamento-cartao-box">
 
-            <select
-              className="select-pagamento"
-              onChange={(e) => {
+             <select
+                    className="select-pagamento"
+                    value={formaPagamento}
+                    onChange={(e) => {
 
-                if (
-                  e.target.value === "novo-cartao"
-                ) {
-                  navigate("/cartao");
-                }
+                        const valor = Number(e.target.value);
 
-              }}
-            >
+                        if (valor === 99) {
 
-              <option value="dinheiro">
-                Dinheiro
-              </option>
+                            navigate("/cartao");
+                            return;
 
-              <option value="pix">
-                Pix
-              </option>
+                        }
 
-              <option value="credito">
-                Cartão de crédito
-              </option>
+                        setFormaPagamento(valor);
 
-              <option value="debito">
-                Cartão de débito
-              </option>
+                    }}
+                >
 
-              <option value="novo-cartao">
-                + Adicionar novo cartão
-              </option>
+                    <option value={1}>
+                        Pix
+                    </option>
 
-            </select>
+                    <option value={2}>
+                        Cartão de crédito
+                    </option>
 
+                    <option value={3}>
+                        Cartão de débito
+                    </option>
+
+                    <option value={4}>
+                        Dinheiro
+                    </option>
+
+                    <option value={99}>
+                        + Adicionar novo cartão
+                    </option>
+
+                </select>
           </div>
 
           <button
+
             className="btn-proximo"
+
             onClick={finalizarPedido}
+
           >
+
             Finalizar Pedido
+
           </button>
 
         </div>

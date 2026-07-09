@@ -10,6 +10,14 @@ import { useNavigate } from "react-router-dom";
 
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import { buscarItensPedido } from "../../services/pedidoService";
+import {
+
+  salvarFeedback,
+
+  buscarFeedbackPedido
+
+} from "../../services/feedbackService";
 
 function Feedback() {
 
@@ -34,6 +42,12 @@ function Feedback() {
 
   const [feedback, setFeedback] =
     useState("");
+
+  const [itensPedido, setItensPedido] =
+  useState([]);
+
+  const [feedbackSalvo, setFeedbackSalvo] =
+  useState(null);
 
   // =====================================
   // FECHAR SIDEBAR
@@ -79,6 +93,39 @@ function Feedback() {
       "pedidoSelecionado"
     )
   );
+
+  useEffect(() => {
+
+  async function carregarDados() {
+
+    if (!pedido?.id) return;
+
+    // Carrega os itens do pedido
+    const itens = await buscarItensPedido(
+      pedido.id
+    );
+
+    setItensPedido(itens);
+
+    // Carrega o feedback já existente
+    const feedbackBanco =
+      await buscarFeedbackPedido(
+        pedido.id
+      );
+
+    if (feedbackBanco) {
+
+      setFeedbackSalvo(
+        feedbackBanco
+      );
+
+    }
+
+  }
+
+  carregarDados();
+
+}, [pedido]);
 
   // =====================================
   // CARRINHO
@@ -127,58 +174,49 @@ function Feedback() {
   // ENVIAR FEEDBACK
   // =====================================
 
-  function enviarFeedback() {
+  async function enviarFeedback() {
 
-    if (feedback.trim() === "") {
+  console.log("Pedido completo:", pedido);
 
-      alert(
-        "Digite uma avaliação antes de enviar."
-      );
+  console.log("ID do pedido:", pedido.id);
 
-      return;
+  console.log("Comentário:", feedback);
 
-    }
-
-    const feedbacks =
-
-      JSON.parse(
-        localStorage.getItem(
-          "feedbacks"
-        )
-      ) || [];
-
-    const novoFeedback = {
-
-      pedido: pedido.numero,
-
-      comentario: feedback,
-
-      data:
-        new Date().toLocaleDateString(
-          "pt-BR"
-        )
-
-    };
-
-    feedbacks.push(
-      novoFeedback
-    );
-
-    localStorage.setItem(
-      "feedbacks",
-      JSON.stringify(
-        feedbacks
-      )
-    );
+  if (feedback.trim() === "") {
 
     alert(
-      "Feedback enviado com sucesso!"
+      "Digite uma avaliação antes de enviar."
     );
 
-    setFeedback("");
+    return;
 
   }
 
+  const resultado = await salvarFeedback(
+
+    pedido.id,
+
+    feedback
+
+  );
+
+  console.log("Resultado:", resultado);
+
+  if (!resultado) {
+
+    alert("Erro ao salvar o feedback.");
+
+    return;
+
+  }
+
+  alert(
+    "Feedback enviado com sucesso!"
+  );
+
+  setFeedback("");
+
+}
   // =====================================
   // JSX
   // =====================================
@@ -218,7 +256,7 @@ function Feedback() {
           </h2>
 
           <h1>
-            Pedido #{pedido.numero}
+            Pedido #{pedido.id || pedido.numero}
           </h1>
 
         </div>
@@ -266,7 +304,7 @@ function Feedback() {
           {/* ITENS */}
 
           {
-            pedido.itens.map(
+             itensPedido.map(
               (item, index) => (
 
                 <div
@@ -336,7 +374,9 @@ function Feedback() {
             R$
 
             {
-              Number(pedido.total)
+              Number(
+                pedido.valor_total ?? pedido.total ?? 0
+              )
                 .toFixed(2)
                 .replace(".", ",")
             }
@@ -347,37 +387,69 @@ function Feedback() {
 
         {/* FEEDBACK */}
 
-        <div className="feedback-container">
+       <div className="feedback-container">
+             {
 
-          <div className="feedback-titulo">
-            Deseja avaliar a sua compra?
+    feedbackSalvo ? (
+
+      <>
+
+        <div className="feedback-titulo">
+          Avaliações
+        </div>
+
+        <div className="feedback-box-visualizacao">
+
+          <div className="feedback-data">
+            Avaliação feita em{" "}
+            {new Date(
+              feedbackSalvo.data_hora
+            ).toLocaleDateString("pt-BR")}
           </div>
 
-          <div className="feedback-box">
-
-            <textarea
-              className="feedback-textarea"
-              value={feedback}
-              onChange={(e) =>
-                setFeedback(
-                  e.target.value
-                )
-              }
-              placeholder="Digite aqui sua avaliação..."
-            />
-
+          <div className="feedback-comentario">
+            {feedbackSalvo.comentario}
           </div>
-
-          <button
-            className="btn-feedback"
-            onClick={enviarFeedback}
-          >
-
-            Enviar avaliação
-
-          </button>
 
         </div>
+
+      </>
+
+    ) : (
+
+      <>
+
+        <div className="feedback-titulo">
+          Deseja avaliar a sua compra?
+        </div>
+
+        <div className="feedback-box">
+
+          <textarea
+            className="feedback-textarea"
+            value={feedback}
+            onChange={(e) =>
+              setFeedback(e.target.value)
+            }
+            placeholder="Digite aqui sua avaliação..."
+          />
+
+        </div>
+
+        <button
+          className="btn-feedback"
+          onClick={enviarFeedback}
+        >
+          Enviar avaliação
+        </button>
+
+      </>
+
+    )
+
+  }
+  
+</div>
 
       </div>
 

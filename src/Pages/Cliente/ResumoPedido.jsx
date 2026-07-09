@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
+import { salvarPedido } from "../../services/pedidoService";
+
 function ResumoPedido() {
 
   const navigate = useNavigate();
@@ -29,12 +31,17 @@ function ResumoPedido() {
     function fecharSidebar(event) {
 
       if (
+
         sidebarRef.current &&
+
         !sidebarRef.current.contains(
           event.target
         )
+
       ) {
+
         setSidebarAberta(false);
+
       }
 
     }
@@ -56,36 +63,35 @@ function ResumoPedido() {
   }, []);
 
   // =====================================
-  // PEGAR PEDIDO
+  // PEDIDO
   // =====================================
 
   const pedidoSalvo =
     localStorage.getItem("pedidoAtual");
 
-  const pedido = pedidoSalvo
-    ? JSON.parse(pedidoSalvo)
-    : null;
+  const pedido =
 
-  // =====================================
-  // PROTEÇÃO
-  // =====================================
+    pedidoSalvo
+
+      ? JSON.parse(pedidoSalvo)
+
+      : null;
+      
 
   if (!pedido) {
 
     return (
 
-      <div className="pagina-resumo">
+      <h2
+        style={{
+          marginTop:80,
+          textAlign:"center"
+        }}
+      >
 
-        <h1
-          style={{
-            textAlign: "center",
-            marginTop: "100px"
-          }}
-        >
-          Nenhum pedido encontrado
-        </h1>
+        Nenhum pedido encontrado.
 
-      </div>
+      </h2>
 
     );
 
@@ -95,18 +101,52 @@ function ResumoPedido() {
   // STATES
   // =====================================
 
-  const [itens, setItens] = useState(
+  const [itens,setItens]=useState(
+
     pedido.itens || []
+
   );
 
-  const [quantidadeCarrinho, setQuantidadeCarrinho] =
-    useState(
+  const formaPagamento =
+    pedido.formaPagamento;
 
-      pedido.itens.reduce(
+  // =====================================
+  // QUANTIDADE
+  // =====================================
 
-        (total, item) => {
-          return total + item.quantidade;
-        },
+  const [
+
+    quantidadeCarrinho,
+
+    setQuantidadeCarrinho
+
+  ] = useState(
+
+    pedido.itens.reduce(
+
+      (total,item)=>
+
+        total+item.quantidade,
+
+      0
+
+    )
+
+  );
+
+  // =====================================
+  // ATUALIZA DADOS
+  // =====================================
+
+  function atualizarDados(novosItens){
+
+    setItens(novosItens);
+
+    setQuantidadeCarrinho(
+
+      novosItens.reduce(
+
+        (t,item)=>t+item.quantidade,
 
         0
 
@@ -114,50 +154,31 @@ function ResumoPedido() {
 
     );
 
-  // =====================================
-  // ATUALIZAR DADOS
-  // =====================================
-
-  function atualizarDados(novosItens) {
-
-    setItens([...novosItens]);
-
-    const novaQuantidade =
-      novosItens.reduce(
-
-        (total, item) => {
-          return total + item.quantidade;
-        },
-
-        0
-
-      );
-
-    setQuantidadeCarrinho(
-      novaQuantidade
-    );
-
-    const pedidoAtualizado = {
-
-      ...pedido,
-
-      itens: novosItens
-
-    };
-
     localStorage.setItem(
+
       "pedidoAtual",
-      JSON.stringify(pedidoAtualizado)
+
+      JSON.stringify({
+
+        ...pedido,
+
+        itens:novosItens
+
+      })
+
     );
 
     localStorage.setItem(
+
       "carrinho",
+
       JSON.stringify(novosItens)
+
     );
 
   }
 
-  // =====================================
+    // =====================================
   // AUMENTAR
   // =====================================
 
@@ -165,7 +186,7 @@ function ResumoPedido() {
 
     const novosItens = [...itens];
 
-    novosItens[index].quantidade += 1;
+    novosItens[index].quantidade++;
 
     atualizarDados(novosItens);
 
@@ -179,10 +200,12 @@ function ResumoPedido() {
 
     let novosItens = [...itens];
 
-    novosItens[index].quantidade -= 1;
+    novosItens[index].quantidade--;
 
     novosItens = novosItens.filter(
-      (item) => item.quantidade > 0
+
+      item => item.quantidade > 0
+
     );
 
     atualizarDados(novosItens);
@@ -202,15 +225,24 @@ function ResumoPedido() {
         typeof item.preco === "string"
 
           ? parseFloat(
-            item.preco
-              .replace("R$ ", "")
-              .replace(",", ".")
-          )
+
+              item.preco
+
+                .replace("R$", "")
+
+                .replace(",", ".")
+
+                .trim()
+
+            )
 
           : Number(item.preco);
 
       return soma +
-        preco * item.quantidade;
+
+        preco *
+
+        Number(item.quantidade);
 
     },
 
@@ -222,57 +254,63 @@ function ResumoPedido() {
   // CONFIRMAR PEDIDO
   // =====================================
 
-  function confirmarPedido() {
+    async function confirmarPedido() {
 
-    const pedidoFinal = {
+  const pedidoSalvo = await salvarPedido(
 
-      numero:
+    total,
+    formaPagamento,
+    itens
 
-        Math.floor(
-          1000 + Math.random() * 9000
-        ),
+  );
 
-      status: "Pedido entregue",
+  if (!pedidoSalvo) {
 
-      data:
+    alert("Erro ao salvar o pedido.");
 
-        new Date().toLocaleDateString(
-          "pt-BR"
-        ),
-
-      itens,
-
-      total
-
-    };
-
-    localStorage.setItem(
-      "pedidoAtual",
-      JSON.stringify(pedidoFinal)
-    );
-
-    const pedidosAntigos =
-
-      JSON.parse(
-        localStorage.getItem("pedidos")
-      ) || [];
-
-    pedidosAntigos.push(
-      pedidoFinal
-    );
-
-    localStorage.setItem(
-      "pedidos",
-      JSON.stringify(pedidosAntigos)
-    );
-
-    localStorage.removeItem(
-      "carrinho"
-    );
-
-    navigate("/pedidofeito");
+    return;
 
   }
+
+  // Atualiza o pedido no localStorage com o ID do banco
+  const pedidoAtualizado = {
+
+    ...pedido,
+
+    id: pedidoSalvo.id,
+
+    itens,
+
+    total,
+
+    formaPagamento
+
+  };
+
+  localStorage.setItem(
+
+    "pedidoAtual",
+
+    JSON.stringify(pedidoAtualizado)
+
+  );
+
+  // Limpa o carrinho
+  localStorage.removeItem("carrinho");
+
+  // PIX
+  if (formaPagamento === 1) {
+
+    navigate("/pix");
+
+    return;
+
+  }
+
+  // Crédito, Débito ou Benefício
+  navigate("/pedidofeito");
+
+}
 
   // =====================================
   // JSX
@@ -281,8 +319,7 @@ function ResumoPedido() {
   return (
 
     <div className="pagina-resumo">
-
-      <Sidebar
+         <Sidebar
         sidebarAberta={sidebarAberta}
         sidebarRef={sidebarRef}
         navigate={navigate}
@@ -317,10 +354,13 @@ function ResumoPedido() {
               typeof produto.preco === "string"
 
                 ? parseFloat(
-                  produto.preco
-                    .replace("R$ ", "")
-                    .replace(",", ".")
-                )
+
+                    produto.preco
+                      .replace("R$", "")
+                      .replace(",", ".")
+                      .trim()
+
+                  )
 
                 : Number(produto.preco);
 
@@ -344,7 +384,9 @@ function ResumoPedido() {
                   <div className="resumo-info">
 
                     <h3>
+
                       {produto.nome}
+
                     </h3>
 
                   </div>
@@ -355,14 +397,20 @@ function ResumoPedido() {
 
                   <p className="resumo-preco">
 
-                    R$ {
+                    R$
+
+                    {
 
                       (
+
                         precoNumerico *
+
                         produto.quantidade
+
                       )
 
                         .toFixed(2)
+
                         .replace(".", ",")
 
                     }
@@ -376,11 +424,15 @@ function ResumoPedido() {
                         diminuir(index)
                       }
                     >
+
                       -
+
                     </button>
 
                     <span>
+
                       {produto.quantidade}
+
                     </span>
 
                     <button
@@ -388,7 +440,9 @@ function ResumoPedido() {
                         aumentar(index)
                       }
                     >
+
                       +
+
                     </button>
 
                   </div>
@@ -404,7 +458,9 @@ function ResumoPedido() {
         }
 
         <p className="resumo-observacao">
+
           Observação:
+
         </p>
 
         {
@@ -413,10 +469,14 @@ function ResumoPedido() {
 
             <div className="resumo-total">
 
-              Valor total: R$ {
+              Valor total: R$
+
+              {
 
                 total
+
                   .toFixed(2)
+
                   .replace(".", ",")
 
               }
@@ -431,38 +491,32 @@ function ResumoPedido() {
 
       <div className="resumo-footer">
 
-        <a href="/">
-          Adicionar mais produtos ao carrinho
-        </a>
+        <button
 
-        <div className="resumo-pagamento">
+          className="btn-voltar"
 
-          <select className="resumo-select">
+          onClick={() => navigate("/carrinho")}
 
-            <option>
-              Dinheiro
-            </option>
+        >
 
-            <option>
-              Pix
-            </option>
+          Voltar
 
-            <option>
-              Cartão
-            </option>
+        </button>
 
-          </select>
+        <button
 
-          <button
-            className="resumo-btn"
-            onClick={confirmarPedido}
-          >
-            CONFIRMAR
-          </button>
+          className="resumo-btn"
 
-        </div>
+          onClick={confirmarPedido}
+
+        >
+
+          CONFIRMAR PEDIDO
+
+        </button>
 
       </div>
+
 
     </div>
 

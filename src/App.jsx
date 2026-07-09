@@ -28,6 +28,7 @@ import MeusPedidos from "./Pages/Cliente/MeusPedidos";
 import Feedback from "./Pages/Cliente/Feedback";
 import ResumoPedido from "./Pages/Cliente/ResumoPedido";
 import PedidoFeito from "./Pages/Cliente/PedidoFeito";
+import Pix from "./Pages/Cliente/Pix";
 
 // =====================================
 // EMPRESA
@@ -132,6 +133,11 @@ function App() {
       <Route
         path="/pedidofeito"
         element={<PedidoFeito />}
+      />
+
+      <Route
+          path="/pix"
+          element={<Pix />}
       />
 
       <Route

@@ -617,6 +617,24 @@ body,
   box-sizing: border-box;
 }
 
+.feedback-box-visualizacao {
+
+  width: calc(100% - 20px);
+
+  margin: 0 auto;
+
+  background: #D57541;
+
+  border-radius: 8px;
+
+  padding: 28px;
+
+  box-sizing: border-box;
+
+  min-height: 180px;
+
+}
+
 .feedback-textarea {
   width: 100%;
   height: 100%;
@@ -651,4 +669,32 @@ body,
 .btn-feedback:hover {
   transform: scale(1.03);
   background: #e8a94d;
+}
+
+.feedback-data {
+
+  font-size: 18px;
+
+  color: white;
+
+  font-family: Georgia, serif;
+
+  margin-bottom: 20px;
+
+  margin-left: 40px;
+
+}
+
+.feedback-comentario {
+
+  color: #000000;
+
+  font-size: 22px;
+
+  margin-left: 40px;
+
+  line-height: 1.8;
+
+  font-family: Alike, serif;
+
 }
