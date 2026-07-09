@@ -1,0 +1,84 @@
+
+.empresas {
+  width: 100%;
+  min-height: 100vh; 
+}
+
+/* Container para centralizar o card na tela */
+.container-centro-empresas {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* O card branco do formulário */
+.contentempresas {
+  width: 100%;
+  max-width: 850px;
+  background-color: #ffffff; /* Fundo interno branco */
+  padding: 40px 50px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  margin-top: 0; /* Reseta a margem antiga */
+}
+
+/* Alinhamento do título "Cadastrar Empresa" com a linha cinza */
+.section-empresas {
+  margin-bottom: 30px;
+}
+
+.section-empresas h2 {
+  color: #ff7124;
+  font-size: 24px;
+  text-align: left;
+  border-bottom: 1px solid #b3b3b3;
+  padding-bottom: 10px;
+}
+
+/* Estilização dos blocos de perguntas */
+.opcoes-empresas {
+  margin-bottom: 20px;
+}
+
+.opcoes-empresas h3 {
+  color: #000000;
+  margin-bottom: 8px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+/* Força os inputs a ocuparem 100% do card branco */
+.opcoes-empresas input {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px; 
+  background-color: #dbdbdb; /* Cinza claro dos inputs */
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+/* Alinhamento e estilo do botão Salvar */
+.container-botao-salvar {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.botao-salvar {
+  padding: 12px 45px;
+  background-color: #ffccaa; /* Tom pastel do Figma */
+  color: #ff7124;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.botao-salvar:hover {
+  background-color: #ffbe94;
+}
+

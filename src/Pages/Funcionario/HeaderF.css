@@ -1,0 +1,13 @@
+.head {
+    background-color: #4E4946;
+}
+
+h1 {
+    color: white;
+    font-family: "Berkshire Swash";
+    font-weight: 400;
+    font-size: 2.2em;
+    padding: 1.5em;
+    text-align: center;
+    flex: 2;
+}
