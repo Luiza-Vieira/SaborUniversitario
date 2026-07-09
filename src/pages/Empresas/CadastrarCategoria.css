@@ -1,0 +1,150 @@
+.categoria-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  font-family: 'Georgia', serif;
+}
+
+/* Header ocupando 100% da largura da tela */
+.categoria-header {
+  width: 100%;
+  background-color: #292929;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0;
+}
+
+/* Crachá da empresa no canto esquerdo */
+.empresa-badge {
+  position: absolute;
+  left: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #ffffff40;
+  padding: 8px 20px;
+  border-radius: 15px;
+  background-color: #222222;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #ffe6d5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nome-empresa {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.logo {
+  color: white;
+  font-size: 42px;
+  font-weight: normal;
+}
+
+/* Container do Card posicionado mais no topo */
+.categoria-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px 40px 20px; 
+}
+
+.categoria-card {
+  width: 100%;
+  max-width: 900px;
+  background-color: #ffffff;
+  padding: 30px 50px 40px 50px;
+  border-radius: 4px;
+}
+
+.categoria-titulo {
+  color: #ff8c42;
+  font-size: 26px;
+  text-align: center;
+  margin-bottom: 40px;
+  margin-top: 0;
+  font-weight: normal;
+}
+
+/* Layout do Formulário */
+.categoria-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Garante as duas colunas idênticas lado a lado */
+.form-row {
+  display: flex;
+  gap: 40px; 
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1; /* Faz as duas colunas dividirem o espaço igualmente (50% cada) */
+}
+
+.form-group label {
+  font-size: 15px;
+  color: #333;
+}
+
+.asterisco {
+  color: red;
+  margin-left: 3px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #dbdbdb;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Estilização do Select com setinha customizada */
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px;
+}
+
+/* Alinhamento do Botão Salvar à direita */
+.categoria-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.btn-salvar {
+  padding: 10px 60px;
+  background-color: #ffccaa;
+  color: #ff7124;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-salvar:hover {
+  background-color: #ffbe94;
+}

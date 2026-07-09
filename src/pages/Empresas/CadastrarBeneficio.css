@@ -1,0 +1,165 @@
+
+.beneficio-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: white;
+  font-family: 'Georgia', serif;
+  margin: 0; 
+  padding: 0;
+}
+
+
+/* Header estilizado */
+.beneficio-header {
+  background-color: #292929;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  
+  
+  width: 100%;
+  margin: 0;
+  padding: 0 40px;
+}
+
+/* Badge da Empresa no canto esquerdo */
+.empresa-badge {
+  position: absolute;
+  left: 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid #ffffff40;
+  padding: 10px 25px;
+  border-radius: 18px;
+  background-color: #222222;
+}
+
+.avatar-placeholder {
+  width: 45px;
+  height: 45px;
+  background-color: #ffe6d5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.empresa-nome {
+  color: #ffffff;
+  font-size: 18px;
+}
+
+/* Logo central do Header */
+.beneficio-logo {
+  color: white;
+  font-size: 45px;
+  font-weight: normal;
+}
+
+/* Container do Card */
+.beneficio-container {
+  display: flex;
+  justify-content: center;
+  
+  padding: 20px 20px 50px 20px; 
+}
+
+
+.beneficio-card {
+  width: 100%;
+  max-width: 950px;
+  background-color: #ffffff;
+  padding: 25px 50px 45px 50px; 
+  border-radius: 4px
+}
+
+.beneficio-titulo {
+  color: #ff8c42;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px; 
+  font-weight: normal;
+  margin-top: 0;
+}
+
+/* Estrutura do Formulário */
+.beneficio-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-row {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 16px;
+  color: #000000;
+}
+
+.obrigatorio {
+  color: red;
+}
+
+/* Inputs e Selects padronizados */
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #dbdbdb;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Customização do Select */
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 15px;
+  padding-right: 40px;
+}
+
+/* Proporções exatas das larguras dos inputs */
+.campo-codigo { width: 30%; }
+.campo-nome { width: 70%; }
+.campo-descricao { width: 70%; }
+.campo-estado { width: 30%; }
+
+/* Botão Salvar alinhado à direita */
+.beneficio-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+
+.beneficio-btn-salvar {
+  padding: 12px 55px;
+  background-color: #ffccaa;
+  color: #ff7124;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.beneficio-btn-salvar:hover {
+  background-color: #ffbe94;
+}

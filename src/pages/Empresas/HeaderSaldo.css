@@ -1,0 +1,47 @@
+.lista-cat-header {
+  width: 100%;
+  background-color: #292929;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.empresa-saldo-badge {
+  position: absolute;
+  left: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #ffffff40;
+  padding: 8px 20px;
+  border-radius: 15px;
+  background-color: #222222;
+}
+.avatar-container {
+  width: 45px;
+  height: 45px;
+  background-color: #ffe6d5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.empresa-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.saldo-empresa {
+  color: #b3b3b3;
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.nome-empresa {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bold;
+}
