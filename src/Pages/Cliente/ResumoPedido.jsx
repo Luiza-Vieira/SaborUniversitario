@@ -489,33 +489,26 @@ function ResumoPedido() {
 
       </div>
 
-      <div className="resumo-footer">
+       <div className="resumo-footer">
 
-        <button
+  <a
+    href="#"
+    onClick={(e) => {
+      e.preventDefault();
+      navigate("/carrinho");
+    }}
+  >
+    Adicionar mais produtos ao carrinho
+  </a>
 
-          className="btn-voltar"
+  <button
+    className="resumo-btn"
+    onClick={confirmarPedido}
+  >
+    CONFIRMAR
+  </button>
 
-          onClick={() => navigate("/carrinho")}
-
-        >
-
-          Voltar
-
-        </button>
-
-        <button
-
-          className="resumo-btn"
-
-          onClick={confirmarPedido}
-
-        >
-
-          CONFIRMAR PEDIDO
-
-        </button>
-
-      </div>
+</div>
 
 
     </div>

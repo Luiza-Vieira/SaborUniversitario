@@ -59,3 +59,23 @@ export async function atualizarFichas(
   return true;
 
 }
+
+export async function descontarFicha(idCliente, fichasAtuais) {
+
+    const { error } = await supabase
+        .from("clientes")
+        .update({
+            fichas: fichasAtuais - 1
+        })
+        .eq("id", idCliente);
+
+    if (error) {
+
+        console.log(error);
+        return false;
+
+    }
+
+    return true;
+
+}

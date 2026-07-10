@@ -72,91 +72,94 @@ function Pix() {
 
             <div className="pix-container">
 
-                <div className="pix-card">
+    <div className="pix-topo">
 
-                    <h1>
+        <button
+            className="btn-voltar-pix"
+            onClick={() => navigate("/resumo")}
+        >
+            ← Voltar
+        </button>
 
-                        Pagamento via PIX
+        <h2>
+            Restaurante universitário
+        </h2>
 
-                    </h1>
+    </div>
 
-                    <p className="pedido-numero">
+    <div className="pix-status">
 
-                        Pedido nº {numeroPedido}
+        Pagamento realizado ✔
 
-                    </p>
+    </div>
 
-                    <p>
+    <div className="pix-conteudo">
 
-                        Escaneie o QR Code abaixo
+        <div className="pix-esquerda">
 
-                    </p>
+            <h1>PIX</h1>
 
-                    <div className="qrcode">
+            <div className="qrcode">
 
-                        <img
-
-                            src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=RUUNIFEI"
-
-                            alt="QR Code"
-
-                        />
-
-                    </div>
-
-                    <div className="pix-codigo">
-
-                        <input
-
-                            readOnly
-
-                            value="00020126360014BR.GOV.BCB.PIX0114ru@unifei.edu.br520400005303986540510.005802BR5913RUUNIFEI6008ITABIRA62070503***6304ABCD"
-
-                        />
-
-                        <button
-
-                            onClick={copiarPix}
-
-                        >
-
-                            Copiar
-
-                        </button>
-
-                    </div>
-
-                    <div className="pix-total">
-
-                        Valor:
-
-                        <strong>
-
-                            R$
-
-                            {" "}
-
-                            {total.toFixed(2).replace(".", ",")}
-
-                        </strong>
-
-                    </div>
-
-                    <button
-
-                        className="btn-pago"
-
-                        onClick={confirmarPagamento}
-
-                    >
-
-                        Já realizei o pagamento
-
-                    </button>
-
-                </div>
+                <img
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=RUUNIFEI"
+                    alt="QR Code"
+                />
 
             </div>
+
+            <h3>
+
+                Pix válido até 23h10
+
+            </h3>
+
+        </div>
+
+        <div className="pix-direita">
+
+            <p>
+
+                Aponte a sua câmera para o QR Code ao lado
+                ou utilize o código Pix Copia e Cola abaixo.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div className="pix-codigo">
+
+        <input
+            readOnly
+            value="00020101021126580014br.gov.bcb.pix013631597ff4-c90e-470b-b8d6-b767f1f85a1e5204000053039865802BR5915RestauranteUni6013RIO DE JANEIRO62070503***630436C2"
+        />
+
+    </div>
+
+    <button
+        className="copiar-pix"
+        onClick={copiarPix}
+    >
+
+        Copiar código pix
+
+    </button>
+
+    <button
+        className="btn-pago"
+        onClick={confirmarPagamento}
+    >
+
+        Já realizei o pagamento
+
+    </button>
+
+</div>
+                
+
+            
 
         </>
 

@@ -1,5 +1,11 @@
 import { supabase } from "./supabase";
-import { buscarClientePorUsuario } from "./clienteService";
+import {
+  buscarClientePorUsuario
+} from "./clienteService";
+
+// ==========================================
+// SALVAR PEDIDO
+// ==========================================
 
 export async function salvarPedido(
   valorTotal,
@@ -74,7 +80,7 @@ export async function salvarPedido(
   }
 
   // ==========================
-  // Salva produtos do pedido
+  // Salva itens do pedido
   // ==========================
 
   const itens = carrinho.map((produto) => ({
@@ -114,25 +120,36 @@ export async function buscarPedidosCliente() {
     localStorage.getItem("usuarioLogado")
   );
 
-  if (!usuarioLogado) return [];
+  if (!usuarioLogado) {
+
+    return [];
+
+  }
 
   const cliente = await buscarClientePorUsuario(
     usuarioLogado.id
   );
 
-  if (!cliente) return [];
+  if (!cliente) {
 
-  const { data, error } = await supabase
+    return [];
 
-    .from("pedidos")
+  }
 
-    .select("*")
+  const { data, error } =
+    await supabase
 
-    .eq("idcliente", cliente.id)
+      .from("pedidos")
 
-    .order("data_hora", {
-      ascending: false
-    });
+      .select("*")
+
+      .eq("idcliente", cliente.id)
+
+      .order("data_hora", {
+
+        ascending: false
+
+      });
 
   if (error) {
 
@@ -152,11 +169,14 @@ export async function buscarPedidosCliente() {
 
 export async function buscarItensPedido(idPedido) {
 
-  // Busca os itens do pedido
-  const { data: itensPedido, error } = await supabase
-    .from("pedidos_produtos")
-    .select("*")
-    .eq("idpedido", idPedido);
+  const { data: itensPedido, error } =
+    await supabase
+
+      .from("pedidos_produtos")
+
+      .select("*")
+
+      .eq("idpedido", idPedido);
 
   if (error) {
 
@@ -166,7 +186,6 @@ export async function buscarItensPedido(idPedido) {
 
   }
 
-  // Se não houver itens
   if (itensPedido.length === 0) {
 
     return [];
@@ -179,7 +198,6 @@ export async function buscarItensPedido(idPedido) {
 
   );
 
-  // Busca os produtos
   const { data: produtos, error: erroProdutos } =
     await supabase
 
@@ -197,7 +215,6 @@ export async function buscarItensPedido(idPedido) {
 
   }
 
-  // Junta produto + quantidade
   const itens = itensPedido.map(item => {
 
     const produto = produtos.find(

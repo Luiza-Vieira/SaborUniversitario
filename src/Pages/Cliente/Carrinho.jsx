@@ -397,25 +397,26 @@ function Carrinho() {
                     }}
                 >
 
-                    <option value={1}>
-                        Pix
-                    </option>
+                          <option value={1}>
+                              Pix
+                          </option>
 
-                    <option value={2}>
-                        Cartão de crédito
-                    </option>
+                          <option value={2}>
+                              Cartão de crédito
+                          </option>
 
-                    <option value={3}>
-                        Cartão de débito
-                    </option>
+                          <option value={3}>
+                              Cartão de débito
+                          </option>
 
-                    <option value={4}>
-                        Dinheiro
-                    </option>
+                          <option value={4}>
+                              Dinheiro
+                          </option>
 
-                    <option value={99}>
-                        + Adicionar novo cartão
-                    </option>
+
+                          <option value={99}>
+                              + Adicionar novo cartão
+                          </option>
 
                 </select>
           </div>

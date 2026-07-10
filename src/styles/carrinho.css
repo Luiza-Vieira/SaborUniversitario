@@ -4,7 +4,7 @@
 
 .pagina-resumo {
   min-height: 100vh;
-  background: #ececec;
+  background: #FEFFFB;
 }
 
 .resumo-subtitulo {
@@ -113,11 +113,20 @@
   color: black;
 }
 
-.resumo-observacao {
-  margin-top: 16px;
-  color: black;
-  font-size: 22px;
-  font-family: Georgia, serif;
+.resumo-observacao{
+
+    width:100%;
+
+    margin-top:18px;
+
+    margin-left:20px;
+
+    text-align:left;
+
+    font-size:22px;
+
+    font-family:Georgia, serif;
+
 }
 
 .total,
@@ -178,4 +187,29 @@
   color: white;
   font-size: 26px;
   cursor: pointer;
+  margin-left: 100px;
+}
+
+.resumo-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+}
+
+.resumo-footer a{
+
+    color:#F5670E;
+
+    font-size:22px;
+
+    font-family:"Alike", serif;
+
+    text-decoration:underline;
+
+    cursor:pointer;
+
 }
