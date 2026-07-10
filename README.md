@@ -47,19 +47,4 @@ Antes de começar, você vai precisar ter instalado em sua máquina o [Node.js](
    VITE_SUPABASE_URL=sua_url_do_supabase
    VITE_SUPABASE_ANON_KEY=sua_chave_anon_do_supabase
    npm run dev
-
-   //Estrutura do projeto
-
-   src/
-├── assets/          # Imagens, logos e ícones
-├── components/      # Componentes globais e reutilizáveis
-├── pages/           # Telas divididas por escopo
-│   ├── Instituição/ # Telas do perfil Instituição
-│   ├── Empresa/     # Telas do perfil Empresa
-│   ├── Funcionario/ # Telas do perfil Funcionário
-│   └── Cliente/     # Telas do perfil Cliente
-├── supabase/        # Configurações e conexões com o banco de dados
-├── App.jsx          # Componente principal / Rotas
-└── main.jsx         # Ponto de entrada do React
-
    
