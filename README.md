@@ -1,16 +1,50 @@
-# React + Vite
+# 🍽️ Sabor Universitário
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O **Sabor Universitário** é um sistema de gestão e benefícios alimentares projetado para integrar instituições de ensino, empresas parceiras, funcionários e clientes (estudantes/professores) em uma única plataforma prática e eficiente.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 👥 Perfis do Sistema
 
-## React Compiler
+O sistema é dividido em 4 níveis de acesso independentes, cada um com suas respectivas funcionalidades:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🏢 1. Instituição (Admin)
+*   **Acesso:** Controlado e inserido manualmente via banco de dados/painel administrativo.
+*   **Função:** Gerencia as regras gerais do sistema, valida o vínculo de estudantes/professores e monitora o uso dos benefícios dentro do ecossistema universitário.
 
-## Expanding the ESLint configuration
+### 💼 2. Empresa (Restaurantes/Parceiros)
+*   **Função:** Gerencia o cardápio, recebe e processa os pedidos, controla as vendas e valida os vouchers de benefícios gerados pelos clientes.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 👨‍💼 3. Funcionário (Operacional)
+*   **Função:** Atua na ponta do atendimento das empresas parceiras. Realiza a leitura de QR Codes, validação de segurança dos pedidos e atualiza o status de entrega para o cliente final.
+
+### 🎓 4. Cliente (Alunos/Professores/Comunidade)
+*   **Função:** O usuário final da aplicação. Pode visualizar cardápios, comprar refeições, gerenciar seus saldos de benefícios e gerar cupons/QR Codes para retirada de alimentos.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+*   **Frontend:** [React.js](https://react.dev/) + [Vite](https://vitejs.dev/) (Interface rápida, moderna e SPA)
+*   **Estilização:** Tailwind CSS
+*   **Banco de Dados & Autenticação:** [Supabase](https://supabase.com/) (PostgreSQL + Auth nativo)
+*   **Controle de Versão:** Git & GitHub
+
+---
+
+## 🚀 Como Executar o Projeto Localmente
+
+### Pré-requisitos
+Antes de começar, você vai precisar ter instalado em sua máquina o [Node.js](https://nodejs.org/) e o Git.
+
+### Passo a Passo
+
+1. **Clone o repositório:**
+   
+   git clone [https://github.com/Luiza-Vieira/SaborUniversitario.git](https://github.com/Luiza-Vieira/SaborUniversitario.git)
+   cd SaborUniversitario
+   npm install
+   VITE_SUPABASE_URL=sua_url_do_supabase
+   VITE_SUPABASE_ANON_KEY=sua_chave_anon_do_supabase
+   npm run dev
+   
