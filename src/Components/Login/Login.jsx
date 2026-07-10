@@ -38,9 +38,11 @@ function Login({ setUser }) {
           navega('/Forma_de_Recebimento_TelaPrincipal');
           break;
         case "instituição":
+          navega("/Inicial")
           break;
         case "funcionário":
           break;
+          navega("/HomeFuncionario")
       }
     }
   }
