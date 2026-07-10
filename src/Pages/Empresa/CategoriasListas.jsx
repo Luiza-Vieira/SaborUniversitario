@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./CategoriasLista.css"; 
+import "./CategoriasLista.css";
 import { Link } from "react-router-dom";
 import HeaderEmpresa from "./HeaderSaldo";
 
@@ -32,7 +32,7 @@ function CategoriasLista() {
           <div className="categorias-wrapper">
             {categorias.map((categoria) => (
               <div key={categoria.id} className="categoria-item">
-                
+
                 {/* Lado Esquerdo: Switch Toggle + Nome */}
                 <div className="categoria-left">
                   <button

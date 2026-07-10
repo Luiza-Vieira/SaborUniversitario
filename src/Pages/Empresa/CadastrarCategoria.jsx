@@ -5,7 +5,7 @@ import HeaderEmpresa from "./HeaderEmpresa";
 function CadastrarCategoria() {
   return (
     <div className="categoria-page">
-     <HeaderEmpresa />
+      <HeaderEmpresa />
 
       {/* CARD DO FORMULÁRIO */}
       <div className="categoria-container">
@@ -13,7 +13,7 @@ function CadastrarCategoria() {
           <h2 className="categoria-titulo">Cadastrar Categoria</h2>
 
           <form onSubmit={(e) => e.preventDefault()} className="categoria-form">
-            
+
             {/* LINHA 1: Código e Descrição */}
             <div className="form-row">
               <div className="form-group">

@@ -12,7 +12,7 @@ function CadastrarBeneficio() {
           <h2 className="beneficio-titulo">Cadastrar Benefício</h2>
 
           <form onSubmit={(e) => e.preventDefault()} className="beneficio-form">
-            
+
             {/* LINHA 1: Código e Nome */}
             <div className="form-row">
               <div className="form-group campo-codigo">

@@ -37,6 +37,9 @@ import Forma_de_RecebimentoTrans from "./Pages/Empresa/Forma_de_RecebimentoTrans
 import Forma_de_Recebimento_TelaPrincipal from "./Pages/Empresa/Forma_de_Recebimento_TelaPrincipal/Forma_de_Recebimento_TelaPrincipal";
 import TabTipoPagamentoPix from "./Pages/Empresa/TabTipoPagamentoPix/TabTipoPagamentoPix";
 import TabTipoPagamentoTrans from "./Pages/Empresa/TabTipoPagamentoTrans/TabTipoPagamentoTrans";
+import CadastrarCategoria from "./Pages/Empresa/CadastrarCategoria";
+import CategoriasListas from "./Pages/Empresa/CategoriasListas";
+import CadastrarBeneficio from "./Pages/Empresa/CadastrarBeneficio";
 
 
 // =====================================
@@ -45,6 +48,16 @@ import TabTipoPagamentoTrans from "./Pages/Empresa/TabTipoPagamentoTrans/TabTipo
 import HeaderF from "./Pages/Funcionario/HeaderF";
 import HomeFuncionario from "./Pages/Funcionario/HomeFuncionario";
 import ConfirmarEntrega from "./Pages/Funcionario/ConfirmarEntrega";
+
+
+// =====================================
+// INSTITUIÇÃO
+// =====================================
+
+import Inicial from "./Pages/Instituição/Inicial";
+import AddEmpresa from "./Pages/Instituição/empresas";
+import AddCliente from "./Pages/Instituição/clientes";
+
 
 // =====================================
 // ROTAS
@@ -172,6 +185,12 @@ function App() {
         element={<TabTipoPagamentoTrans />}
       />
 
+      <Route path="/cadastrar-beneficio" element={<CadastrarBeneficio />} />
+
+      <Route path="/" element={<CategoriasListas />} />
+
+      <Route path="/cadastrar-categoria" element={<CadastrarCategoria />} />
+
       {/* FUNCIONÁRIO */}
 
       <Route
@@ -188,6 +207,16 @@ function App() {
         path="/ConfirmarEntrega/:id"
         element={<ConfirmarEntrega />}
       />
+
+      {/* INSTITUIÇÃO */}
+
+      <Route path="/" element={<Inicial />} />
+      {/* Telas de cadastro */}
+
+      <Route path="/cadastrar-empresa" element={<AddEmpresa />} />
+
+      <Route path="/cadastrar-cliente" element={<AddCliente />} />
+
 
     </Routes>
 
