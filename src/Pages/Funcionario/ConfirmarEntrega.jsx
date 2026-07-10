@@ -1,16 +1,16 @@
 import './ConfirmarEntrega.css';
 import HeaderF from './HeaderF';
 import React, { useState } from 'react';
-import { useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FiClock, FiCheck, FiSearch } from 'react-icons/fi'; //Usando react-icons
 
-import { produtos } from "../data/produtos";
+import { produtos } from "../../data/produtos";
 
 
 
 function ConfirmarEntrega() {
-  
-  const {id} = useParams();
+
+  const { id } = useParams();
   const [pedidoEntregue, setPedidoEntregue] = useState(false);
   const navigate = useNavigate();
 
@@ -19,22 +19,22 @@ function ConfirmarEntrega() {
     setPedidoEntregue(true);
   };
 
-   
+
   // Função para o botão voltar
   const handleVoltar = () => {
-    navigate('/home-funcionario'); 
+    navigate('/home-funcionario');
   };
 
 
   return (
     <div className="container-tela">
-      <HeadeF/>
+      <HeadeF />
 
       <main className="conteudo-pedido">
-        
+
         <button className="btn-voltar" onClick={handleVoltar}>← Voltar</button>
-        
-        <h2 className="titulo-pedido">Pedido #{ id }</h2>
+
+        <h2 className="titulo-pedido">Pedido #{id}</h2>
 
         <div className="detalhes-pedido">
           <p className="subtitulo">• Detalhes do pedido</p>
@@ -73,7 +73,7 @@ function ConfirmarEntrega() {
         {/* 3. RENDERIZAÇÃO CONDICIONAL DO STATUS */}
         <div className="area-status">
           <span className="label-status">Status do pedido:</span>
-          
+
           {pedidoEntregue ? (
             // Se for TRUE, mostra verde
             <span className="status-entregue">Pedido entregue ✓</span>
@@ -87,4 +87,4 @@ function ConfirmarEntrega() {
   );
 }
 
-export default ConfirmarEntrega
+export default ConfirmarEntrega;

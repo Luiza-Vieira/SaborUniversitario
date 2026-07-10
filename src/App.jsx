@@ -48,6 +48,7 @@ import CadastrarBeneficio from "./Pages/Empresa/CadastrarBeneficio";
 import HeaderF from "./Pages/Funcionario/HeaderF";
 import HomeFuncionario from "./Pages/Funcionario/HomeFuncionario";
 import ConfirmarEntrega from "./Pages/Funcionario/ConfirmarEntrega";
+import OrderCard from "./Pages/Funcionario/OrderCard";
 
 
 // =====================================
@@ -196,6 +197,11 @@ function App() {
       <Route
         path="/HeaderF"
         element={<HeaderF />}
+      />
+
+      <Route
+        path="/OrderCard"
+        element={<OrderCard />}
       />
 
       <Route

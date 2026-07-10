@@ -3,7 +3,7 @@ import './HeaderF.css';
 function HeaderF({ }) {
 
   return (
-    <header className='head'>
+    <header className='headFun'>
       <h1 >Sabor Universitário</h1>
     </header>
   )
