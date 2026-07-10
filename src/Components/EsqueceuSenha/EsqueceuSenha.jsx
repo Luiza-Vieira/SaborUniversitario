@@ -1,6 +1,7 @@
 import "./EsqueceuSenha.css"
 import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
+import { buscarUsuarioPorEmail } from "../../services/usuarioService";
 
 
 export default function EsqueceuSenha() {
@@ -25,12 +26,33 @@ export default function EsqueceuSenha() {
 
 
 
-    function verificarSenha() {
+     async function verificarSenha(event) {
 
-        navega('/RedefinirSenha');
-        event.preventDefault();
+    event.preventDefault();
+
+    const email = localStorage.getItem("emailRecuperacao");
+
+    if (!email) {
+
+        alert("Digite o e-mail na tela de login antes de recuperar a senha.");
+
+        return;
 
     }
+
+    const usuario = await buscarUsuarioPorEmail(email);
+
+    if (!usuario) {
+
+        alert("E-mail não encontrado.");
+
+        return;
+
+    }
+
+    navega("/RedefinirSenha");
+
+}
 
     return (
         <>

@@ -8,7 +8,7 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import { produtos } from "../../data/produtos.js";
+import { buscarProdutos } from "../../services/produtosService";
 
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -41,6 +41,11 @@ function Home() {
 
   const [quantidades, setQuantidades] =
     useState({});
+
+  const [produtos, setProdutos] = useState({
+  bebidas: [],
+  salgados: []
+  });
 
   // =========================================
   // STATE DO CARRINHO
@@ -94,6 +99,31 @@ function Home() {
     };
 
   }, []);
+
+  useEffect(() => {
+
+        async function carregarProdutos() {
+
+          const lista = await buscarProdutos();
+
+          const bebidas = lista.filter(
+            p => p.idcategoria === 1
+          );
+
+          const salgados = lista.filter(
+            p => p.idcategoria === 2
+          );
+
+          setProdutos({
+            bebidas,
+            salgados
+          });
+
+        }
+
+        carregarProdutos();
+
+}, []);
 
   // =========================================
   // AUMENTAR QUANTIDADE

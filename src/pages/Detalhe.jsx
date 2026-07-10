@@ -1,333 +1,291 @@
-import "../index.css";
+import "../../index.css";
+import { FiHeart } from "react-icons/fi";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import {
-  useState,
-  useEffect,
-  useRef
-} from "react";
+import { buscarProdutoPorId } from "../../services/produtosService";
 
-import {
-  useNavigate,
-  useParams
-} from "react-router-dom";
-
-import { produtos } from "../data/produtos";
-
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
+import Header from "../../components/Header";
+import Sidebar from "../../components/Sidebar";
 
 function Detalhe() {
 
-  // =====================================
-  // NAVEGAÇÃO
-  // =====================================
+    const navigate = useNavigate();
 
-  const navigate = useNavigate();
+    const { id } = useParams();
 
-  // =====================================
-  // PEGAR PARÂMETROS DA URL
-  // =====================================
+    // ==========================
+    // PRODUTO
+    // ==========================
 
-  const { categoria, id } = useParams();
+    const [produto, setProduto] = useState(null);
 
-  // =====================================
-  // BUSCAR PRODUTO
-  // =====================================
+    // ==========================
+    // SIDEBAR
+    // ==========================
 
-  const produto =
-    produtos[categoria][id];
+    const [sidebarAberta, setSidebarAberta] = useState(false);
 
-  // =====================================
-  // SIDEBAR
-  // =====================================
+    const sidebarRef = useRef(null);
 
-  const [sidebarAberta, setSidebarAberta] =
-    useState(false);
+    // ==========================
+    // CARRINHO
+    // ==========================
 
-  const sidebarRef = useRef(null);
+    const [carrinho, setCarrinho] = useState(() => {
 
-  useEffect(() => {
+        const salvo = localStorage.getItem("carrinho");
 
-    function fecharSidebar(event) {
+        return salvo ? JSON.parse(salvo) : [];
 
-      if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(
-          event.target
-        )
-      ) {
+    });
 
-        setSidebarAberta(false);
+    // ==========================
+    // BUSCAR PRODUTO
+    // ==========================
 
-      }
+    useEffect(() => {
+
+        async function carregarProduto() {
+
+            const produtoBanco = await buscarProdutoPorId(id);
+
+            setProduto(produtoBanco);
+
+        }
+
+        carregarProduto();
+
+    }, [id]);
+
+    // ==========================
+    // FECHAR SIDEBAR
+    // ==========================
+
+    useEffect(() => {
+
+        function fecharSidebar(event) {
+
+            if (
+                sidebarRef.current &&
+                !sidebarRef.current.contains(event.target)
+            ) {
+
+                setSidebarAberta(false);
+
+            }
+
+        }
+
+        document.addEventListener("mousedown", fecharSidebar);
+
+        return () => {
+
+            document.removeEventListener(
+                "mousedown",
+                fecharSidebar
+            );
+
+        };
+
+    }, []);
+
+    // ==========================
+    // SALVAR CARRINHO
+    // ==========================
+
+    useEffect(() => {
+
+        localStorage.setItem(
+            "carrinho",
+            JSON.stringify(carrinho)
+        );
+
+    }, [carrinho]);
+
+    // ==========================
+    // AGORA SIM PODE RETORNAR
+    // ==========================
+
+    if (!produto) {
+
+        return (
+
+            <h2 style={{ textAlign: "center", marginTop: "50px" }}>
+
+                Carregando produto...
+
+            </h2>
+
+        );
 
     }
 
-    document.addEventListener(
-      "mousedown",
-      fecharSidebar
-    );
+    // ==========================
+    // ADICIONAR AO CARRINHO
+    // ==========================
 
-    return () => {
+    function adicionarCarrinho() {
 
-      document.removeEventListener(
-        "mousedown",
-        fecharSidebar
-      );
+        const existe = carrinho.find(
 
-    };
-
-  }, []);
-
-  // =====================================
-  // CARRINHO
-  // =====================================
-
-  const [carrinho, setCarrinho] =
-    useState(() => {
-
-      const carrinhoSalvo =
-        localStorage.getItem("carrinho");
-
-      return carrinhoSalvo
-        ? JSON.parse(carrinhoSalvo)
-        : [];
-
-    });
-
-  // =====================================
-  // SINCRONIZAR LOCALSTORAGE
-  // =====================================
-
-  useEffect(() => {
-
-    localStorage.setItem(
-      "carrinho",
-      JSON.stringify(carrinho)
-    );
-
-  }, [carrinho]);
-
-  // =====================================
-  // ADICIONAR AO CARRINHO
-  // =====================================
-
-  function adicionarCarrinho() {
-
-    setCarrinho((carrinhoAtual) => {
-
-      const produtoExiste =
-        carrinhoAtual.find(
-
-          (item) =>
-            item.nome === produto.nome
+            item => item.nome === produto.nome
 
         );
 
-      // se já existe
-      if (produtoExiste) {
+        if (existe) {
 
-        return carrinhoAtual.map(
-          (item) => {
+            const novoCarrinho = carrinho.map(item => {
 
-            if (
-              item.nome === produto.nome
-            ) {
+                if (item.nome === produto.nome) {
 
-              return {
+                    return {
 
-                ...item,
+                        ...item,
+                        quantidade: item.quantidade + 1
 
-                quantidade:
-                  item.quantidade + 1
+                    };
 
-              };
+                }
 
-            }
+                return item;
 
-            return item;
+            });
 
-          }
-        );
+            setCarrinho(novoCarrinho);
 
-      }
-
-      // se não existe
-      return [
-
-        ...carrinhoAtual,
-
-        {
-          ...produto,
-          quantidade: 1
         }
 
-      ];
+        else {
 
-    });
+            setCarrinho([
 
-    alert("Produto adicionado!");
+                ...carrinho,
 
-  }
+                {
 
-  // =====================================
-  // JSX
-  // =====================================
+                    ...produto,
+                    quantidade: 1
 
-  return (
+                }
 
-    <>
+            ]);
 
-      {/* SIDEBAR COMPONENTE */}
+        }
 
-      <Sidebar
-        sidebarAberta={sidebarAberta}
-        sidebarRef={sidebarRef}
-        navigate={navigate}
-        setSidebarAberta={setSidebarAberta}
-      />
+        alert("Produto adicionado ao carrinho!");
 
-      {/* HEADER COMPONENTE */}
+    }
 
-      <Header
-        sidebarAberta={sidebarAberta}
-        setSidebarAberta={setSidebarAberta}
-        carrinho={carrinho}
-        navigate={navigate}
-      />
+    return (
 
-      {/* TÍTULO */}
+        <>
 
-      <h2 className="titulo">
+            <Sidebar
+                sidebarAberta={sidebarAberta}
+                sidebarRef={sidebarRef}
+                navigate={navigate}
+                setSidebarAberta={setSidebarAberta}
+            />
 
-        Restaurante universitário
+            <Header
+                sidebarAberta={sidebarAberta}
+                setSidebarAberta={setSidebarAberta}
+                carrinho={carrinho}
+                navigate={navigate}
+            />
 
-      </h2>
+            <h2 className="titulo">
 
-      {/* BOX DETALHE */}
+                Restaurante Universitário
 
-      <div className="detalhe-box">
+            </h2>
 
-        {/* IMAGEM */}
+            <div className="detalhe-box">
 
-        <div
+                <div className="detalhe-imagem">
 
-          className="imagem-produto"
+                    <img
+                        src={produto.imagem}
+                        alt={produto.nome}
+                    />
 
-          style={{
+                </div>
 
-            backgroundImage:
-              `url(${produto.imagem})`
+                <div className="detalhe-info">
 
-          }}
+                    <div className="topo-detalhe">
 
-        ></div>
+                        <h1>{produto.nome}</h1>
 
-        {/* INFO */}
+                        <button
+                            className="btn-favorito"
+                            title="Favoritar"
+                        >
 
-        <div className="detalhe-info">
+                            <FiHeart />
 
-          <h2>
+                        </button>
 
-            {produto.nome}
+                    </div>
 
-          </h2>
+                    <h2 className="preco-detalhe">
 
-          <h3 className="preco-detalhe">
+                        {produto.preco}
 
-            {produto.preco}
+                    </h2>
 
-          </h3>
+                    <div className="botoes-detalhe">
 
-          {/* BOTÕES */}
+                        <button
+                            className="btn-detalhe"
+                            onClick={adicionarCarrinho}
+                        >
 
-          <div className="botoes">
+                            Adicionar ao carrinho
 
-            <button
+                        </button>
 
-              className="btn-detalhe"
+                        <button
+                            className="btn-comprar"
+                        >
 
-              onClick={
-                adicionarCarrinho
-              }
+                            Comprar
 
-            >
+                        </button>
 
-              Adicionar ao carrinho
+                    </div>
 
-            </button>
+                    <h3 className="titulo-detalhe">
 
-            <button className="btn-comprar">
+                        Detalhes do produto
 
-              Comprar
+                    </h3>
 
-            </button>
+                    <p className="descricao-produto">
 
-          </div>
+                        {produto.descricao}
 
-          {/* DESCRIÇÃO */}
+                    </p>
 
-          <h4>
+                    <h3 className="titulo-observacao">
 
-            Detalhes do produto
+                        Alguma Observação?
 
-          </h4>
+                    </h3>
 
-          <p className="descricao-produto">
+                    <textarea
+                        className="input-observacao"
+                        placeholder="Digite aqui..."
+                    />
 
-            Produto preparado com
-            ingredientes frescos.
-            Validade e informações
-            completas serão
-            integradas futuramente
-            no backend.
+                </div>
 
-          </p>
+            </div>
 
-          {/* OBSERVAÇÃO */}
+        </>
 
-          <h4>
-
-            Alguma observação?
-
-          </h4>
-
-          <input
-
-            className="input-observacao"
-
-            type="text"
-
-            placeholder="Digite aqui..."
-
-          />
-
-          <br />
-          <br />
-
-          {/* VOLTAR */}
-
-          <button
-
-            className="btn"
-
-            onClick={() =>
-              navigate("/")
-            }
-
-          >
-
-            Voltar
-
-          </button>
-
-        </div>
-
-      </div>
-
-    </>
-
-  );
+    );
 
 }
 

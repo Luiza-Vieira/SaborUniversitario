@@ -1,0 +1,348 @@
+/* =====================================================
+   PÁGINA
+===================================================== */
+
+.pix-container{
+
+    width:100%;
+
+    min-height:100vh;
+
+    background:#efc49c;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+/* =====================================================
+   TOPO
+===================================================== */
+
+.pix-topo{
+
+    height:70px;
+
+    background:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 40px;
+
+    border-bottom:1px solid #ddd;
+
+}
+
+.pix-topo h2{
+
+    color:#F47C20;
+
+    font-size:28px;
+
+    font-weight:normal;
+
+    flex:1;
+
+    text-align:center;
+
+}
+
+.btn-voltar-pix{
+
+    border:none;
+
+    background:none;
+
+    color:#F47C20;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.pix-status{
+
+    width:350px;
+
+    margin:20px;
+
+    background:#f7a970;
+
+    color:#18b118;
+
+    font-weight:bold;
+
+    font-size:20px;
+
+    padding:10px 20px;
+
+    border-radius:8px;
+
+}
+
+/* =====================================================
+   CONTEÚDO
+===================================================== */
+
+.pix-conteudo{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    gap:80px;
+
+    margin-top:-150px;
+    margin-left: 450px; 
+}
+
+.pix-esquerda{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+.pix-esquerda h1{
+
+    font-size:40px;
+    font-family: "Arbutus Slab", serif;
+    margin-bottom:10px;
+    color:#000000;
+
+}
+
+.pix-esquerda h3{
+
+    margin-top:15px;
+
+    font-size:22px;
+
+}
+
+.pix-direita{
+
+    width:320px;
+    
+    margin-top:220px;
+
+}
+
+.pix-direita p{
+
+    font-size:24px;
+    text-align: center;
+    line-height:1.4;
+    font-family: "Arbutus Slab", serif;
+    color:#222;
+
+}
+
+/* =====================================================
+   QR CODE
+===================================================== */
+
+.qrcode{
+
+    width:220px;
+
+    height:220px;
+
+    background:white;
+
+    padding:8px;
+
+    border:6px solid #ffb38a;
+
+    border-radius:6px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.qrcode img{
+
+    width:200px;
+
+    height:200px;
+
+}
+
+/* =====================================================
+   CÓDIGO PIX
+===================================================== */
+
+.pix-codigo{
+
+    width:70%;
+
+    margin:40px auto 20px;
+
+}
+
+.pix-codigo input{
+
+    width:100%;
+
+    background:#ff6f1f;
+
+    color:white;
+
+    border:none;
+
+    border-radius:15px;
+
+    padding:18px;
+
+    text-align:center;
+
+    font-size:18px;
+
+}
+
+/* =====================================================
+   BOTÃO COPIAR
+===================================================== */
+
+.copiar-pix{
+
+    width:220px;
+
+    height:50px;
+
+    margin-left:15%;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#f6a26a;
+
+    color:#444;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    box-shadow:0 4px 8px rgba(0,0,0,.2);
+
+    transition:.3s;
+
+}
+
+.copiar-pix:hover{
+
+    transform:scale(1.03);
+
+}
+
+/* =====================================================
+   BOTÃO PAGAMENTO
+===================================================== */
+
+.btn-pago{
+
+    width:320px;
+
+    height:60px;
+
+    margin:40px auto;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#F47C20;
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-pago:hover{
+
+    background:#d9640f;
+
+}
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media(max-width:900px){
+
+    .pix-conteudo{
+
+        flex-direction:column;
+
+        align-items:center;
+
+        gap:20px;
+
+    }
+
+    .pix-direita{
+
+        margin-top:0;
+
+        width:90%;
+
+        text-align:center;
+
+    }
+
+    .pix-topo{
+
+        flex-direction:column;
+
+        height:auto;
+
+        padding:20px;
+
+        gap:10px;
+
+    }
+
+    .pix-codigo{
+
+        width:90%;
+
+    }
+
+    .copiar-pix{
+
+        margin:20px auto;
+
+        display:block;
+
+    }
+
+}

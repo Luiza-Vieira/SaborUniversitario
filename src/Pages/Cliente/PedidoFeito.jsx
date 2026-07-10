@@ -73,6 +73,13 @@ function PedidoFeito() {
     localStorage.getItem("pedidoAtual")
   );
 
+  const formasPagamento = {
+  1: "PIX",
+  2: "Cartão de crédito",
+  3: "Cartão de débito",
+  4: "Benefício"
+};
+
   // =====================================
   // CARRINHO
   // =====================================
@@ -157,7 +164,7 @@ function PedidoFeito() {
 
             Pedido #
 
-            {pedido.numero}
+            {pedido.id || pedido.numero}
 
           </h1>
 
@@ -184,6 +191,22 @@ function PedidoFeito() {
             Pedido feito
 
           </span>
+
+        </div>
+
+        <div className="pedido-status">
+
+            <span className="texto-status">
+
+                Forma de pagamento:
+
+            </span>
+
+            <span className="status-verde">
+
+                {formasPagamento[pedido.formaPagamento]}
+
+            </span>
 
         </div>
 

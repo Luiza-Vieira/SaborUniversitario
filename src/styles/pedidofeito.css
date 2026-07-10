@@ -4,7 +4,7 @@
 
 .pagina-pedido-detalhe {
   min-height: 100vh;
-  background: #ececec;
+  background: #FFFFFF;
   padding-bottom: 40px;
 }
 
@@ -17,7 +17,8 @@
 
 .pedido-topo h1 {
   font-size: 38px;
-  margin: 0;
+  color: #000000;
+  margin: -60;
   font-family: Arbutus Slab, serif;
 }
 
@@ -40,6 +41,7 @@
 
 .texto-status {
   font-size: 30px;
+  font-family: "Belanosima", sans-serif;
   font-weight: bold;
 }
 

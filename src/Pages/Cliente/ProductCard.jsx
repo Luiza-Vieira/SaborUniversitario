@@ -26,7 +26,7 @@ function ProductCard({
         }}
 
         onClick={() =>
-          navigate(`/detalhe/${categoria}/${index}`)
+          navigate(`/detalhe/${produto.id}`)
         }
 
       ></div>

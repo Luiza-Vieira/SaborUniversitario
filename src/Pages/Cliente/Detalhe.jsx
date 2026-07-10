@@ -3,7 +3,7 @@ import { FiHeart } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { produtos } from "../../data/produtos";
+import { buscarProdutoPorId } from "../../services/produtosService";
 
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
@@ -12,17 +12,13 @@ function Detalhe() {
 
     const navigate = useNavigate();
 
-    const { categoria, id } = useParams();
+    const { id } = useParams();
 
-    const produto = produtos?.[categoria]?.[id];
+    // ==========================
+    // PRODUTO
+    // ==========================
 
-    if (!produto) {
-        return (
-            <h2 style={{ textAlign: "center", marginTop: "50px" }}>
-                Produto não encontrado.
-            </h2>
-        );
-    }
+    const [produto, setProduto] = useState(null);
 
     // ==========================
     // SIDEBAR
@@ -32,6 +28,40 @@ function Detalhe() {
 
     const sidebarRef = useRef(null);
 
+    // ==========================
+    // CARRINHO
+    // ==========================
+
+    const [carrinho, setCarrinho] = useState(() => {
+
+        const salvo = localStorage.getItem("carrinho");
+
+        return salvo ? JSON.parse(salvo) : [];
+
+    });
+
+    // ==========================
+    // BUSCAR PRODUTO
+    // ==========================
+
+    useEffect(() => {
+
+        async function carregarProduto() {
+
+            const produtoBanco = await buscarProdutoPorId(id);
+
+            setProduto(produtoBanco);
+
+        }
+
+        carregarProduto();
+
+    }, [id]);
+
+    // ==========================
+    // FECHAR SIDEBAR
+    // ==========================
+
     useEffect(() => {
 
         function fecharSidebar(event) {
@@ -40,7 +70,9 @@ function Detalhe() {
                 sidebarRef.current &&
                 !sidebarRef.current.contains(event.target)
             ) {
+
                 setSidebarAberta(false);
+
             }
 
         }
@@ -59,16 +91,8 @@ function Detalhe() {
     }, []);
 
     // ==========================
-    // CARRINHO
+    // SALVAR CARRINHO
     // ==========================
-
-    const [carrinho, setCarrinho] = useState(() => {
-
-        const salvo = localStorage.getItem("carrinho");
-
-        return salvo ? JSON.parse(salvo) : [];
-
-    });
 
     useEffect(() => {
 
@@ -79,10 +103,34 @@ function Detalhe() {
 
     }, [carrinho]);
 
+    // ==========================
+    // AGORA SIM PODE RETORNAR
+    // ==========================
+
+    if (!produto) {
+
+        return (
+
+            <h2 style={{ textAlign: "center", marginTop: "50px" }}>
+
+                Carregando produto...
+
+            </h2>
+
+        );
+
+    }
+
+    // ==========================
+    // ADICIONAR AO CARRINHO
+    // ==========================
+
     function adicionarCarrinho() {
 
         const existe = carrinho.find(
+
             item => item.nome === produto.nome
+
         );
 
         if (existe) {
@@ -115,8 +163,10 @@ function Detalhe() {
                 ...carrinho,
 
                 {
+
                     ...produto,
                     quantidade: 1
+
                 }
 
             ]);
@@ -132,21 +182,17 @@ function Detalhe() {
         <>
 
             <Sidebar
-
                 sidebarAberta={sidebarAberta}
                 sidebarRef={sidebarRef}
                 navigate={navigate}
                 setSidebarAberta={setSidebarAberta}
-
             />
 
             <Header
-
                 sidebarAberta={sidebarAberta}
                 setSidebarAberta={setSidebarAberta}
                 carrinho={carrinho}
                 navigate={navigate}
-
             />
 
             <h2 className="titulo">
@@ -157,8 +203,6 @@ function Detalhe() {
 
             <div className="detalhe-box">
 
-                {/* FOTO */}
-
                 <div className="detalhe-imagem">
 
                     <img
@@ -168,24 +212,18 @@ function Detalhe() {
 
                 </div>
 
-                {/* INFORMAÇÕES */}
-
                 <div className="detalhe-info">
 
                     <div className="topo-detalhe">
 
-                        <h1>
-
-                            {produto.nome}
-
-                        </h1>
+                        <h1>{produto.nome}</h1>
 
                         <button
-                              className="btn-favorito"
-                              title="Favoritar"
-                          >
+                            className="btn-favorito"
+                            title="Favoritar"
+                        >
 
-                              <FiHeart />
+                            <FiHeart />
 
                         </button>
 
@@ -200,11 +238,8 @@ function Detalhe() {
                     <div className="botoes-detalhe">
 
                         <button
-
                             className="btn-detalhe"
-
                             onClick={adicionarCarrinho}
-
                         >
 
                             Adicionar ao carrinho
@@ -212,9 +247,7 @@ function Detalhe() {
                         </button>
 
                         <button
-
                             className="btn-comprar"
-
                         >
 
                             Comprar
@@ -242,11 +275,8 @@ function Detalhe() {
                     </h3>
 
                     <textarea
-
                         className="input-observacao"
-
                         placeholder="Digite aqui..."
-
                     />
 
                 </div>

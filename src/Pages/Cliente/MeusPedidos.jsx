@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-
+import { buscarPedidosCliente } from "../../services/pedidoService";
 function MeusPedidos() {
 
   // =====================================
@@ -90,18 +90,20 @@ function MeusPedidos() {
   // CARREGAR PEDIDOS
   // =====================================
 
-  useEffect(() => {
+    useEffect(() => {
 
-    const pedidosSalvos =
-      JSON.parse(
-        localStorage.getItem("pedidos")
-      ) || [];
+  async function carregarPedidos() {
 
-    setPedidos(
-      pedidosSalvos.reverse()
-    );
+    const listaPedidos =
+      await buscarPedidosCliente();
 
-  }, []);
+    setPedidos(listaPedidos);
+
+  }
+
+  carregarPedidos();
+
+}, []);
 
   // =====================================
   // JSX
@@ -183,7 +185,7 @@ function MeusPedidos() {
 
                     Pedido #
 
-                    {pedido.numero}
+                    {pedido.id || pedido.numero}
 
                   </div>
 
@@ -202,7 +204,7 @@ function MeusPedidos() {
                     {
 
                       Number(
-                        pedido.total
+                        pedido.valor_total || pedido.total
                       )
 
                         .toFixed(2)
